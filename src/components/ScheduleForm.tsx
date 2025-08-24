@@ -5,13 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ScheduleItem, ActivityType, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
+import { StudentClass, getClassTypeColor } from "@/types/student-class";
 
 interface ScheduleFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (item: Omit<ScheduleItem, 'id'>) => void;
   activityTypes: Record<string, ActivityTypeConfig>;
+  studentClasses: StudentClass[];
   editItem?: ScheduleItem;
   preselectedDay?: 'friday' | 'saturday';
   preselectedTimeSlot?: TimeSlot;
@@ -22,6 +26,7 @@ export function ScheduleForm({
   onClose, 
   onSubmit, 
   activityTypes,
+  studentClasses,
   editItem,
   preselectedDay,
   preselectedTimeSlot 
@@ -37,7 +42,8 @@ export function ScheduleForm({
     instructor: editItem?.instructor || '',
     substituteInstructor: editItem?.substituteInstructor || '',
     room: editItem?.room || '',
-    description: editItem?.description || ''
+    description: editItem?.description || '',
+    classIds: editItem?.classIds || []
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,7 +63,8 @@ export function ScheduleForm({
         instructor: '',
         substituteInstructor: '',
         room: '',
-        description: ''
+        description: '',
+        classIds: []
       });
     }
   };
@@ -204,6 +211,50 @@ export function ScheduleForm({
                 Isi jika ada dosen yang berhalangan hadir
               </p>
             </div>
+          </div>
+
+          {/* Student Classes Section */}
+          <div className="space-y-3">
+            <Label>Kelas Mahasiswa</Label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {studentClasses.filter(c => c.isActive).map((studentClass) => (
+                <div key={studentClass.id} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50">
+                  <Checkbox
+                    id={`class-${studentClass.id}`}
+                    checked={formData.classIds?.includes(studentClass.id) || false}
+                    onCheckedChange={(checked) => {
+                      const currentClassIds = formData.classIds || [];
+                      if (checked) {
+                        updateField('classIds', [...currentClassIds, studentClass.id]);
+                      } else {
+                        updateField('classIds', currentClassIds.filter(id => id !== studentClass.id));
+                      }
+                    }}
+                  />
+                  <Label
+                    htmlFor={`class-${studentClass.id}`}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <Badge className={getClassTypeColor(studentClass.type)}>
+                      {studentClass.code}
+                    </Badge>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium">{studentClass.name}</span>
+                      {studentClass.currentCapacity && studentClass.maxCapacity && (
+                        <span className="text-xs text-muted-foreground">
+                          {studentClass.currentCapacity}/{studentClass.maxCapacity} mahasiswa
+                        </span>
+                      )}
+                    </div>
+                  </Label>
+                </div>
+              ))}
+            </div>
+            {studentClasses.filter(c => c.isActive).length === 0 && (
+              <p className="text-sm text-muted-foreground">
+                Belum ada kelas mahasiswa aktif. Tambahkan kelas di menu "Kelola Kelas Mahasiswa".
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">

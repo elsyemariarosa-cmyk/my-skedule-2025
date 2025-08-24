@@ -5,8 +5,10 @@ import { ScheduleForm } from "@/components/ScheduleForm";
 import { ActivityTypeManager } from "@/components/ActivityTypeManager";
 import { SemesterFilter } from "@/components/SemesterFilter";
 import { MasterScheduleManager } from "@/components/MasterScheduleManager";
+import { StudentClassManager } from "@/components/StudentClassManager";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
+import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -19,6 +21,12 @@ const Index = () => {
   const [activityTypes, setActivityTypes] = useState<Record<string, ActivityTypeConfig>>(() => {
     const saved = localStorage.getItem('mars-activity-types');
     return saved ? JSON.parse(saved) : DEFAULT_ACTIVITY_TYPES;
+  });
+
+  // Load student classes from localStorage or use defaults  
+  const [studentClasses, setStudentClasses] = useState<StudentClass[]>(() => {
+    const saved = localStorage.getItem('mars-student-classes');
+    return saved ? JSON.parse(saved) : DEFAULT_STUDENT_CLASSES;
   });
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
@@ -51,6 +59,7 @@ const Index = () => {
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
+  const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
@@ -67,6 +76,11 @@ const Index = () => {
   useEffect(() => {
     localStorage.setItem('mars-activity-types', JSON.stringify(activityTypes));
   }, [activityTypes]);
+
+  // Save student classes to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('mars-student-classes', JSON.stringify(studentClasses));
+  }, [studentClasses]);
 
   const handleAddItem = (day: 'friday' | 'saturday', timeSlot: TimeSlot) => {
     setPreselectedDay(day);
@@ -114,12 +128,17 @@ const Index = () => {
     setActivityTypes(newTypes);
   };
 
+  const handleUpdateStudentClasses = (newClasses: StudentClass[]) => {
+    setStudentClasses(newClasses);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 space-y-8">
         <Header 
           activityTypes={activityTypes}
           onOpenActivityManager={() => setIsActivityManagerOpen(true)}
+          onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
         />
         
         <SemesterFilter
@@ -133,6 +152,7 @@ const Index = () => {
         <ScheduleGrid
           scheduleItems={filteredScheduleItems}
           activityTypes={activityTypes}
+          studentClasses={studentClasses}
           onAddItem={handleAddItem}
           onEditItem={handleEditItem}
         />
@@ -142,6 +162,7 @@ const Index = () => {
           onClose={() => setIsFormOpen(false)}
           onSubmit={handleSubmitForm}
           activityTypes={activityTypes}
+          studentClasses={studentClasses}
           editItem={editingItem}
           preselectedDay={preselectedDay}
           preselectedTimeSlot={preselectedTimeSlot}
@@ -152,6 +173,13 @@ const Index = () => {
           onClose={() => setIsActivityManagerOpen(false)}
           activityTypes={activityTypes}
           onUpdateActivityTypes={handleUpdateActivityTypes}
+        />
+
+        <StudentClassManager
+          isOpen={isStudentClassManagerOpen}
+          onClose={() => setIsStudentClassManagerOpen(false)}
+          studentClasses={studentClasses}
+          onUpdateStudentClasses={handleUpdateStudentClasses}
         />
 
         <MasterScheduleManager

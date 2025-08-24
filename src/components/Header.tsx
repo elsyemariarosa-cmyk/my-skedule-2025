@@ -7,9 +7,10 @@ import { ActivityTypeConfig } from "@/types/schedule";
 interface HeaderProps {
   activityTypes: Record<string, ActivityTypeConfig>;
   onOpenActivityManager: () => void;
+  onOpenStudentClassManager: () => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -72,15 +73,27 @@ export function Header({ activityTypes, onOpenActivityManager }: HeaderProps) {
       <Card className="p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-foreground">Jenis Kegiatan Program Studi</h3>
+        <div className="flex flex-wrap gap-2">
           <Button
+            onClick={onOpenActivityManager}
             variant="outline"
             size="sm"
-            onClick={onOpenActivityManager}
-            className="flex items-center gap-2"
+            className="hover:bg-primary/10 hover:border-primary"
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-4 h-4 mr-2" />
             Kelola Jenis Kegiatan
           </Button>
+          
+          <Button
+            onClick={onOpenStudentClassManager}
+            variant="outline"
+            size="sm"
+            className="hover:bg-academic/10 hover:border-academic"
+          >
+            <GraduationCap className="w-4 h-4 mr-2" />
+            Kelola Kelas Mahasiswa
+          </Button>
+        </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
           {Object.entries(activityTypes).map(([key, config]) => (

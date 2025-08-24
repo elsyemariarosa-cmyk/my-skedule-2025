@@ -3,15 +3,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Calendar, Clock, MapPin, User } from "lucide-react";
 import { ScheduleItem, FRIDAY_TIME_SLOTS, SATURDAY_TIME_SLOTS, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
+import { StudentClass } from "@/types/student-class";
 
 interface ScheduleGridProps {
   scheduleItems: ScheduleItem[];
   activityTypes: Record<string, ActivityTypeConfig>;
+  studentClasses: StudentClass[];
   onAddItem: (day: 'friday' | 'saturday', timeSlot: TimeSlot) => void;
   onEditItem: (item: ScheduleItem) => void;
 }
 
-export function ScheduleGrid({ scheduleItems, activityTypes, onAddItem, onEditItem }: ScheduleGridProps) {
+export function ScheduleGrid({ scheduleItems, activityTypes, studentClasses, onAddItem, onEditItem }: ScheduleGridProps) {
   const renderTimeSlot = (day: 'friday' | 'saturday', timeSlot: TimeSlot) => {
     const item = scheduleItems.find(
       (item) => item.day === day && item.startTime === timeSlot.start
@@ -70,6 +72,23 @@ export function ScheduleGrid({ scheduleItems, activityTypes, onAddItem, onEditIt
                 <div className="flex items-center gap-1">
                   <MapPin className="w-3 h-3" />
                   <span>{item.room}</span>
+                </div>
+              )}
+              
+              {item.classIds && item.classIds.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {item.classIds.map(classId => {
+                    const studentClass = studentClasses.find(c => c.id === classId);
+                    return studentClass ? (
+                      <Badge 
+                        key={classId} 
+                        variant="outline" 
+                        className="text-xs px-1 py-0"
+                      >
+                        {studentClass.code}
+                      </Badge>
+                    ) : null;
+                  })}
                 </div>
               )}
             </div>

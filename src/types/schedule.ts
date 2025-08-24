@@ -14,6 +14,7 @@ export interface ScheduleItem {
   room?: string;
   description?: string;
   color?: string;
+  classIds?: string[]; // Array of student class IDs
 }
 
 export interface TimeSlot {
