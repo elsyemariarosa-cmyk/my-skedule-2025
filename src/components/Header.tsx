@@ -25,7 +25,7 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
             </div>
             <div>
               <h1 className="text-3xl font-bold tracking-tight">
-                Sistem Skedule Proses Belajar Mengajar (PBM)
+                My-Skedule Prodi MARS UMY
               </h1>
               <p className="text-white/90 text-xl font-bold">
                 Prodi MARS UMY
