@@ -50,7 +50,7 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                       <ul className="space-y-1 text-sm text-muted-foreground">
                         <li>• Mengelola jadwal perkuliahan</li>
                         <li>• Mengatur UTS & UAS (langsung klik di jenis kegiatan)</li>
-                        <li>• Mengelola seminar & tesis mahasiswa</li>
+                        <li>• Mengelola seminar & tesis (langsung klik di jenis kegiatan)</li>
                         <li>• Monitoring dan evaluasi pelaksanaan</li>
                       </ul>
                     </div>
@@ -61,6 +61,7 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                         <li>• Responsive untuk semua device</li>
                         <li>• System monitoring terintegrasi</li>
                         <li>• Akses cepat UTS/UAS dengan 1 klik</li>
+                        <li>• Akses cepat Seminar & Tesis dengan 1 klik</li>
                       </ul>
                     </div>
                   </div>
@@ -99,12 +100,14 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                   </div>
 
                   <div className="border-l-4 border-accent pl-4">
-                    <h4 className="font-semibold mb-2">3. Akses Cepat UTS & UAS</h4>
+                    <h4 className="font-semibold mb-2">3. Akses Cepat UTS, UAS, Seminar & Tesis</h4>
                     <ul className="space-y-1 text-sm text-muted-foreground">
-                      <li>• UTS dan UAS sudah terintegrasi dalam <Badge variant="secondary" className="mx-1">Jenis Kegiatan</Badge></li>
-                      <li>• Klik langsung badge <Badge className="bg-orange-500 text-white mx-1">UTS</Badge> atau <Badge className="bg-red-600 text-white mx-1">UAS</Badge></li>
+                      <li>• Semua jenis ujian dan seminar sudah terintegrasi dalam <Badge variant="secondary" className="mx-1">Jenis Kegiatan</Badge></li>
+                      <li>• Klik langsung badge yang diinginkan:</li>
+                      <li>  - <Badge className="bg-orange-500 text-white mx-1">UTS</Badge> dan <Badge className="bg-red-600 text-white mx-1">UAS</Badge> untuk ujian</li>
+                      <li>  - <Badge className="bg-blue-500 text-white mx-1">Seminar Proposal</Badge>, <Badge className="bg-orange-500 text-white mx-1">Seminar Hasil</Badge>, <Badge className="bg-red-500 text-white mx-1">Ujian Tesis</Badge></li>
                       <li>• Form jadwal akan terbuka otomatis dengan jenis kegiatan yang dipilih</li>
-                      <li>• Lebih efisien - hanya butuh 1 klik untuk membuat jadwal ujian</li>
+                      <li>• Lebih efisien - hanya butuh 1 klik untuk membuat jadwal</li>
                     </ul>
                   </div>
                 </div>
@@ -158,9 +161,12 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                     <Badge className="bg-purple-500 text-white">Workshop</Badge>
                     <Badge className="bg-orange-500 text-white">UTS</Badge>
                     <Badge className="bg-red-600 text-white">UAS</Badge>
+                    <Badge className="bg-blue-500 text-white">Seminar Proposal</Badge>
+                    <Badge className="bg-orange-500 text-white">Seminar Hasil</Badge>
+                    <Badge className="bg-red-500 text-white">Ujian Tesis</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mt-2">
-                    💡 <strong>Tips:</strong> Klik langsung pada badge UTS atau UAS untuk membuat jadwal ujian dengan cepat!
+                    💡 <strong>Tips:</strong> Klik langsung pada badge UTS, UAS, atau Seminar/Tesis untuk membuat jadwal dengan cepat!
                   </p>
                 </div>
               </CardContent>
@@ -282,7 +288,7 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                   <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
                     <h4 className="font-semibold text-primary mb-2">💡 Tips Penggunaan Efektif</h4>
                     <ul className="space-y-1 text-sm">
-                      <li>• <strong>UTS & UAS:</strong> Klik langsung pada badge untuk akses cepat</li>
+                      <li>• <strong>UTS, UAS, Seminar & Tesis:</strong> Klik langsung pada badge untuk akses cepat</li>
                       <li>• Atur jenis kegiatan sebelum membuat jadwal untuk konsistensi</li>
                       <li>• Gunakan nama kelas yang konsisten (MARS A, MARS B, dll)</li>
                       <li>• Update data kelas secara berkala untuk akurasi monitoring</li>

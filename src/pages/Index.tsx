@@ -8,7 +8,6 @@ import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { UserGuide } from "@/components/UserGuide";
-import { ThesisManager } from "@/components/ThesisManager";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
@@ -81,6 +80,42 @@ const Index = () => {
       instructor: 'Prof. Dr. Siti Rahma, M.Si',
       room: 'Lab Komputer',
       description: 'Ujian Akhir Semester Sistem Informasi Manajemen RS'
+    },
+    {
+      id: '5',
+      title: 'Seminar Proposal - Ahmad Fauzi',
+      type: 'seminar-proposal',
+      day: 'friday',
+      startTime: '15:00',
+      endTime: '17:00',
+      semester: 3,
+      instructor: 'Dr. Ahmad Susilo, M.Kes + Prof. Dr. Siti Rahayu, M.M',
+      room: 'Ruang Seminar 1',
+      description: 'Seminar proposal tesis: Manajemen Kualitas RS'
+    },
+    {
+      id: '6',
+      title: 'Seminar Hasil - Siti Nurhaliza',
+      type: 'seminar-hasil',
+      day: 'saturday',
+      startTime: '10:00',
+      endTime: '12:00',
+      semester: 4,
+      instructor: 'Prof. Dr. Budi Santoso, M.Kes + Dr. Maya Indira, M.M',
+      room: 'Via Zoom Meeting',
+      description: 'Seminar hasil penelitian: Sistem Informasi RS'
+    },
+    {
+      id: '7',
+      title: 'Ujian Tesis - Budi Hermawan',
+      type: 'ujian-tesis',
+      day: 'saturday',
+      startTime: '12:00',
+      endTime: '14:00',
+      semester: 4,
+      instructor: 'Dr. Ahmad Susilo, M.Kes + Dr. Retno Astuti, M.M',
+      room: 'Ruang Sidang Utama',
+      description: 'Ujian tesis: Analisis Efektivitas Manajemen SDM RS'
     }
   ]);
   
@@ -89,7 +124,6 @@ const Index = () => {
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
-  const [isThesisManagerOpen, setIsThesisManagerOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
@@ -163,13 +197,13 @@ const Index = () => {
   };
 
   const handleActivityTypeClick = (activityType: string) => {
-    // Auto-open form with preselected activity type for UTS/UAS
-    if (activityType === 'uts' || activityType === 'uas') {
+    // Auto-open form with preselected activity type for UTS/UAS/Seminar/Tesis
+    if (['uts', 'uas', 'seminar-proposal', 'seminar-hasil', 'ujian-tesis'].includes(activityType)) {
       setEditingItem(undefined);
       setPreselectedDay(undefined);
       setPreselectedTimeSlot(undefined);
       setIsFormOpen(true);
-      // The form will detect UTS/UAS type and show appropriate fields
+      // The form will detect the activity type and show appropriate fields
     }
   };
 
@@ -182,7 +216,6 @@ const Index = () => {
           onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
           onOpenMonitoring={() => setIsMonitoringOpen(true)}
           onOpenUserGuide={() => setIsUserGuideOpen(true)}
-          onOpenThesisManager={() => setIsThesisManagerOpen(true)}
           onActivityTypeClick={handleActivityTypeClick}
         />
         
@@ -231,12 +264,6 @@ const Index = () => {
         <UserGuide
           isOpen={isUserGuideOpen}
           onClose={() => setIsUserGuideOpen(false)}
-        />
-
-        {/* Thesis Manager */}
-        <ThesisManager
-          isOpen={isThesisManagerOpen}
-          onClose={() => setIsThesisManagerOpen(false)}
         />
 
         {/* Monitoring and Evaluation */}

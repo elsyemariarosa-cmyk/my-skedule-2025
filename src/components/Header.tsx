@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle, BookMarked } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,11 +10,10 @@ interface HeaderProps {
   onOpenStudentClassManager: () => void;
   onOpenMonitoring: () => void;
   onOpenUserGuide: () => void;
-  onOpenThesisManager: () => void;
   onActivityTypeClick: (activityType: string) => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenUserGuide, onOpenThesisManager, onActivityTypeClick }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenUserGuide, onActivityTypeClick }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -86,16 +85,6 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
           >
             <HelpCircle className="w-4 h-4 mr-2" />
             Panduan Penggunaan
-          </Button>
-
-          <Button
-            onClick={onOpenThesisManager}
-            variant="outline"
-            size="sm"
-            className="hover:bg-maroon-600/10 hover:border-maroon-600"
-          >
-            <BookMarked className="w-4 h-4 mr-2" />
-            Seminar & Tesis
           </Button>
           
           <Button
