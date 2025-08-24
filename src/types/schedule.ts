@@ -63,6 +63,41 @@ export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
     label: 'Residensi',
     color: 'bg-muted text-muted-foreground',
     description: 'Program Residensi'
+  },
+  'workshop': {
+    label: 'Workshop',
+    color: 'bg-primary text-primary-foreground',
+    description: 'Workshop dan pelatihan khusus'
+  },
+  'kunjungan-lapangan': {
+    label: 'Kunjungan Lapangan',
+    color: 'bg-medical text-medical-foreground',
+    description: 'Kunjungan ke rumah sakit dan fasilitas kesehatan'
+  },
+  'presentasi-kasus': {
+    label: 'Presentasi Kasus',
+    color: 'bg-academic text-academic-foreground',
+    description: 'Presentasi dan diskusi kasus manajemen RS'
+  },
+  'diskusi-panel': {
+    label: 'Diskusi Panel',
+    color: 'bg-accent text-accent-foreground',
+    description: 'Panel diskusi dengan praktisi dan ahli'
+  },
+  'evaluasi-kinerja': {
+    label: 'Evaluasi Kinerja',
+    color: 'bg-secondary text-secondary-foreground',
+    description: 'Evaluasi dan penilaian kinerja mahasiswa'
+  },
+  'seminar-khusus': {
+    label: 'Seminar Khusus',
+    color: 'bg-destructive text-destructive-foreground',
+    description: 'Seminar dengan topik khusus dan terkini'
+  },
+  'praktikum': {
+    label: 'Praktikum',
+    color: 'bg-muted text-muted-foreground',
+    description: 'Kegiatan praktikum dan simulasi'
   }
 };
 
