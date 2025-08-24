@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { BarChart3, PieChart as PieChartIcon, Users, BookOpen, Calendar, UserCheck, AlertTriangle, TrendingUp } from "lucide-react";
 import { ScheduleItem, ActivityTypeConfig } from "@/types/schedule";
 import { StudentClass } from "@/types/student-class";
@@ -55,7 +54,7 @@ const generateSampleExecutions = (scheduleItems: ScheduleItem[]): ScheduleExecut
   return executions;
 };
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
+const MAROON_COLORS = ['#800020', '#A0002A', '#C2185B', '#E91E63', '#AD1457'];
 
 export function MonitoringEvaluation({
   isOpen,
@@ -171,16 +170,16 @@ export function MonitoringEvaluation({
 
   // Chart data
   const executionChartData = [
-    { name: 'Selesai', value: monitoringStats.completedSessions, color: '#10B981' },
-    { name: 'Terjadwal', value: monitoringStats.totalScheduledSessions - monitoringStats.completedSessions - monitoringStats.cancelledSessions - monitoringStats.postponedSessions, color: '#3B82F6' },
-    { name: 'Dibatalkan', value: monitoringStats.cancelledSessions, color: '#EF4444' },
-    { name: 'Ditunda', value: monitoringStats.postponedSessions, color: '#F59E0B' }
+    { name: 'Selesai', value: monitoringStats.completedSessions, color: '#800020' },
+    { name: 'Terjadwal', value: monitoringStats.totalScheduledSessions - monitoringStats.completedSessions - monitoringStats.cancelledSessions - monitoringStats.postponedSessions, color: '#A0002A' },
+    { name: 'Dibatalkan', value: monitoringStats.cancelledSessions, color: '#DC143C' },
+    { name: 'Ditunda', value: monitoringStats.postponedSessions, color: '#C2185B' }
   ];
 
   const instructorAttendanceData = [
-    { name: 'Hadir', value: monitoringStats.instructorPresentSessions, color: '#10B981' },
-    { name: 'Tidak Hadir', value: monitoringStats.instructorAbsentSessions, color: '#EF4444' },
-    { name: 'Pengganti', value: monitoringStats.instructorSubstituteSessions, color: '#F59E0B' }
+    { name: 'Hadir', value: monitoringStats.instructorPresentSessions, color: '#800020' },
+    { name: 'Tidak Hadir', value: monitoringStats.instructorAbsentSessions, color: '#DC143C' },
+    { name: 'Pengganti', value: monitoringStats.instructorSubstituteSessions, color: '#C2185B' }
   ];
 
   return (
@@ -236,7 +235,7 @@ export function MonitoringEvaluation({
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-green-600">{monitoringStats.executionPercentage}%</div>
+                <div className="text-2xl font-bold text-maroon-500">{monitoringStats.executionPercentage}%</div>
                 <p className="text-xs text-muted-foreground">
                   {monitoringStats.completedSessions} dari {monitoringStats.totalScheduledSessions} sesi
                 </p>
@@ -249,7 +248,7 @@ export function MonitoringEvaluation({
                 <UserCheck className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-blue-600">{monitoringStats.instructorAttendancePercentage}%</div>
+                <div className="text-2xl font-bold text-maroon-600">{monitoringStats.instructorAttendancePercentage}%</div>
                 <p className="text-xs text-muted-foreground">
                   {monitoringStats.instructorPresentSessions} dari {monitoringStats.completedSessions} sesi
                 </p>
@@ -262,7 +261,7 @@ export function MonitoringEvaluation({
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-red-600">
+                <div className="text-2xl font-bold text-maroon-700">
                   {monitoringStats.cancelledSessions + monitoringStats.postponedSessions}
                 </div>
                 <p className="text-xs text-muted-foreground">Sesi bermasalah</p>
@@ -288,34 +287,25 @@ export function MonitoringEvaluation({
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-[300px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={executionChartData}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={60}
-                            outerRadius={100}
-                            paddingAngle={5}
-                            dataKey="value"
-                          >
-                            {executionChartData.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.color} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 mt-4">
+                    <div className="space-y-4">
                       {executionChartData.map((item, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: item.color }}
-                          />
-                          <span className="text-sm">{item.name}: {item.value}</span>
+                        <div key={index} className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div 
+                              className="w-4 h-4 rounded-full" 
+                              style={{ backgroundColor: item.color }}
+                            />
+                            <span className="text-sm font-medium">{item.name}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold">{item.value}</span>
+                            <div className="w-20">
+                              <Progress 
+                                value={(item.value / monitoringStats.totalScheduledSessions) * 100} 
+                                className="h-2"
+                              />
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -330,34 +320,25 @@ export function MonitoringEvaluation({
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-[300px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={instructorAttendanceData}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={60}
-                            outerRadius={100}
-                            paddingAngle={5}
-                            dataKey="value"
-                          >
-                            {instructorAttendanceData.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.color} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2 mt-4">
+                    <div className="space-y-4">
                       {instructorAttendanceData.map((item, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: item.color }}
-                          />
-                          <span className="text-sm">{item.name}: {item.value}</span>
+                        <div key={index} className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div 
+                              className="w-4 h-4 rounded-full" 
+                              style={{ backgroundColor: item.color }}
+                            />
+                            <span className="text-sm font-medium">{item.name}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold">{item.value}</span>
+                            <div className="w-20">
+                              <Progress 
+                                value={monitoringStats.completedSessions > 0 ? (item.value / monitoringStats.completedSessions) * 100 : 0} 
+                                className="h-2"
+                              />
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -427,17 +408,33 @@ export function MonitoringEvaluation({
                   <CardTitle>Perbandingan Antar Semester</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[400px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={semesterStats}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="semester" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="executionPercentage" fill="#0088FE" name="Pelaksanaan %" />
-                        <Bar dataKey="instructorAttendancePercentage" fill="#00C49F" name="Kehadiran Dosen %" />
-                      </BarChart>
-                    </ResponsiveContainer>
+                  <div className="space-y-6">
+                    {semesterStats.map((stats) => (
+                      <div key={stats.semester} className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <h4 className="font-semibold">Semester {stats.semester}</h4>
+                          <Badge variant="outline">{stats.totalSessions} total sesi</Badge>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-sm">
+                              <span>Pelaksanaan</span>
+                              <span className="font-medium text-primary">{stats.executionPercentage}%</span>
+                            </div>
+                            <Progress value={stats.executionPercentage} className="h-3" />
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-sm">
+                              <span>Kehadiran Dosen</span>
+                              <span className="font-medium text-medical">{stats.instructorAttendancePercentage}%</span>
+                            </div>
+                            <Progress value={stats.instructorAttendancePercentage} className="h-3" />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>

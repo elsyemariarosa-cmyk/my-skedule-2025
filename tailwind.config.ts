@@ -43,6 +43,19 @@ export default {
 					foreground: 'hsl(var(--academic-foreground))',
 					light: 'hsl(var(--academic-light))'
 				},
+				// Maroon variations
+				maroon: {
+					50: '#fef7f0',
+					100: '#feeee0',
+					200: '#fcd7b8',
+					300: '#f9bc8a',
+					400: '#f49654',
+					500: '#800020', // Main maroon
+					600: '#A0002A',
+					700: '#C2185B',
+					800: '#E91E63',
+					900: '#AD1457',
+				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
