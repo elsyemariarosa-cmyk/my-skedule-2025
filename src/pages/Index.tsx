@@ -6,6 +6,7 @@ import { ActivityTypeManager } from "@/components/ActivityTypeManager";
 import { SemesterFilter } from "@/components/SemesterFilter";
 import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { StudentClassManager } from "@/components/StudentClassManager";
+import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
@@ -60,6 +61,7 @@ const Index = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
+  const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
@@ -139,6 +141,7 @@ const Index = () => {
           activityTypes={activityTypes}
           onOpenActivityManager={() => setIsActivityManagerOpen(true)}
           onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
+          onOpenMonitoring={() => setIsMonitoringOpen(true)}
         />
         
         <SemesterFilter
@@ -180,6 +183,16 @@ const Index = () => {
           onClose={() => setIsStudentClassManagerOpen(false)}
           studentClasses={studentClasses}
           onUpdateStudentClasses={handleUpdateStudentClasses}
+        />
+
+        <MonitoringEvaluation
+          isOpen={isMonitoringOpen}
+          onClose={() => setIsMonitoringOpen(false)}
+          scheduleItems={scheduleItems}
+          activityTypes={activityTypes}
+          studentClasses={studentClasses}
+          selectedSemesterType={selectedSemesterType}
+          selectedAcademicYear={selectedAcademicYear}
         />
 
         <MasterScheduleManager

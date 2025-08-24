@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, Users, Settings } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings, BarChart3 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,10 @@ interface HeaderProps {
   activityTypes: Record<string, ActivityTypeConfig>;
   onOpenActivityManager: () => void;
   onOpenStudentClassManager: () => void;
+  onOpenMonitoring: () => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -92,6 +93,16 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
           >
             <GraduationCap className="w-4 h-4 mr-2" />
             Kelola Kelas Mahasiswa
+          </Button>
+
+          <Button
+            onClick={onOpenMonitoring}
+            variant="outline"
+            size="sm"
+            className="hover:bg-medical/10 hover:border-medical"
+          >
+            <BarChart3 className="w-4 h-4 mr-2" />
+            Monitoring & Evaluasi
           </Button>
         </div>
         </div>
