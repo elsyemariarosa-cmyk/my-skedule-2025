@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle, FileText, BookMarked } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle, BookMarked } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,11 +10,11 @@ interface HeaderProps {
   onOpenStudentClassManager: () => void;
   onOpenMonitoring: () => void;
   onOpenUserGuide: () => void;
-  onOpenExamManager: () => void;
   onOpenThesisManager: () => void;
+  onActivityTypeClick: (activityType: string) => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenUserGuide, onOpenExamManager, onOpenThesisManager }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenUserGuide, onOpenThesisManager, onActivityTypeClick }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -89,16 +89,6 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
           </Button>
 
           <Button
-            onClick={onOpenExamManager}
-            variant="outline"
-            size="sm"
-            className="hover:bg-maroon-500/10 hover:border-maroon-500"
-          >
-            <FileText className="w-4 h-4 mr-2" />
-            UTS & UAS
-          </Button>
-
-          <Button
             onClick={onOpenThesisManager}
             variant="outline"
             size="sm"
@@ -141,7 +131,11 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
           {Object.entries(activityTypes).map(([key, config]) => (
-            <Badge key={key} className={`${config.color} justify-center py-2`}>
+            <Badge 
+              key={key} 
+              className={`${config.color} justify-center py-2 cursor-pointer hover:opacity-80 transition-opacity`}
+              onClick={() => onActivityTypeClick(key)}
+            >
               {config.label}
             </Badge>
           ))}

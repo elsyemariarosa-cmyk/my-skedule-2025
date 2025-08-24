@@ -32,41 +32,41 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
             <TabsTrigger value="tips">Tips</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="w-5 h-5" />
-                  Pengenalan Sistem
-                </CardTitle>
-                <CardDescription>
-                  Sistem Skedule Proses Belajar Mengajar (PBM) Prodi MARS UMY
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-primary">Fungsi Utama:</h4>
-                    <ul className="space-y-1 text-sm text-muted-foreground">
-                      <li>• Mengelola jadwal perkuliahan</li>
-                      <li>• Mengatur jenis kegiatan akademik</li>
-                      <li>• Mengelola data kelas mahasiswa</li>
-                      <li>• Monitoring dan evaluasi pelaksanaan</li>
-                    </ul>
+            <TabsContent value="overview" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Eye className="w-5 h-5" />
+                    Pengenalan Sistem
+                  </CardTitle>
+                  <CardDescription>
+                    Sistem Skedule Proses Belajar Mengajar (PBM) Prodi MARS UMY
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-primary">Fungsi Utama:</h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Mengelola jadwal perkuliahan</li>
+                        <li>• Mengatur UTS & UAS (langsung klik di jenis kegiatan)</li>
+                        <li>• Mengelola seminar & tesis mahasiswa</li>
+                        <li>• Monitoring dan evaluasi pelaksanaan</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-medical">Keunggulan:</h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Interface yang user-friendly</li>
+                        <li>• Responsive untuk semua device</li>
+                        <li>• System monitoring terintegrasi</li>
+                        <li>• Akses cepat UTS/UAS dengan 1 klik</li>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-medical">Keunggulan:</h4>
-                    <ul className="space-y-1 text-sm text-muted-foreground">
-                      <li>• Interface yang user-friendly</li>
-                      <li>• Responsive untuk semua device</li>
-                      <li>• System monitoring terintegrasi</li>
-                      <li>• Mudah digunakan tanpa training rumit</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
           <TabsContent value="schedule" className="space-y-4">
             <Card>
@@ -99,11 +99,12 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                   </div>
 
                   <div className="border-l-4 border-accent pl-4">
-                    <h4 className="font-semibold mb-2">3. Filter Jadwal</h4>
+                    <h4 className="font-semibold mb-2">3. Akses Cepat UTS & UAS</h4>
                     <ul className="space-y-1 text-sm text-muted-foreground">
-                      <li>• Gunakan dropdown <Badge variant="secondary" className="mx-1">Filter Semester</Badge></li>
-                      <li>• Pilih semester yang ingin ditampilkan</li>
-                      <li>• Grid akan otomatis ter-update</li>
+                      <li>• UTS dan UAS sudah terintegrasi dalam <Badge variant="secondary" className="mx-1">Jenis Kegiatan</Badge></li>
+                      <li>• Klik langsung badge <Badge className="bg-orange-500 text-white mx-1">UTS</Badge> atau <Badge className="bg-red-600 text-white mx-1">UAS</Badge></li>
+                      <li>• Form jadwal akan terbuka otomatis dengan jenis kegiatan yang dipilih</li>
+                      <li>• Lebih efisien - hanya butuh 1 klik untuk membuat jadwal ujian</li>
                     </ul>
                   </div>
                 </div>
@@ -149,14 +150,18 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                 </div>
 
                 <div className="bg-muted/50 p-4 rounded-lg">
-                  <h5 className="font-medium mb-2">Jenis Kegiatan Default:</h5>
+                  <h5 className="font-medium mb-2">Jenis Kegiatan Tersedia:</h5>
                   <div className="flex flex-wrap gap-2">
                     <Badge className="bg-red-500 text-white">Kuliah</Badge>
                     <Badge className="bg-blue-500 text-white">Seminar</Badge>
                     <Badge className="bg-green-500 text-white">Praktek</Badge>
                     <Badge className="bg-purple-500 text-white">Workshop</Badge>
-                    <Badge className="bg-orange-500 text-white">Ujian</Badge>
+                    <Badge className="bg-orange-500 text-white">UTS</Badge>
+                    <Badge className="bg-red-600 text-white">UAS</Badge>
                   </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    💡 <strong>Tips:</strong> Klik langsung pada badge UTS atau UAS untuk membuat jadwal ujian dengan cepat!
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -277,6 +282,7 @@ export function UserGuide({ isOpen, onClose }: UserGuideProps) {
                   <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
                     <h4 className="font-semibold text-primary mb-2">💡 Tips Penggunaan Efektif</h4>
                     <ul className="space-y-1 text-sm">
+                      <li>• <strong>UTS & UAS:</strong> Klik langsung pada badge untuk akses cepat</li>
                       <li>• Atur jenis kegiatan sebelum membuat jadwal untuk konsistensi</li>
                       <li>• Gunakan nama kelas yang konsisten (MARS A, MARS B, dll)</li>
                       <li>• Update data kelas secara berkala untuk akurasi monitoring</li>

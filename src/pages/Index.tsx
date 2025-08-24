@@ -8,7 +8,6 @@ import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { UserGuide } from "@/components/UserGuide";
-import { ExamManager } from "@/components/ExamManager";
 import { ThesisManager } from "@/components/ThesisManager";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
@@ -58,6 +57,30 @@ const Index = () => {
       instructor: 'Prof. Dr. Siti Rahma, M.Si',
       room: 'Lab Komputer',
       description: 'Implementasi SIMRS dan digitalisasi layanan kesehatan'
+    },
+    {
+      id: '3',
+      title: 'UTS - Manajemen Strategis RS',
+      type: 'uts',
+      day: 'saturday',
+      startTime: '10:00',
+      endTime: '12:00',
+      semester: 1,
+      instructor: 'Dr. Ahmad Susilo, M.Kes',
+      room: 'Ruang Ujian A',
+      description: 'Ujian Tengah Semester Manajemen Strategis RS'
+    },
+    {
+      id: '4',
+      title: 'UAS - Sistem Informasi Manajemen RS',
+      type: 'uas',
+      day: 'saturday',
+      startTime: '14:00',
+      endTime: '16:00',
+      semester: 2,
+      instructor: 'Prof. Dr. Siti Rahma, M.Si',
+      room: 'Lab Komputer',
+      description: 'Ujian Akhir Semester Sistem Informasi Manajemen RS'
     }
   ]);
   
@@ -66,7 +89,6 @@ const Index = () => {
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
-  const [isExamManagerOpen, setIsExamManagerOpen] = useState(false);
   const [isThesisManagerOpen, setIsThesisManagerOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
@@ -140,18 +162,29 @@ const Index = () => {
     setStudentClasses(newClasses);
   };
 
+  const handleActivityTypeClick = (activityType: string) => {
+    // Auto-open form with preselected activity type for UTS/UAS
+    if (activityType === 'uts' || activityType === 'uas') {
+      setEditingItem(undefined);
+      setPreselectedDay(undefined);
+      setPreselectedTimeSlot(undefined);
+      setIsFormOpen(true);
+      // The form will detect UTS/UAS type and show appropriate fields
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 space-y-8">
         <Header 
-        activityTypes={activityTypes}
-        onOpenActivityManager={() => setIsActivityManagerOpen(true)}
-        onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
-        onOpenMonitoring={() => setIsMonitoringOpen(true)}
-        onOpenUserGuide={() => setIsUserGuideOpen(true)}
-        onOpenExamManager={() => setIsExamManagerOpen(true)}
-        onOpenThesisManager={() => setIsThesisManagerOpen(true)}
-      />
+          activityTypes={activityTypes}
+          onOpenActivityManager={() => setIsActivityManagerOpen(true)}
+          onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
+          onOpenMonitoring={() => setIsMonitoringOpen(true)}
+          onOpenUserGuide={() => setIsUserGuideOpen(true)}
+          onOpenThesisManager={() => setIsThesisManagerOpen(true)}
+          onActivityTypeClick={handleActivityTypeClick}
+        />
         
         <SemesterFilter
           selectedSemesterType={selectedSemesterType}
@@ -198,12 +231,6 @@ const Index = () => {
         <UserGuide
           isOpen={isUserGuideOpen}
           onClose={() => setIsUserGuideOpen(false)}
-        />
-
-        {/* Exam Manager */}
-        <ExamManager
-          isOpen={isExamManagerOpen}
-          onClose={() => setIsExamManagerOpen(false)}
         />
 
         {/* Thesis Manager */}
