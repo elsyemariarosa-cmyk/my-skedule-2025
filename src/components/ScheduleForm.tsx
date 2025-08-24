@@ -5,12 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { ScheduleItem, ActivityType, ACTIVITY_TYPES, TimeSlot } from "@/types/schedule";
+import { ScheduleItem, ActivityType, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
 
 interface ScheduleFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (item: Omit<ScheduleItem, 'id'>) => void;
+  activityTypes: Record<string, ActivityTypeConfig>;
   editItem?: ScheduleItem;
   preselectedDay?: 'friday' | 'saturday';
   preselectedTimeSlot?: TimeSlot;
@@ -20,13 +21,15 @@ export function ScheduleForm({
   isOpen, 
   onClose, 
   onSubmit, 
+  activityTypes,
   editItem,
   preselectedDay,
   preselectedTimeSlot 
 }: ScheduleFormProps) {
+  const defaultType = Object.keys(activityTypes)[0] || 'kuliah';
   const [formData, setFormData] = useState<Omit<ScheduleItem, 'id'>>({
     title: editItem?.title || '',
-    type: editItem?.type || 'kuliah',
+    type: editItem?.type || defaultType,
     day: editItem?.day || preselectedDay || 'friday',
     startTime: editItem?.startTime || preselectedTimeSlot?.start || '13:00',
     endTime: editItem?.endTime || preselectedTimeSlot?.end || '15:00',
@@ -45,7 +48,7 @@ export function ScheduleForm({
     if (!editItem) {
       setFormData({
         title: '',
-        type: 'kuliah',
+        type: defaultType,
         day: preselectedDay || 'friday',
         startTime: preselectedTimeSlot?.start || '13:00',
         endTime: preselectedTimeSlot?.end || '15:00',
@@ -91,7 +94,7 @@ export function ScheduleForm({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(ACTIVITY_TYPES).map(([key, type]) => (
+                  {Object.entries(activityTypes).map(([key, type]) => (
                     <SelectItem key={key} value={key}>
                       <div className="flex flex-col">
                         <span>{type.label}</span>

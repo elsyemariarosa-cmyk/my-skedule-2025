@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { ScheduleGrid } from "@/components/ScheduleGrid";
 import { ScheduleForm } from "@/components/ScheduleForm";
-import { ScheduleItem, TimeSlot } from "@/types/schedule";
+import { ActivityTypeManager } from "@/components/ActivityTypeManager";
+import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  // Load activity types from localStorage or use defaults
+  const [activityTypes, setActivityTypes] = useState<Record<string, ActivityTypeConfig>>(() => {
+    const saved = localStorage.getItem('mars-activity-types');
+    return saved ? JSON.parse(saved) : DEFAULT_ACTIVITY_TYPES;
+  });
+
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
     // Sample data
     {
@@ -35,11 +42,17 @@ const Index = () => {
   ]);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
   
   const { toast } = useToast();
+
+  // Save activity types to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('mars-activity-types', JSON.stringify(activityTypes));
+  }, [activityTypes]);
 
   const handleAddItem = (day: 'friday' | 'saturday', timeSlot: TimeSlot) => {
     setPreselectedDay(day);
@@ -83,13 +96,21 @@ const Index = () => {
     }
   };
 
+  const handleUpdateActivityTypes = (newTypes: Record<string, ActivityTypeConfig>) => {
+    setActivityTypes(newTypes);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 space-y-8">
-        <Header />
+        <Header 
+          activityTypes={activityTypes}
+          onOpenActivityManager={() => setIsActivityManagerOpen(true)}
+        />
         
         <ScheduleGrid
           scheduleItems={scheduleItems}
+          activityTypes={activityTypes}
           onAddItem={handleAddItem}
           onEditItem={handleEditItem}
         />
@@ -98,9 +119,17 @@ const Index = () => {
           isOpen={isFormOpen}
           onClose={() => setIsFormOpen(false)}
           onSubmit={handleSubmitForm}
+          activityTypes={activityTypes}
           editItem={editingItem}
           preselectedDay={preselectedDay}
           preselectedTimeSlot={preselectedTimeSlot}
+        />
+
+        <ActivityTypeManager
+          isOpen={isActivityManagerOpen}
+          onClose={() => setIsActivityManagerOpen(false)}
+          activityTypes={activityTypes}
+          onUpdateActivityTypes={handleUpdateActivityTypes}
         />
       </div>
     </div>

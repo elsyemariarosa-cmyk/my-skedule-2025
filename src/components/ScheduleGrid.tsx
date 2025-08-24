@@ -2,15 +2,16 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Calendar, Clock, MapPin, User } from "lucide-react";
-import { ScheduleItem, FRIDAY_TIME_SLOTS, SATURDAY_TIME_SLOTS, ACTIVITY_TYPES, TimeSlot } from "@/types/schedule";
+import { ScheduleItem, FRIDAY_TIME_SLOTS, SATURDAY_TIME_SLOTS, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
 
 interface ScheduleGridProps {
   scheduleItems: ScheduleItem[];
+  activityTypes: Record<string, ActivityTypeConfig>;
   onAddItem: (day: 'friday' | 'saturday', timeSlot: TimeSlot) => void;
   onEditItem: (item: ScheduleItem) => void;
 }
 
-export function ScheduleGrid({ scheduleItems, onAddItem, onEditItem }: ScheduleGridProps) {
+export function ScheduleGrid({ scheduleItems, activityTypes, onAddItem, onEditItem }: ScheduleGridProps) {
   const renderTimeSlot = (day: 'friday' | 'saturday', timeSlot: TimeSlot) => {
     const item = scheduleItems.find(
       (item) => item.day === day && item.startTime === timeSlot.start
@@ -28,9 +29,9 @@ export function ScheduleGrid({ scheduleItems, onAddItem, onEditItem }: ScheduleG
           >
             <div className="flex items-center justify-between">
               <Badge 
-                className={`${ACTIVITY_TYPES[item.type].color} text-xs font-medium px-2 py-1`}
+                className={`${activityTypes[item.type]?.color || 'bg-muted text-muted-foreground'} text-xs font-medium px-2 py-1`}
               >
-                {ACTIVITY_TYPES[item.type].label}
+                {activityTypes[item.type]?.label || item.type}
               </Badge>
               <Badge variant="outline" className="text-xs">
                 Semester {item.semester}

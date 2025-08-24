@@ -1,11 +1,5 @@
-export type ActivityType = 
-  | 'kuliah'           // Regular classes
-  | 'uts'              // Midterm exams
-  | 'uas'              // Final exams
-  | 'seminar-proposal' // Proposal seminars
-  | 'seminar-hasil'    // Results seminars
-  | 'ujian-tesis'      // Thesis exams
-  | 'residensi';       // Residency
+// Activity types are now dynamic and managed by the user
+export type ActivityType = string;
 
 export interface ScheduleItem {
   id: string;
@@ -27,11 +21,14 @@ export interface TimeSlot {
   label: string;
 }
 
-export const ACTIVITY_TYPES: Record<ActivityType, { 
-  label: string; 
-  color: string; 
-  description: string 
-}> = {
+export interface ActivityTypeConfig {
+  label: string;
+  color: string;
+  description: string;
+}
+
+// Default activity types - can be customized by users
+export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
   'kuliah': {
     label: 'Kuliah',
     color: 'bg-primary text-primary-foreground',

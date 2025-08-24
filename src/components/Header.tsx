@@ -1,8 +1,15 @@
-import { GraduationCap, Calendar, Users } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ActivityTypeConfig } from "@/types/schedule";
 
-export function Header() {
+interface HeaderProps {
+  activityTypes: Record<string, ActivityTypeConfig>;
+  onOpenActivityManager: () => void;
+}
+
+export function Header({ activityTypes, onOpenActivityManager }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -63,29 +70,24 @@ export function Header() {
 
       {/* Activity Types Legend */}
       <Card className="p-6 shadow-sm">
-        <h3 className="text-lg font-semibold mb-4 text-foreground">Jenis Kegiatan Program Studi</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-foreground">Jenis Kegiatan Program Studi</h3>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onOpenActivityManager}
+            className="flex items-center gap-2"
+          >
+            <Settings className="w-4 h-4" />
+            Kelola Jenis Kegiatan
+          </Button>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-          <Badge className="bg-primary text-primary-foreground justify-center py-2">
-            Kuliah
-          </Badge>
-          <Badge className="bg-medical text-medical-foreground justify-center py-2">
-            UTS
-          </Badge>
-          <Badge className="bg-academic text-academic-foreground justify-center py-2">
-            UAS
-          </Badge>
-          <Badge className="bg-accent text-accent-foreground justify-center py-2">
-            Seminar Proposal
-          </Badge>
-          <Badge className="bg-secondary text-secondary-foreground justify-center py-2">
-            Seminar Hasil
-          </Badge>
-          <Badge className="bg-destructive text-destructive-foreground justify-center py-2">
-            Ujian Tesis
-          </Badge>
-          <Badge className="bg-muted text-muted-foreground justify-center py-2">
-            Residensi
-          </Badge>
+          {Object.entries(activityTypes).map(([key, config]) => (
+            <Badge key={key} className={`${config.color} justify-center py-2`}>
+              {config.label}
+            </Badge>
+          ))}
         </div>
       </Card>
     </div>
