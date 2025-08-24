@@ -9,6 +9,7 @@ import { StudentClassManager } from "@/components/StudentClassManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { UserGuide } from "@/components/UserGuide";
 import { ExamManager } from "@/components/ExamManager";
+import { ThesisManager } from "@/components/ThesisManager";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
@@ -66,6 +67,7 @@ const Index = () => {
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
   const [isExamManagerOpen, setIsExamManagerOpen] = useState(false);
+  const [isThesisManagerOpen, setIsThesisManagerOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
@@ -148,6 +150,7 @@ const Index = () => {
         onOpenMonitoring={() => setIsMonitoringOpen(true)}
         onOpenUserGuide={() => setIsUserGuideOpen(true)}
         onOpenExamManager={() => setIsExamManagerOpen(true)}
+        onOpenThesisManager={() => setIsThesisManagerOpen(true)}
       />
         
         <SemesterFilter
@@ -201,6 +204,12 @@ const Index = () => {
         <ExamManager
           isOpen={isExamManagerOpen}
           onClose={() => setIsExamManagerOpen(false)}
+        />
+
+        {/* Thesis Manager */}
+        <ThesisManager
+          isOpen={isThesisManagerOpen}
+          onClose={() => setIsThesisManagerOpen(false)}
         />
 
         {/* Monitoring and Evaluation */}
