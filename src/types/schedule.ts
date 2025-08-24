@@ -37,97 +37,97 @@ export interface ActivityTypeConfig {
 export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
   'kuliah-tatap-muka': {
     label: 'Kuliah Tatap Muka',
-    color: 'bg-primary text-primary-foreground',
+    color: 'bg-red-700 text-red-50',
     description: 'Perkuliahan tatap muka reguler'
   },
   'tutorial': {
     label: 'Diskusi Kelompok Kecil (Tutorial)',
-    color: 'bg-maroon-600 text-white',
+    color: 'bg-rose-700 text-rose-50',
     description: 'Diskusi kelompok kecil dan tutorial'
   },
   'skill-lab': {
     label: 'Skill Lab',
-    color: 'bg-maroon-700 text-white',
+    color: 'bg-pink-700 text-pink-50',
     description: 'Laboratorium keterampilan praktis'
   },
   'fst': {
     label: 'Field Site Teaching (FST)',
-    color: 'bg-medical text-medical-foreground',
+    color: 'bg-red-800 text-red-50',
     description: 'Pengajaran di lokasi lapangan'
   },
   'project-learning': {
     label: 'Project Learning',
-    color: 'bg-academic text-academic-foreground',
+    color: 'bg-rose-800 text-rose-50',
     description: 'Pembelajaran berbasis proyek'
   },
   'tambahan': {
     label: 'Tambahan',
-    color: 'bg-maroon-800 text-white',
+    color: 'bg-pink-800 text-pink-50',
     description: 'Kegiatan pembelajaran tambahan'
   },
   'uts': {
     label: 'UTS',
-    color: 'bg-red-700 text-white',
+    color: 'bg-red-900 text-red-50',
     description: 'Ujian Tengah Semester'
   },
   'uas': {
     label: 'UAS',
-    color: 'bg-red-800 text-white',
+    color: 'bg-rose-900 text-rose-50',
     description: 'Ujian Akhir Semester'
   },
   'seminar-proposal': {
     label: 'Seminar Proposal',
-    color: 'bg-pink-700 text-white',
+    color: 'bg-pink-900 text-pink-50',
     description: 'Seminar Proposal Tesis'
   },
   'seminar-hasil': {
     label: 'Seminar Hasil',
-    color: 'bg-pink-800 text-white',
+    color: 'bg-red-600 text-red-50',
     description: 'Seminar Hasil Penelitian'
   },
   'ujian-tesis': {
     label: 'Ujian Tesis',
-    color: 'bg-rose-800 text-white',
+    color: 'bg-rose-600 text-rose-50',
     description: 'Ujian Akhir Tesis'
   },
   'residensi': {
     label: 'Residensi',
-    color: 'bg-purple-700 text-white',
+    color: 'bg-pink-600 text-pink-50',
     description: 'Program Residensi'
   },
   'workshop': {
     label: 'Workshop',
-    color: 'bg-indigo-700 text-white',
+    color: 'bg-purple-700 text-purple-50',
     description: 'Workshop dan pelatihan khusus'
   },
   'kunjungan-lapangan': {
     label: 'Kunjungan Lapangan',
-    color: 'bg-blue-700 text-white',
+    color: 'bg-purple-800 text-purple-50',
     description: 'Kunjungan ke rumah sakit dan fasilitas kesehatan'
   },
   'presentasi-kasus': {
     label: 'Presentasi Kasus',
-    color: 'bg-cyan-700 text-white',
+    color: 'bg-indigo-700 text-indigo-50',
     description: 'Presentasi dan diskusi kasus manajemen RS'
   },
   'diskusi-panel': {
     label: 'Diskusi Panel',
-    color: 'bg-teal-700 text-white',
+    color: 'bg-indigo-800 text-indigo-50',
     description: 'Panel diskusi dengan praktisi dan ahli'
   },
   'evaluasi-kinerja': {
     label: 'Evaluasi Kinerja',
-    color: 'bg-green-700 text-white',
+    color: 'bg-violet-700 text-violet-50',
     description: 'Evaluasi dan penilaian kinerja mahasiswa'
   },
   'seminar-khusus': {
     label: 'Seminar Khusus',
-    color: 'bg-lime-700 text-white',
+    color: 'bg-violet-800 text-violet-50',
     description: 'Seminar dengan topik khusus dan terkini'
   },
   'praktikum': {
     label: 'Praktikum',
-    color: 'bg-amber-700 text-white',
+    color: 'bg-fuchsia-700 text-fuchsia-50',
     description: 'Kegiatan praktikum dan simulasi'
   }
 };
