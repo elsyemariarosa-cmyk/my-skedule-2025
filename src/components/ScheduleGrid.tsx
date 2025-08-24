@@ -51,7 +51,18 @@ export function ScheduleGrid({ scheduleItems, activityTypes, onAddItem, onEditIt
               {item.instructor && (
                 <div className="flex items-center gap-1">
                   <User className="w-3 h-3" />
-                  <span className="truncate">{item.instructor}</span>
+                  <span className={`truncate ${item.substituteInstructor ? 'line-through text-muted-foreground/60' : ''}`}>
+                    {item.instructor}
+                  </span>
+                </div>
+              )}
+              
+              {item.substituteInstructor && (
+                <div className="flex items-center gap-1">
+                  <User className="w-3 h-3 text-orange-500" />
+                  <span className="truncate text-orange-600 font-medium">
+                    {item.substituteInstructor} (Pengganti)
+                  </span>
                 </div>
               )}
               

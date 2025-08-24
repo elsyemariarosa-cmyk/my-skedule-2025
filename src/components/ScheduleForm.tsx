@@ -35,6 +35,7 @@ export function ScheduleForm({
     endTime: editItem?.endTime || preselectedTimeSlot?.end || '15:00',
     semester: editItem?.semester || 1,
     instructor: editItem?.instructor || '',
+    substituteInstructor: editItem?.substituteInstructor || '',
     room: editItem?.room || '',
     description: editItem?.description || ''
   });
@@ -54,6 +55,7 @@ export function ScheduleForm({
         endTime: preselectedTimeSlot?.end || '15:00',
         semester: 1,
         instructor: '',
+        substituteInstructor: '',
         room: '',
         description: ''
       });
@@ -185,6 +187,22 @@ export function ScheduleForm({
                 placeholder="Ruang kelas"
                 className="focus:ring-primary"
               />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="substituteInstructor">Dosen Pengganti</Label>
+              <Input
+                id="substituteInstructor"
+                value={formData.substituteInstructor}
+                onChange={(e) => updateField('substituteInstructor', e.target.value)}
+                placeholder="Nama dosen pengganti (jika ada)"
+                className="focus:ring-primary"
+              />
+              <p className="text-xs text-muted-foreground">
+                Isi jika ada dosen yang berhalangan hadir
+              </p>
             </div>
           </div>
 

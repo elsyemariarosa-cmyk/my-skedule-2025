@@ -10,6 +10,7 @@ export interface ScheduleItem {
   endTime: string;   // Format: "HH:mm"
   semester: 1 | 2 | 3 | 4;
   instructor?: string;
+  substituteInstructor?: string;
   room?: string;
   description?: string;
   color?: string;
