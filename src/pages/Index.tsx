@@ -116,6 +116,21 @@ const Index = () => {
       instructor: 'Dr. Ahmad Susilo, M.Kes + Dr. Retno Astuti, M.M',
       room: 'Ruang Sidang Utama',
       description: 'Ujian tesis: Analisis Efektivitas Manajemen SDM RS'
+    },
+    {
+      id: '8',
+      title: 'Residensial Program - Rumah Sakit Singapura',
+      type: 'residensi',
+      day: 'friday',
+      startTime: '08:00',
+      endTime: '17:00',
+      semester: 4,
+      instructor: 'Prof. Dr. International Supervisor',
+      room: 'Singapore General Hospital',
+      description: 'Program residensial 3 bulan di Singapura untuk mempelajari sistem manajemen RS internasional',
+      residencyStartDate: '2024-12-01',
+      residencyEndDate: '2025-02-28',
+      residencyCountry: 'Singapura'
     }
   ]);
   
@@ -197,8 +212,8 @@ const Index = () => {
   };
 
   const handleActivityTypeClick = (activityType: string) => {
-    // Auto-open form with preselected activity type for UTS/UAS/Seminar/Tesis
-    if (['uts', 'uas', 'seminar-proposal', 'seminar-hasil', 'ujian-tesis'].includes(activityType)) {
+    // Auto-open form with preselected activity type for special activities
+    if (['uts', 'uas', 'seminar-proposal', 'seminar-hasil', 'ujian-tesis', 'residensi'].includes(activityType)) {
       setEditingItem(undefined);
       setPreselectedDay(undefined);
       setPreselectedTimeSlot(undefined);

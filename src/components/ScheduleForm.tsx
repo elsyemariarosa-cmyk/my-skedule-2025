@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,30 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScheduleItem, ActivityType, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
 import { StudentClass, getClassTypeColor } from "@/types/student-class";
+
+// Daftar negara untuk residensial
+const COUNTRIES = [
+  'Indonesia',
+  'Malaysia',
+  'Singapura',
+  'Thailand', 
+  'Filipina',
+  'Vietnam',
+  'Australia',
+  'Jepang',
+  'Korea Selatan',
+  'China',
+  'India',
+  'Amerika Serikat',
+  'Kanada',
+  'Inggris',
+  'Jerman',
+  'Belanda',
+  'Swiss',
+  'Swedia',
+  'Denmark',
+  'Norwegia'
+];
 
 interface ScheduleFormProps {
   isOpen: boolean;
@@ -43,8 +67,13 @@ export function ScheduleForm({
     substituteInstructor: editItem?.substituteInstructor || '',
     room: editItem?.room || '',
     description: editItem?.description || '',
-    classIds: editItem?.classIds || []
+    classIds: editItem?.classIds || [],
+    residencyStartDate: editItem?.residencyStartDate || '',
+    residencyEndDate: editItem?.residencyEndDate || '',
+    residencyCountry: editItem?.residencyCountry || ''
   });
+
+  const isResidencyType = formData.type === 'residensi';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +93,10 @@ export function ScheduleForm({
         substituteInstructor: '',
         room: '',
         description: '',
-        classIds: []
+        classIds: [],
+        residencyStartDate: '',
+        residencyEndDate: '',
+        residencyCountry: ''
       });
     }
   };
@@ -155,6 +187,60 @@ export function ScheduleForm({
             </div>
           </div>
 
+          {/* Residency-specific fields */}
+          {isResidencyType && (
+            <div className="space-y-4 p-4 border rounded-lg bg-muted/30">
+              <h3 className="font-semibold text-lg flex items-center gap-2">
+                📍 Informasi Residensial
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="residencyStartDate">Tanggal Mulai Residensial *</Label>
+                  <Input
+                    id="residencyStartDate"
+                    type="date"
+                    value={formData.residencyStartDate}
+                    onChange={(e) => updateField('residencyStartDate', e.target.value)}
+                    required={isResidencyType}
+                    className="focus:ring-primary"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="residencyEndDate">Tanggal Selesai Residensial *</Label>
+                  <Input
+                    id="residencyEndDate"
+                    type="date"
+                    value={formData.residencyEndDate}
+                    onChange={(e) => updateField('residencyEndDate', e.target.value)}
+                    required={isResidencyType}
+                    className="focus:ring-primary"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="residencyCountry">Negara Tempat Residensial *</Label>
+                <Select 
+                  value={formData.residencyCountry} 
+                  onValueChange={(value) => updateField('residencyCountry', value)}
+                >
+                  <SelectTrigger className="focus:ring-primary bg-background">
+                    <SelectValue placeholder="Pilih negara tempat residensial" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border shadow-lg z-50 max-h-[200px] overflow-y-auto">
+                    {COUNTRIES.map((country) => (
+                      <SelectItem key={country} value={country} className="hover:bg-muted">
+                        {country}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="semester">Semester *</Label>
@@ -186,12 +272,12 @@ export function ScheduleForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="room">Ruangan</Label>
+              <Label htmlFor="room">{isResidencyType ? 'Lokasi/Institusi' : 'Ruangan'}</Label>
               <Input
                 id="room"
                 value={formData.room}
                 onChange={(e) => updateField('room', e.target.value)}
-                placeholder="Ruang kelas"
+                placeholder={isResidencyType ? 'Nama rumah sakit/institusi' : 'Ruang kelas'}
                 className="focus:ring-primary"
               />
             </div>
@@ -258,13 +344,13 @@ export function ScheduleForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Keterangan</Label>
+            <Label htmlFor="description">{isResidencyType ? 'Program/Deskripsi Residensial' : 'Keterangan'}</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => updateField('description', e.target.value)}
-              placeholder="Keterangan tambahan (opsional)"
-              rows={3}
+              placeholder={isResidencyType ? 'Deskripsi program residensial, aktivitas yang akan dilakukan, dll.' : 'Keterangan tambahan (opsional)'}
+              rows={isResidencyType ? 4 : 3}
               className="focus:ring-primary resize-none"
             />
           </div>

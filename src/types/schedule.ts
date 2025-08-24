@@ -15,6 +15,10 @@ export interface ScheduleItem {
   description?: string;
   color?: string;
   classIds?: string[]; // Array of student class IDs
+  // Residency-specific fields
+  residencyStartDate?: string;
+  residencyEndDate?: string;
+  residencyCountry?: string;
 }
 
 export interface TimeSlot {
