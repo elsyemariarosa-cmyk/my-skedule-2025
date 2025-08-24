@@ -29,10 +29,35 @@ export interface ActivityTypeConfig {
 
 // Default activity types - can be customized by users
 export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
-  'kuliah': {
-    label: 'Kuliah',
+  'kuliah-tatap-muka': {
+    label: 'Kuliah Tatap Muka',
     color: 'bg-primary text-primary-foreground',
-    description: 'Perkuliahan reguler'
+    description: 'Perkuliahan tatap muka reguler'
+  },
+  'tutorial': {
+    label: 'Diskusi Kelompok Kecil (Tutorial)',
+    color: 'bg-accent text-accent-foreground',
+    description: 'Diskusi kelompok kecil dan tutorial'
+  },
+  'skill-lab': {
+    label: 'Skill Lab',
+    color: 'bg-secondary text-secondary-foreground',
+    description: 'Laboratorium keterampilan praktis'
+  },
+  'fst': {
+    label: 'Field Site Teaching (FST)',
+    color: 'bg-medical text-medical-foreground',
+    description: 'Pengajaran di lokasi lapangan'
+  },
+  'project-learning': {
+    label: 'Project Learning',
+    color: 'bg-academic text-academic-foreground',
+    description: 'Pembelajaran berbasis proyek'
+  },
+  'tambahan': {
+    label: 'Tambahan',
+    color: 'bg-muted text-muted-foreground',
+    description: 'Kegiatan pembelajaran tambahan'
   },
   'uts': {
     label: 'UTS',

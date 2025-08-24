@@ -18,7 +18,7 @@ const Index = () => {
     {
       id: '1',
       title: 'Manajemen Strategis RS',
-      type: 'kuliah',
+      type: 'kuliah-tatap-muka',
       day: 'friday',
       startTime: '13:00',
       endTime: '15:00',
@@ -30,7 +30,7 @@ const Index = () => {
     {
       id: '2',
       title: 'Sistem Informasi Manajemen RS',
-      type: 'kuliah',
+      type: 'kuliah-tatap-muka',
       day: 'saturday',
       startTime: '08:00',
       endTime: '10:00',
