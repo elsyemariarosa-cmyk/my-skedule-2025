@@ -3,10 +3,18 @@ import { Header } from "@/components/Header";
 import { ScheduleGrid } from "@/components/ScheduleGrid";
 import { ScheduleForm } from "@/components/ScheduleForm";
 import { ActivityTypeManager } from "@/components/ActivityTypeManager";
+import { SemesterFilter } from "@/components/SemesterFilter";
+import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
+import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  // Master schedule states
+  const [selectedSemesterType, setSelectedSemesterType] = useState<SemesterType>(getCurrentSemesterType());
+  const [selectedAcademicYear, setSelectedAcademicYear] = useState<string>(getCurrentAcademicYear());
+  const [isMasterScheduleOpen, setIsMasterScheduleOpen] = useState(false);
+
   // Load activity types from localStorage or use defaults
   const [activityTypes, setActivityTypes] = useState<Record<string, ActivityTypeConfig>>(() => {
     const saved = localStorage.getItem('mars-activity-types');
@@ -48,6 +56,12 @@ const Index = () => {
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
   
   const { toast } = useToast();
+
+  // Filter schedule items based on selected semester type
+  const filteredScheduleItems = scheduleItems.filter(item => {
+    const allowedSemesters = SEMESTER_MAPPING[selectedSemesterType];
+    return allowedSemesters.includes(item.semester);
+  });
 
   // Save activity types to localStorage whenever they change
   useEffect(() => {
@@ -108,8 +122,16 @@ const Index = () => {
           onOpenActivityManager={() => setIsActivityManagerOpen(true)}
         />
         
+        <SemesterFilter
+          selectedSemesterType={selectedSemesterType}
+          selectedAcademicYear={selectedAcademicYear}
+          onSemesterTypeChange={setSelectedSemesterType}
+          onAcademicYearChange={setSelectedAcademicYear}
+          onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
+        />
+        
         <ScheduleGrid
-          scheduleItems={scheduleItems}
+          scheduleItems={filteredScheduleItems}
           activityTypes={activityTypes}
           onAddItem={handleAddItem}
           onEditItem={handleEditItem}
@@ -130,6 +152,11 @@ const Index = () => {
           onClose={() => setIsActivityManagerOpen(false)}
           activityTypes={activityTypes}
           onUpdateActivityTypes={handleUpdateActivityTypes}
+        />
+
+        <MasterScheduleManager
+          isOpen={isMasterScheduleOpen}
+          onClose={() => setIsMasterScheduleOpen(false)}
         />
       </div>
     </div>
