@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, Users, Settings, BarChart3 } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,9 +9,10 @@ interface HeaderProps {
   onOpenActivityManager: () => void;
   onOpenStudentClassManager: () => void;
   onOpenMonitoring: () => void;
+  onOpenUserGuide: () => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenUserGuide }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -75,6 +76,16 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-foreground">Jenis Kegiatan Program Studi</h3>
         <div className="flex flex-wrap gap-2">
+          <Button
+            onClick={onOpenUserGuide}
+            variant="outline"
+            size="sm"
+            className="hover:bg-accent/10 hover:border-accent"
+          >
+            <HelpCircle className="w-4 h-4 mr-2" />
+            Panduan Penggunaan
+          </Button>
+          
           <Button
             onClick={onOpenActivityManager}
             variant="outline"

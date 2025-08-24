@@ -7,6 +7,7 @@ import { SemesterFilter } from "@/components/SemesterFilter";
 import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
+import { UserGuide } from "@/components/UserGuide";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
@@ -62,6 +63,7 @@ const Index = () => {
   const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
+  const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
@@ -138,11 +140,12 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 space-y-8">
         <Header 
-          activityTypes={activityTypes}
-          onOpenActivityManager={() => setIsActivityManagerOpen(true)}
-          onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
-          onOpenMonitoring={() => setIsMonitoringOpen(true)}
-        />
+        activityTypes={activityTypes}
+        onOpenActivityManager={() => setIsActivityManagerOpen(true)}
+        onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
+        onOpenMonitoring={() => setIsMonitoringOpen(true)}
+        onOpenUserGuide={() => setIsUserGuideOpen(true)}
+      />
         
         <SemesterFilter
           selectedSemesterType={selectedSemesterType}
@@ -185,6 +188,13 @@ const Index = () => {
           onUpdateStudentClasses={handleUpdateStudentClasses}
         />
 
+        {/* User Guide */}
+        <UserGuide
+          isOpen={isUserGuideOpen}
+          onClose={() => setIsUserGuideOpen(false)}
+        />
+
+        {/* Monitoring and Evaluation */}
         <MonitoringEvaluation
           isOpen={isMonitoringOpen}
           onClose={() => setIsMonitoringOpen(false)}
@@ -195,6 +205,7 @@ const Index = () => {
           selectedAcademicYear={selectedAcademicYear}
         />
 
+        {/* Master Schedule Manager */}
         <MasterScheduleManager
           isOpen={isMasterScheduleOpen}
           onClose={() => setIsMasterScheduleOpen(false)}
