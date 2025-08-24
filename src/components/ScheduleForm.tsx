@@ -229,9 +229,9 @@ export function ScheduleForm({
                   <SelectTrigger className="focus:ring-primary bg-background">
                     <SelectValue placeholder="Pilih negara tempat residensial" />
                   </SelectTrigger>
-                  <SelectContent className="bg-background border shadow-lg z-50 max-h-[200px] overflow-y-auto">
+                  <SelectContent className="bg-popover text-popover-foreground border shadow-lg z-[100] max-h-[200px] overflow-y-auto">
                     {COUNTRIES.map((country) => (
-                      <SelectItem key={country} value={country} className="hover:bg-muted">
+                      <SelectItem key={country} value={country} className="cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                         {country}
                       </SelectItem>
                     ))}
