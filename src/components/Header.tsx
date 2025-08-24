@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ActivityTypeConfig } from "@/types/schedule";
-import marsLogo from "@/assets/mars-umy-logo.png";
 
 interface HeaderProps {
   activityTypes: Record<string, ActivityTypeConfig>;
@@ -20,7 +19,7 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
         <div className="relative z-10">
           <div className="flex items-center gap-4 mb-4">
             <div className="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
-              <img src={marsLogo} alt="MARS UMY Logo" className="w-12 h-12 object-contain" />
+              <img src="/lovable-uploads/7d332584-ebb4-48e2-982b-d74a019abd4e.png" alt="MARS UMY Logo" className="w-16 h-16 object-contain" />
             </div>
             <div>
               <h1 className="text-3xl font-bold tracking-tight">
