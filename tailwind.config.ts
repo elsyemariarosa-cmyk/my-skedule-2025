@@ -45,16 +45,16 @@ export default {
 				},
 				// Maroon variations
 				maroon: {
-					50: '#fef7f0',
-					100: '#feeee0',
-					200: '#fcd7b8',
-					300: '#f9bc8a',
-					400: '#f49654',
-					500: '#800020', // Main maroon
-					600: '#A0002A',
-					700: '#C2185B',
-					800: '#E91E63',
-					900: '#AD1457',
+					50: '#fef2f2',
+					100: '#fee2e2',
+					200: '#fecaca',
+					300: '#fca5a5',
+					400: '#f87171',
+					500: '#8B0000', // Dark red/maroon
+					600: '#A52A2A', // Brown maroon
+					700: '#7B0000', // Deep maroon
+					800: '#610000', // Very deep maroon
+					900: '#450000', // Darkest maroon
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
