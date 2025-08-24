@@ -26,11 +26,22 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
+				},
+				medical: {
+					DEFAULT: 'hsl(var(--medical))',
+					foreground: 'hsl(var(--medical-foreground))',
+					light: 'hsl(var(--medical-light))'
+				},
+				academic: {
+					DEFAULT: 'hsl(var(--academic))',
+					foreground: 'hsl(var(--academic-foreground))',
+					light: 'hsl(var(--academic-light))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
