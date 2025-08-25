@@ -7,6 +7,7 @@ import { SemesterFilter } from "@/components/SemesterFilter";
 import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
+import { MonitoringCalendar } from "@/components/MonitoringCalendar";
 import { UserGuide } from "@/components/UserGuide";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
@@ -138,6 +139,7 @@ const Index = () => {
   const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
+  const [isMonitoringCalendarOpen, setIsMonitoringCalendarOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
@@ -230,6 +232,7 @@ const Index = () => {
           onOpenActivityManager={() => setIsActivityManagerOpen(true)}
           onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
           onOpenMonitoring={() => setIsMonitoringOpen(true)}
+          onOpenMonitoringCalendar={() => setIsMonitoringCalendarOpen(true)}
           onOpenUserGuide={() => setIsUserGuideOpen(true)}
           onActivityTypeClick={handleActivityTypeClick}
         />
@@ -285,6 +288,17 @@ const Index = () => {
         <MonitoringEvaluation
           isOpen={isMonitoringOpen}
           onClose={() => setIsMonitoringOpen(false)}
+          scheduleItems={scheduleItems}
+          activityTypes={activityTypes}
+          studentClasses={studentClasses}
+          selectedSemesterType={selectedSemesterType}
+          selectedAcademicYear={selectedAcademicYear}
+        />
+
+        {/* Monitoring Calendar */}
+        <MonitoringCalendar
+          isOpen={isMonitoringCalendarOpen}
+          onClose={() => setIsMonitoringCalendarOpen(false)}
           scheduleItems={scheduleItems}
           activityTypes={activityTypes}
           studentClasses={studentClasses}

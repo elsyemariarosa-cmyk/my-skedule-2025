@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle, CalendarDays } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,11 +9,12 @@ interface HeaderProps {
   onOpenActivityManager: () => void;
   onOpenStudentClassManager: () => void;
   onOpenMonitoring: () => void;
+  onOpenMonitoringCalendar: () => void;
   onOpenUserGuide: () => void;
   onActivityTypeClick: (activityType: string) => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenUserGuide, onActivityTypeClick }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenMonitoringCalendar, onOpenUserGuide, onActivityTypeClick }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -115,6 +116,16 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
           >
             <BarChart3 className="w-4 h-4 mr-2" />
             Monitoring & Evaluasi
+          </Button>
+
+          <Button
+            onClick={onOpenMonitoringCalendar}
+            variant="outline"
+            size="sm"
+            className="hover:bg-medical/10 hover:border-medical"
+          >
+            <CalendarDays className="w-4 h-4 mr-2" />
+            Kalender Monitoring
           </Button>
         </div>
         </div>
