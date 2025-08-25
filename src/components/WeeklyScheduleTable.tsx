@@ -48,6 +48,42 @@ const SATURDAY_TIME_SLOTS = [
   { time: '15.30-18.00', label: '15.30-18.00' }
 ];
 
+// Color schemes for different classes
+const CLASS_COLORS = {
+  'REG-A': {
+    header: 'bg-blue-500 text-white',
+    content: 'bg-blue-50 border-blue-200',
+    text: 'text-blue-800',
+    tab: 'data-[state=active]:bg-blue-500 data-[state=active]:text-white',
+    accent: 'bg-blue-100'
+  },
+  'REG-B': {
+    header: 'bg-green-500 text-white',
+    content: 'bg-green-50 border-green-200', 
+    text: 'text-green-800',
+    tab: 'data-[state=active]:bg-green-500 data-[state=active]:text-white',
+    accent: 'bg-green-100'
+  },
+  'REG-C': {
+    header: 'bg-purple-500 text-white',
+    content: 'bg-purple-50 border-purple-200',
+    text: 'text-purple-800', 
+    tab: 'data-[state=active]:bg-purple-500 data-[state=active]:text-white',
+    accent: 'bg-purple-100'
+  },
+  'REG-D': {
+    header: 'bg-orange-500 text-white',
+    content: 'bg-orange-50 border-orange-200',
+    text: 'text-orange-800',
+    tab: 'data-[state=active]:bg-orange-500 data-[state=active]:text-white', 
+    accent: 'bg-orange-100'
+  }
+};
+
+const getClassColors = (classCode: string) => {
+  return CLASS_COLORS[classCode as keyof typeof CLASS_COLORS] || CLASS_COLORS['REG-A'];
+};
+
 export function WeeklyScheduleTable({
   isOpen,
   onClose,
@@ -180,53 +216,55 @@ export function WeeklyScheduleTable({
   };
 
   const createScheduleTable = (selectedClass: StudentClass) => {
+    const colors = getClassColors(selectedClass.code);
+    
     return (
       <div className="space-y-6">
         {/* Header */}
-        <div className="text-center border-2 border-border p-4">
+        <div className={`text-center border-2 p-4 ${colors.header} rounded-lg shadow-lg`}>
           <h3 className="text-lg font-bold">
-            JADWAL PERKULIAHAN : Semester..... Kelas : ......
+            JADWAL PERKULIAHAN : Semester 3 Kelas : {selectedClass.code}
           </h3>
-          <p className="text-sm font-semibold mt-2">
+          <p className="text-sm font-semibold mt-2 opacity-90">
             PRODI MARS UMY
           </p>
         </div>
         
         {/* Schedule Table */}
         <div className="overflow-x-auto">
-          <table className="w-full border-2 border-black">
+          <table className="w-full border-2 border-black shadow-lg rounded-lg overflow-hidden">
             <thead>
               <tr>
-                <th className="border border-black p-2 bg-gray-100 font-bold text-center w-20">
+                <th className={`border border-black p-2 font-bold text-center w-20 ${colors.header}`}>
                   Hari/Tgl
                 </th>
-                <th className="border border-black p-2 bg-gray-100 font-bold text-center w-20">
+                <th className={`border border-black p-2 font-bold text-center w-20 ${colors.header}`}>
                   Waktu
                 </th>
                 {TIME_SLOTS.map((slot, index) => (
-                  <th key={`friday-${index}`} className="border border-black p-2 bg-gray-100 font-bold text-center min-w-[250px]">
+                  <th key={`friday-${index}`} className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
                     <div className="mb-2">Jumat, tanggal:</div>
-                    <div className="text-sm">{slot.label}</div>
+                    <div className="text-sm opacity-90">{slot.label}</div>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="border border-black p-2 font-bold text-center align-top" rowSpan={2}>
+                <td className={`border border-black p-2 font-bold text-center align-top ${colors.accent}`} rowSpan={2}>
                   Hari/Tgl
                 </td>
-                <td className="border border-black p-2 font-bold text-center">
+                <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
                   Waktu
                 </td>
                 {TIME_SLOTS.map((slot, index) => {
                   const entry = getEntryForSlot(selectedClass.id, 'friday', slot.time);
                   return (
-                    <td key={`friday-content-${index}`} className="border border-black p-2 relative group min-h-[120px] align-top">
+                    <td key={`friday-content-${index}`} className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md ${entry ? colors.content : 'bg-white hover:bg-gray-50'}`}>
                       <div className="mb-2">
                         <div className="font-bold text-sm">Mata Kuliah:</div>
                         {entry ? (
-                          <div className="text-sm font-medium text-blue-800">
+                          <div className={`text-sm font-medium ${colors.text}`}>
                             {entry.courseName}
                           </div>
                         ) : (
@@ -292,13 +330,13 @@ export function WeeklyScheduleTable({
               
               {/* Saturday Row */}
               <tr>
-                <td className="border border-black p-2 font-bold text-center">
+                <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
                   Waktu
                 </td>
                 {SATURDAY_TIME_SLOTS.map((slot, index) => {
                   const entry = getEntryForSlot(selectedClass.id, 'saturday', slot.time);
                   return (
-                    <td key={`saturday-content-${index}`} className="border border-black p-2 relative group min-h-[120px] align-top">
+                    <td key={`saturday-content-${index}`} className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md ${entry ? colors.content : 'bg-white hover:bg-gray-50'}`}>
                       <div className="mb-1">
                         <div className="font-bold text-sm">Sabtu, tanggal:</div>
                         <div className="text-sm mb-2">{slot.label}</div>
@@ -307,7 +345,7 @@ export function WeeklyScheduleTable({
                       <div className="mb-2">
                         <div className="font-bold text-sm">Mata Kuliah:</div>
                         {entry ? (
-                          <div className="text-sm font-medium">
+                          <div className={`text-sm font-medium ${colors.text}`}>
                             {entry.courseName}
                           </div>
                         ) : (
@@ -391,11 +429,18 @@ export function WeeklyScheduleTable({
 
         <Tabs value={selectedTabClass} onValueChange={setSelectedTabClass} className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-6">
-            {studentClasses.filter(c => c.isActive).map(studentClass => (
-              <TabsTrigger key={studentClass.id} value={studentClass.id} className="text-xs">
-                {studentClass.code}
-              </TabsTrigger>
-            ))}
+            {studentClasses.filter(c => c.isActive).map(studentClass => {
+              const colors = getClassColors(studentClass.code);
+              return (
+                <TabsTrigger 
+                  key={studentClass.id} 
+                  value={studentClass.id} 
+                  className={`text-xs transition-all ${colors.tab} hover:bg-opacity-80`}
+                >
+                  {studentClass.code}
+                </TabsTrigger>
+              );
+            })}
           </TabsList>
           
           {studentClasses.filter(c => c.isActive).map(studentClass => (
