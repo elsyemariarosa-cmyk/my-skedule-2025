@@ -35,10 +35,15 @@ export interface ActivityTypeConfig {
 
 // Default activity types - can be customized by users
 export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
-  'kuliah-tatap-muka': {
-    label: 'Kuliah Tatap Muka',
+  'perkuliahan-offline': {
+    label: 'Perkuliahan Offline',
     color: 'bg-red-700 text-red-50',
-    description: 'Perkuliahan tatap muka reguler'
+    description: 'Perkuliahan tatap muka offline'
+  },
+  'perkuliahan-online': {
+    label: 'Perkuliahan Online',
+    color: 'bg-blue-700 text-blue-50',
+    description: 'Perkuliahan online/virtual'
   },
   'tutorial': {
     label: 'Diskusi Kelompok Kecil (Tutorial)',

@@ -28,7 +28,7 @@ const Index = () => {
 
   // Remove deprecated default activity types on first load
   useEffect(() => {
-    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel','tambahan','kunjungan-lapangan','presentasi-kasus'];
+    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel','tambahan','kunjungan-lapangan','presentasi-kasus','kuliah-tatap-muka'];
     let changed = false;
     const cleanedEntries = Object.entries(activityTypes).filter(([k]) => {
       const toRemove = removedKeys.includes(k);
@@ -56,7 +56,7 @@ const Index = () => {
     {
       id: '1',
       title: 'Manajemen Strategis RS',
-      type: 'kuliah-tatap-muka',
+      type: 'perkuliahan-offline',
       day: 'monday',
       startTime: '08:00',
       endTime: '10:30',
@@ -82,7 +82,7 @@ const Index = () => {
     {
       id: '3',
       title: 'Sistem Informasi Manajemen RS',
-      type: 'kuliah-tatap-muka',
+      type: 'perkuliahan-online',
       day: 'tuesday',
       startTime: '10:40',
       endTime: '13:10',
@@ -108,7 +108,7 @@ const Index = () => {
     {
       id: '5',
       title: 'Manajemen Mutu dan Keselamatan Pasien',
-      type: 'kuliah-tatap-muka',
+      type: 'perkuliahan-offline',
       day: 'wednesday',
       startTime: '08:00',
       endTime: '10:30',
@@ -120,7 +120,7 @@ const Index = () => {
     {
       id: '6',
       title: 'Kunjungan Lapangan - RS Cipto Mangunkusumo',
-      type: 'kuliah-tatap-muka',
+      type: 'perkuliahan-offline',
       day: 'wednesday',
       startTime: '13:20',
       endTime: '15:50',
@@ -133,34 +133,34 @@ const Index = () => {
     // THURSDAY
     {
       id: '7',
-      title: 'Workshop Kepemimpinan di RS',
-      type: 'workshop',
+      title: 'Manajemen Kepemimpinan di RS',
+      type: 'perkuliahan-offline',
       day: 'thursday',
       startTime: '10:40',
       endTime: '13:10',
       semester: 3,
-      instructor: 'Dr. Retno Astuti, M.M + Praktisi RS',
+      instructor: 'Dr. Retno Astuti, M.M',
       room: 'Aula Utama',
-      description: 'Workshop tentang kepemimpinan transformatif di rumah sakit'
+      description: 'Pembelajaran tentang kepemimpinan transformatif di rumah sakit'
     },
     {
       id: '8',
-      title: 'Diskusi Panel - Inovasi Pelayanan RS',
-      type: 'diskusi-panel',
+      title: 'Inovasi Pelayanan RS (Online)',
+      type: 'perkuliahan-online',
       day: 'thursday',
       startTime: '16:00',
       endTime: '18:30',
       semester: 4,
-      instructor: 'Panel Ahli + Direktur RS',
-      room: 'Ruang Seminar',
-      description: 'Panel diskusi dengan direktur rumah sakit terkemuka'
+      instructor: 'Dr. Siti Nurhaliza, M.M',
+      room: 'Via Zoom Meeting',
+      description: 'Kuliah online tentang inovasi pelayanan rumah sakit'
     },
 
     // FRIDAY
     {
       id: '9',
       title: 'Manajemen SDM RS',
-      type: 'kuliah-tatap-muka',
+      type: 'perkuliahan-offline',
       day: 'friday',
       startTime: '13:00',
       endTime: '15:30',
@@ -223,15 +223,15 @@ const Index = () => {
     // SUNDAY
     {
       id: '14',
-      title: 'Praktikum Simulasi Manajemen Krisis',
-      type: 'praktikum',
+      title: 'Manajemen Krisis RS (Online)',
+      type: 'perkuliahan-online',
       day: 'sunday',
       startTime: '10:40',
       endTime: '13:10',
       semester: 3,
-      instructor: 'Dr. Ahmad Susilo, M.Kes + Tim Simulasi',
-      room: 'Ruang Simulasi',
-      description: 'Simulasi penanganan krisis dan bencana di rumah sakit'
+      instructor: 'Dr. Ahmad Susilo, M.Kes',
+      room: 'Via Google Meet',
+      description: 'Kuliah online tentang manajemen krisis dan bencana di rumah sakit'
     },
     {
       id: '15',
