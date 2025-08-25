@@ -53,6 +53,17 @@ export function FullScheduleGrid({ scheduleItems, activityTypes, studentClasses,
                 <span>{timeSlot.label}</span>
               </div>
               
+              {item.activityDate && (
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3" />
+                  <span>{new Date(item.activityDate).toLocaleDateString('id-ID', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: '2-digit' 
+                  })}</span>
+                </div>
+              )}
+              
               {item.instructor && (
                 <div className="flex items-center gap-1">
                   <User className="w-3 h-3" />

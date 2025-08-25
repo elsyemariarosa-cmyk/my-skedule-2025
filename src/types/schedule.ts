@@ -8,6 +8,7 @@ export interface ScheduleItem {
   day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
   startTime: string; // Format: "HH:mm"
   endTime: string;   // Format: "HH:mm"
+  activityDate?: string; // Format: "YYYY-MM-DD" - Tanggal kegiatan
   semester: 1 | 2 | 3 | 4;
   instructor?: string;
   substituteInstructor?: string;

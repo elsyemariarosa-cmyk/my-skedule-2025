@@ -7,6 +7,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 import { ScheduleItem, ActivityType, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
 import { StudentClass, getClassTypeColor } from "@/types/student-class";
 
@@ -62,6 +68,7 @@ export function ScheduleForm({
     day: editItem?.day || preselectedDay || 'friday',
     startTime: editItem?.startTime || preselectedTimeSlot?.start || '13:00',
     endTime: editItem?.endTime || preselectedTimeSlot?.end || '15:00',
+    activityDate: editItem?.activityDate || '',
     semester: editItem?.semester || 1,
     instructor: editItem?.instructor || '',
     substituteInstructor: editItem?.substituteInstructor || '',
@@ -72,6 +79,10 @@ export function ScheduleForm({
     residencyEndDate: editItem?.residencyEndDate || '',
     residencyCountry: editItem?.residencyCountry || ''
   });
+
+  const [activityDate, setActivityDate] = useState<Date | undefined>(
+    editItem?.activityDate ? new Date(editItem.activityDate) : undefined
+  );
 
   const isResidencyType = formData.type === 'residensi';
 
@@ -88,6 +99,7 @@ export function ScheduleForm({
         day: preselectedDay || 'friday',
         startTime: preselectedTimeSlot?.start || '13:00',
         endTime: preselectedTimeSlot?.end || '15:00',
+        activityDate: '',
         semester: 1,
         instructor: '',
         substituteInstructor: '',
@@ -98,11 +110,21 @@ export function ScheduleForm({
         residencyEndDate: '',
         residencyCountry: ''
       });
+      setActivityDate(undefined);
     }
   };
 
   const updateField = (field: keyof typeof formData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setActivityDate(date);
+    if (date) {
+      updateField('activityDate', format(date, 'yyyy-MM-dd'));
+    } else {
+      updateField('activityDate', '');
+    }
   };
 
   return (
@@ -146,6 +168,38 @@ export function ScheduleForm({
                 </SelectContent>
               </Select>
             </div>
+          </div>
+
+          {/* Activity Date */}
+          <div className="space-y-2">
+            <Label>Tanggal Kegiatan</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !activityDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {activityDate ? (
+                    format(activityDate, "dd/MM/yy", { locale: id })
+                  ) : (
+                    <span>Pilih tanggal kegiatan</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={activityDate}
+                  onSelect={handleDateSelect}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
