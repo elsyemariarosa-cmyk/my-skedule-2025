@@ -514,13 +514,13 @@ const Index = () => {
           onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
         />
         
-        <FullScheduleGrid
-          scheduleItems={filteredScheduleItems}
-          activityTypes={activityTypes}
-          studentClasses={studentClasses}
-          onAddItem={handleAddItem}
-          onEditItem={handleEditItem}
-        />
+        <div className="space-y-6">
+          <ClassBasedScheduleManager
+            studentClasses={studentClasses}
+            activityTypes={activityTypes}
+            onUpdateStudentClasses={handleUpdateStudentClasses}
+          />
+        </div>
         
         <ScheduleForm
           isOpen={isFormOpen}
@@ -544,14 +544,6 @@ const Index = () => {
           isOpen={isStudentClassManagerOpen}
           onClose={() => setIsStudentClassManagerOpen(false)}
           studentClasses={studentClasses}
-          onUpdateStudentClasses={handleUpdateStudentClasses}
-        />
-
-        <ClassBasedScheduleManager
-          isOpen={isClassBasedScheduleOpen}
-          onClose={() => setIsClassBasedScheduleOpen(false)}
-          studentClasses={studentClasses}
-          activityTypes={activityTypes}
           onUpdateStudentClasses={handleUpdateStudentClasses}
         />
 

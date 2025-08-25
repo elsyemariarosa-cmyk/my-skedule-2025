@@ -36,8 +36,6 @@ interface ClassLecture {
 }
 
 interface ClassBasedScheduleManagerProps {
-  isOpen: boolean;
-  onClose: () => void;
   studentClasses: StudentClass[];
   activityTypes: Record<string, ActivityTypeConfig>;
   onUpdateStudentClasses: (classes: StudentClass[]) => void;
@@ -72,8 +70,6 @@ const SAMPLE_COURSES = {
 };
 
 export function ClassBasedScheduleManager({ 
-  isOpen, 
-  onClose, 
   studentClasses, 
   activityTypes,
   onUpdateStudentClasses 
@@ -441,162 +437,153 @@ export function ClassBasedScheduleManager({
   };
 
   return (
-    <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[1400px] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold bg-gradient-to-r from-primary to-medical bg-clip-text text-transparent flex items-center gap-2">
-              <BookOpen className="w-6 h-6" />
-              Jadwal Perkuliahan Berdasarkan Kelas
-            </DialogTitle>
-          </DialogHeader>
+    <div className="space-y-6">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-medical bg-clip-text text-transparent flex items-center justify-center gap-2">
+          <BookOpen className="w-8 h-8" />
+          Jadwal Perkuliahan Per Kelas
+        </h1>
+        <p className="text-muted-foreground mt-2">Kelola jadwal perkuliahan berdasarkan kelas</p>
+      </div>
 
-          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'cards' | 'table')} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="table">Tampilan Tabel</TabsTrigger>
-              <TabsTrigger value="cards">Tampilan Kartu</TabsTrigger>
-            </TabsList>
+      <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'cards' | 'table')} className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-4">
+          <TabsTrigger value="table">Tampilan Tabel</TabsTrigger>
+          <TabsTrigger value="cards">Tampilan Kartu</TabsTrigger>
+        </TabsList>
 
-            <TabsContent value="table" className="space-y-6">
-              {studentClasses.filter(c => c.isActive).slice(0, 6).map((studentClass) => (
-                <div key={studentClass.id} className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <Badge variant="outline">{studentClass.code}</Badge>
+        <TabsContent value="table" className="space-y-6">
+          {studentClasses.filter(c => c.isActive).slice(0, 6).map((studentClass) => (
+            <div key={studentClass.id} className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Badge variant="outline">{studentClass.code}</Badge>
+                  {studentClass.name}
+                </h3>
+                <Button 
+                  size="sm" 
+                  onClick={() => handleAddLecture(studentClass.id)}
+                >
+                  <Plus className="w-4 h-4 mr-1" />
+                  Tambah Jadwal
+                </Button>
+              </div>
+              {generateScheduleTable(studentClass.id)}
+            </div>
+          ))}
+        </TabsContent>
+
+        <TabsContent value="cards">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {studentClasses.filter(c => c.isActive).map((studentClass) => {
+          const lectures = getClassLectures(studentClass.id);
+          
+          return (
+            <Card key={studentClass.id} className="h-fit">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      <Badge variant="outline" className="text-xs">
+                        {studentClass.code}
+                      </Badge>
                       {studentClass.name}
-                    </h3>
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Angkatan: {studentClass.academicYearBatch}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      <Users className="w-3 h-3 inline mr-1" />
+                      {studentClass.currentCapacity}/{studentClass.maxCapacity} mahasiswa
+                    </p>
+                  </div>
+                  <Button 
+                    size="sm" 
+                    onClick={() => handleAddLecture(studentClass.id)}
+                    className="shrink-0"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-3">
+                {lectures.length === 0 ? (
+                  <div className="text-center py-6 text-muted-foreground">
+                    <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">Belum ada jadwal kuliah</p>
                     <Button 
+                      variant="outline" 
                       size="sm" 
+                      className="mt-2"
                       onClick={() => handleAddLecture(studentClass.id)}
                     >
-                      <Plus className="w-4 h-4 mr-1" />
                       Tambah Jadwal
                     </Button>
                   </div>
-                  {generateScheduleTable(studentClass.id)}
-                </div>
-              ))}
-            </TabsContent>
-
-            <TabsContent value="cards">
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {studentClasses.filter(c => c.isActive).map((studentClass) => {
-              const lectures = getClassLectures(studentClass.id);
-              
-              return (
-                <Card key={studentClass.id} className="h-fit">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <CardTitle className="text-lg flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">
-                            {studentClass.code}
-                          </Badge>
-                          {studentClass.name}
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Angkatan: {studentClass.academicYearBatch}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          <Users className="w-3 h-3 inline mr-1" />
-                          {studentClass.currentCapacity}/{studentClass.maxCapacity} mahasiswa
-                        </p>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        onClick={() => handleAddLecture(studentClass.id)}
-                        className="shrink-0"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-3">
-                    {lectures.length === 0 ? (
-                      <div className="text-center py-6 text-muted-foreground">
-                        <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                        <p className="text-sm">Belum ada jadwal kuliah</p>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="mt-2"
-                          onClick={() => handleAddLecture(studentClass.id)}
-                        >
-                          Tambah Jadwal
-                        </Button>
-                      </div>
-                    ) : (
-                      lectures.map((lecture) => (
-                        <Card key={lecture.id} className="p-3 bg-muted/30">
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <h4 className="font-medium text-sm text-primary">
-                                {lecture.courseName}
-                              </h4>
-                              <div className="flex gap-1">
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  onClick={() => handleEditLecture(lecture)}
-                                  className="h-6 w-6 p-0"
-                                >
-                                  <Edit className="w-3 h-3" />
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  onClick={() => handleDeleteLecture(lecture.id)}
-                                  className="h-6 w-6 p-0 text-destructive hover:text-destructive"
-                                >
-                                  <Trash2 className="w-3 h-3" />
-                                </Button>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center gap-2 text-xs">
-                              <Badge variant="secondary" className="text-xs">
-                                {activityTypes[lecture.activityType]?.label || lecture.activityType}
-                              </Badge>
-                              <Badge variant="outline" className="text-xs">
-                                {lecture.credits} SKS
-                              </Badge>
-                            </div>
-                            
-                            <div className="space-y-1 text-xs text-muted-foreground">
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                {DAY_LABELS[lecture.day]}, {lecture.startTime} - {lecture.endTime}
-                              </div>
-                              <div>👨‍🏫 {lecture.instructor}</div>
-                              <div>🏢 {lecture.room}</div>
-                              <div>📚 Semester {lecture.semester}</div>
-                            </div>
-                            
-                            {lecture.description && (
-                              <p className="text-xs text-muted-foreground bg-background p-2 rounded">
-                                {lecture.description}
-                              </p>
-                            )}
+                ) : (
+                  lectures.map((lecture) => (
+                    <Card key={lecture.id} className="p-3 bg-muted/30">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-medium text-sm text-primary">
+                            {lecture.courseName}
+                          </h4>
+                          <div className="flex gap-1">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleEditLecture(lecture)}
+                              className="h-6 w-6 p-0"
+                            >
+                              <Edit className="w-3 h-3" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleDeleteLecture(lecture.id)}
+                              className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
                           </div>
-                        </Card>
-                      ))
-                    )}
-                  </CardContent>
-                </Card>
-              );
-            })}
-              </div>
-            </TabsContent>
-          </Tabs>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={onClose}>
-              Selesai
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+                        </div>
+                        
+                        <div className="flex items-center gap-2 text-xs">
+                          <Badge variant="secondary" className="text-xs">
+                            {activityTypes[lecture.activityType]?.label || lecture.activityType}
+                          </Badge>
+                          <Badge variant="outline" className="text-xs">
+                            {lecture.credits} SKS
+                          </Badge>
+                        </div>
+                        
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {DAY_LABELS[lecture.day]}, {lecture.startTime} - {lecture.endTime}
+                          </div>
+                          <div>👨‍🏫 {lecture.instructor}</div>
+                          <div>🏢 {lecture.room}</div>
+                          <div>📚 Semester {lecture.semester}</div>
+                        </div>
+                        
+                        {lecture.description && (
+                          <p className="text-xs text-muted-foreground bg-background p-2 rounded">
+                            {lecture.description}
+                          </p>
+                        )}
+                      </div>
+                    </Card>
+                  ))
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+          </div>
+        </TabsContent>
+      </Tabs>
 
       {/* Lecture Form Dialog */}
       <Dialog open={isLectureFormOpen} onOpenChange={setIsLectureFormOpen}>
@@ -810,6 +797,6 @@ export function ClassBasedScheduleManager({
           </form>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }
