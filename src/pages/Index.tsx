@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
-import { FullScheduleGrid } from "@/components/FullScheduleGrid";
 import { ScheduleForm } from "@/components/ScheduleForm";
 import { ActivityTypeManager } from "@/components/ActivityTypeManager";
 import { SemesterFilter } from "@/components/SemesterFilter";
@@ -515,16 +514,7 @@ const Index = () => {
           onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
         />
         
-        {/* Full Schedule Grid */}
-        <FullScheduleGrid
-          scheduleItems={filteredScheduleItems}
-          activityTypes={activityTypes}
-          studentClasses={studentClasses}
-          onEditItem={handleEditItem}
-          onAddItem={handleAddItem}
-        />
-        
-        {/* Class Schedule Table - Displayed directly on page */}
+        {/* Class Schedule Table - Main schedule display */}
         <ClassScheduleTable
           studentClasses={studentClasses}
           activityTypes={activityTypes}
