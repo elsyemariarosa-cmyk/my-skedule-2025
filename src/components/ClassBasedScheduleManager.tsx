@@ -8,7 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Edit, Trash2, Clock, BookOpen, Users, Calendar } from "lucide-react";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Plus, Edit, Trash2, Clock, BookOpen, Users, Calendar, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import { ActivityTypeConfig, DAY_LABELS, DAY_TIME_SLOTS } from "@/types/schedule";
 import { StudentClass } from "@/types/student-class";
 import { useToast } from "@/hooks/use-toast";
@@ -19,6 +23,7 @@ interface ClassLecture {
   courseName: string; // Nama mata kuliah
   activityType: string;
   day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+  date: string; // Format: YYYY-MM-DD
   startTime: string;
   endTime: string;
   instructor: string;
@@ -81,6 +86,7 @@ export function ClassBasedScheduleManager({
     courseName: '',
     activityType: '',
     day: 'monday' as 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday',
+    date: '',
     startTime: '',
     endTime: '',
     instructor: '',
@@ -89,6 +95,7 @@ export function ClassBasedScheduleManager({
     semester: 1 as 1 | 2 | 3 | 4,
     credits: 2
   });
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const { toast } = useToast();
 
@@ -142,6 +149,7 @@ export function ClassBasedScheduleManager({
           courseName: course,
           activityType: 'perkuliahan-offline',
           day: days[index % 5],
+          date: '2024-12-20', // Default sample date
           startTime: '08:00',
           endTime: '09:40',
           instructor: `Dr. Dosen ${index + 1}, M.Kes`,
@@ -167,10 +175,12 @@ export function ClassBasedScheduleManager({
   const handleAddLecture = (classId: string) => {
     setSelectedClassId(classId);
     setEditingLecture(null);
+    setSelectedDate(undefined);
     setLectureFormData({
       courseName: '',
       activityType: '',
       day: 'monday' as 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday',
+      date: '',
       startTime: '',
       endTime: '',
       instructor: '',
@@ -184,10 +194,12 @@ export function ClassBasedScheduleManager({
 
   const handleEditLecture = (lecture: ClassLecture) => {
     setEditingLecture(lecture);
+    setSelectedDate(lecture.date ? new Date(lecture.date) : undefined);
     setLectureFormData({
       courseName: lecture.courseName,
       activityType: lecture.activityType,
       day: lecture.day,
+      date: lecture.date,
       startTime: lecture.startTime,
       endTime: lecture.endTime,
       instructor: lecture.instructor,
@@ -214,6 +226,9 @@ export function ClassBasedScheduleManager({
   const handleSubmitLectureForm = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Use selected date from date picker if available, otherwise use form date
+    const finalDate = selectedDate ? selectedDate.toISOString().split('T')[0] : lectureFormData.date;
+    
     if (editingLecture) {
       // Update existing lecture
       setClassLectures(prev => prev.map(l => 
@@ -221,6 +236,7 @@ export function ClassBasedScheduleManager({
           ? { 
               ...l, 
               ...lectureFormData,
+              date: finalDate,
               updatedAt: new Date().toISOString()
             }
           : l
@@ -236,6 +252,7 @@ export function ClassBasedScheduleManager({
         id: Date.now().toString(),
         classId: selectedClassId,
         ...lectureFormData,
+        date: finalDate,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
@@ -249,6 +266,7 @@ export function ClassBasedScheduleManager({
     }
     
     setIsLectureFormOpen(false);
+    setSelectedDate(undefined);
   };
 
   const getClassLectures = (classId: string) => {
@@ -717,6 +735,33 @@ export function ClassBasedScheduleManager({
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="date">Tanggal Perkuliahan *</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !selectedDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {selectedDate ? format(selectedDate, "PPP") : <span>Pilih tanggal</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarComponent
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    initialFocus
+                    className={cn("p-3 pointer-events-auto")}
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
