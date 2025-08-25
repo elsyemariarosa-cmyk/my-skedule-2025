@@ -335,12 +335,24 @@ export function WeeklyScheduleTable({
   };
 
   const getEntryForSlot = (classId: string, day: 'friday' | 'saturday', timeSlot: string) => {
-    return scheduleEntries.find(e => 
+    const found = scheduleEntries.find(e => 
       e.classId === classId && 
       e.day === day && 
       e.timeSlot === timeSlot &&
       e.semester === selectedSemester
     );
+    
+    console.log('Saturday Debug:', {
+      day,
+      timeSlot,
+      classId,
+      selectedSemester,
+      found,
+      allSaturdayEntries: scheduleEntries.filter(e => e.day === 'saturday'),
+      SATURDAY_TIME_SLOTS
+    });
+    
+    return found;
   };
 
   const createScheduleTable = (selectedClass: StudentClass) => {
