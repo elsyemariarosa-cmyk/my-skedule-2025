@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,10 +7,13 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Edit, Trash2, BookOpen } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Plus, Edit, Trash2, BookOpen, CalendarIcon } from "lucide-react";
 import { ActivityTypeConfig } from "@/types/schedule";
 import { StudentClass } from "@/types/student-class";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 interface ScheduleEntry {
   id: string;
@@ -54,6 +58,7 @@ export function WeeklyScheduleTable({
   const [scheduleEntries, setScheduleEntries] = useState<ScheduleEntry[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<ScheduleEntry | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>();
   const [formData, setFormData] = useState({
     courseName: '',
     instructor: '',
@@ -89,12 +94,14 @@ export function WeeklyScheduleTable({
 
   const handleAddEntry = (classId: string, day: 'friday' | 'saturday', timeSlot: string) => {
     setEditingEntry(null);
+    const defaultDate = new Date();
+    setSelectedDate(defaultDate);
     setFormData({
       courseName: '',
       instructor: '',
       day,
       timeSlot,
-      date: day === 'friday' ? '29 Agustus 2025' : '30 Agustus 2025',
+      date: format(defaultDate, 'dd MMMM yyyy'),
       activityType: Object.keys(activityTypes)[0] || '',
       room: '',
       description: '',
@@ -105,6 +112,9 @@ export function WeeklyScheduleTable({
 
   const handleEditEntry = (entry: ScheduleEntry) => {
     setEditingEntry(entry);
+    // Parse the existing date string to a Date object
+    const parsedDate = new Date(entry.date);
+    setSelectedDate(parsedDate);
     setFormData({
       courseName: entry.courseName,
       instructor: entry.instructor,
@@ -457,11 +467,34 @@ export function WeeklyScheduleTable({
               </div>
               <div>
                 <Label htmlFor="date">Tanggal</Label>
-                <Input
-                  id="date"
-                  value={formData.date}
-                  onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !selectedDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {selectedDate ? format(selectedDate, "dd MMMM yyyy") : <span>Pilih tanggal</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => {
+                        setSelectedDate(date);
+                        if (date) {
+                          setFormData(prev => ({ ...prev, date: format(date, "dd MMMM yyyy") }));
+                        }
+                      }}
+                      initialFocus
+                      className={cn("p-3 pointer-events-auto")}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
 
