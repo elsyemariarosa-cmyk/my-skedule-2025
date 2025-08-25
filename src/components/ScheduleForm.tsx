@@ -361,7 +361,7 @@ export function ScheduleForm({
           {/* Student Classes Section */}
           <div className="space-y-3">
             <Label>Kelas Mahasiswa</Label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-60 overflow-y-auto">
               {studentClasses.filter(c => c.isActive).map((studentClass) => (
                 <div key={studentClass.id} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50">
                   <Checkbox
@@ -378,13 +378,14 @@ export function ScheduleForm({
                   />
                   <Label
                     htmlFor={`class-${studentClass.id}`}
-                    className="flex items-center gap-2 cursor-pointer"
+                    className="flex items-center gap-2 cursor-pointer flex-1 min-w-0"
                   >
                     <Badge className={getClassTypeColor(studentClass.type)}>
                       {studentClass.code}
                     </Badge>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium">{studentClass.name}</span>
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm font-medium truncate">{studentClass.name}</span>
+                      <span className="text-xs text-muted-foreground">Angkatan: {studentClass.academicYearBatch}</span>
                       {studentClass.currentCapacity && studentClass.maxCapacity && (
                         <span className="text-xs text-muted-foreground">
                           {studentClass.currentCapacity}/{studentClass.maxCapacity} mahasiswa
@@ -398,6 +399,11 @@ export function ScheduleForm({
             {studentClasses.filter(c => c.isActive).length === 0 && (
               <p className="text-sm text-muted-foreground">
                 Belum ada kelas mahasiswa aktif. Tambahkan kelas di menu "Kelola Kelas Mahasiswa".
+              </p>
+            )}
+            {studentClasses.filter(c => c.isActive).length > 6 && (
+              <p className="text-xs text-muted-foreground">
+                Menampilkan {studentClasses.filter(c => c.isActive).length} kelas. Scroll untuk melihat semua kelas.
               </p>
             )}
           </div>
