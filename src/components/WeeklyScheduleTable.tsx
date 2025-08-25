@@ -367,40 +367,34 @@ export function WeeklyScheduleTable({
     );
   };
 
+  if (!isOpen) return null;
+
   return (
     <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[95vw] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <BookOpen className="w-6 h-6" />
-              Jadwal Perkuliahan Mingguan
-            </DialogTitle>
-          </DialogHeader>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            <BookOpen className="w-6 h-6" />
+            Jadwal Perkuliahan Mingguan
+          </h2>
+        </div>
 
-          <Tabs value={selectedTabClass} onValueChange={setSelectedTabClass} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6">
-              {studentClasses.filter(c => c.isActive).map(studentClass => (
-                <TabsTrigger key={studentClass.id} value={studentClass.id} className="text-xs">
-                  {studentClass.code}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            
+        <Tabs value={selectedTabClass} onValueChange={setSelectedTabClass} className="w-full">
+          <TabsList className="grid w-full grid-cols-4 mb-6">
             {studentClasses.filter(c => c.isActive).map(studentClass => (
-              <TabsContent key={studentClass.id} value={studentClass.id} className="mt-6">
-                {createScheduleTable(studentClass)}
-              </TabsContent>
+              <TabsTrigger key={studentClass.id} value={studentClass.id} className="text-xs">
+                {studentClass.code}
+              </TabsTrigger>
             ))}
-          </Tabs>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={onClose}>
-              Tutup
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          </TabsList>
+          
+          {studentClasses.filter(c => c.isActive).map(studentClass => (
+            <TabsContent key={studentClass.id} value={studentClass.id} className="mt-6">
+              {createScheduleTable(studentClass)}
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
 
       {/* Form Dialog */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>

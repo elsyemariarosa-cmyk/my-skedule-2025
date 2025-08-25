@@ -515,6 +515,16 @@ const Index = () => {
           onAcademicYearChange={setSelectedAcademicYear}
           onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
         />
+
+        {/* Main Weekly Schedule Dashboard */}
+        <div className="space-y-6">
+          <WeeklyScheduleTable
+            isOpen={true}
+            onClose={() => {}}
+            studentClasses={studentClasses}
+            activityTypes={activityTypes}
+          />
+        </div>
         
         <ClassBasedScheduleManager
           isOpen={isClassBasedScheduleOpen}
