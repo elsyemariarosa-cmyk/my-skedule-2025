@@ -26,7 +26,7 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
             </div>
             <div>
               <h1 className="text-3xl font-bold tracking-tight">
-                My-Skedule Prodi MARS UMY
+                My-Skedul Prodi MARS UMY
               </h1>
               <p className="text-white/90 text-lg">
                 Prodi Magister Administrasi Rumah Sakit
