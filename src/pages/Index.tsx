@@ -514,13 +514,13 @@ const Index = () => {
           onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
         />
         
-        <div className="space-y-6">
-          <ClassBasedScheduleManager
-            studentClasses={studentClasses}
-            activityTypes={activityTypes}
-            onUpdateStudentClasses={handleUpdateStudentClasses}
-          />
-        </div>
+        <ClassBasedScheduleManager
+          isOpen={isClassBasedScheduleOpen}
+          onClose={() => setIsClassBasedScheduleOpen(false)}
+          studentClasses={studentClasses}
+          activityTypes={activityTypes}
+          onUpdateStudentClasses={handleUpdateStudentClasses}
+        />
         
         <ScheduleForm
           isOpen={isFormOpen}
