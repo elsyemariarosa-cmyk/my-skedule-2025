@@ -317,7 +317,27 @@ export function ClassBasedScheduleManager({
                   )}
                   <td className="border border-gray-400 p-4">
                     <div className="space-y-2">
-                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="flex items-center justify-between">
+                        <div className="font-semibold text-primary">{lecture.courseName}</div>
+                        <div className="flex gap-1">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleEditLecture(lecture)}
+                            className="h-6 w-6 p-0"
+                          >
+                            <Edit className="w-3 h-3" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleDeleteLecture(lecture.id)}
+                            className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      </div>
                       <div className="text-sm text-muted-foreground">{lecture.description || 'Materi Pembelajaran'}</div>
                     </div>
                   </td>
