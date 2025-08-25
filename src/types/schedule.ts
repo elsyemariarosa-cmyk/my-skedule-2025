@@ -143,9 +143,13 @@ export const FRIDAY_TIME_SLOTS: TimeSlot[] = [
 ];
 
 export const SATURDAY_TIME_SLOTS: TimeSlot[] = [
+  { start: "08:00", end: "10:30", label: "08:00 - 10:30" },
   { start: "09:00", end: "11:30", label: "09:00 - 11:30" },
+  { start: "10:40", end: "13:10", label: "10:40 - 13:10" },
   { start: "12:30", end: "15:00", label: "12:30 - 15:00" },
-  { start: "15:30", end: "18:00", label: "15:30 - 18:00" }
+  { start: "13:20", end: "15:50", label: "13:20 - 15:50" },
+  { start: "15:30", end: "18:00", label: "15:30 - 18:00" },
+  { start: "19:00", end: "21:30", label: "19:00 - 21:30" }
 ];
 
 export const SUNDAY_TIME_SLOTS: TimeSlot[] = [
