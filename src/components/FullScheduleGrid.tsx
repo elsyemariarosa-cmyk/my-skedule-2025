@@ -2,7 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Calendar, Clock, MapPin, User } from "lucide-react";
-import { ScheduleItem, DAY_TIME_SLOTS, DAY_LABELS, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
+import { ScheduleItem, DAY_LABELS, ActivityTypeConfig, TimeSlot } from "@/types/schedule";
+import { DAY_TIME_SLOTS } from "@/types/time-slots";
 import { StudentClass } from "@/types/student-class";
 
 type DayKey = keyof typeof DAY_TIME_SLOTS;
