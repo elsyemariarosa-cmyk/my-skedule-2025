@@ -5,12 +5,13 @@ import { ScheduleForm } from "@/components/ScheduleForm";
 import { ActivityTypeManager } from "@/components/ActivityTypeManager";
 import { SemesterFilter } from "@/components/SemesterFilter";
 import { MasterScheduleManager } from "@/components/MasterScheduleManager";
+import { MasterAcademicCalendar } from "@/components/MasterAcademicCalendar";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { MonitoringCalendar } from "@/components/MonitoringCalendar";
 import { UserGuide } from "@/components/UserGuide";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
-import { SemesterType, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
+import { SemesterType, AcademicActivity, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,6 +20,99 @@ const Index = () => {
   const [selectedSemesterType, setSelectedSemesterType] = useState<SemesterType>(getCurrentSemesterType());
   const [selectedAcademicYear, setSelectedAcademicYear] = useState<string>(getCurrentAcademicYear());
   const [isMasterScheduleOpen, setIsMasterScheduleOpen] = useState(false);
+  const [isMasterCalendarOpen, setIsMasterCalendarOpen] = useState(false);
+
+  // Academic activities state
+  const [academicActivities, setAcademicActivities] = useState<AcademicActivity[]>([
+    {
+      id: '1',
+      name: 'Pendaftaran Semester Ganjil',
+      startDate: '2024-08-01',
+      endDate: '2024-08-15',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'ganjil',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '2',
+      name: 'Perkuliahan Semester Ganjil',
+      startDate: '2024-09-01',
+      endDate: '2024-12-31',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'ganjil',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '3',
+      name: 'UTS Semester Ganjil',
+      startDate: '2024-10-15',
+      endDate: '2024-10-25',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'ganjil',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '4',
+      name: 'UAS Semester Ganjil',
+      startDate: '2024-12-15',
+      endDate: '2024-12-30',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'ganjil',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '5',
+      name: 'Pendaftaran Semester Genap',
+      startDate: '2025-01-01',
+      endDate: '2025-01-15',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'genap',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '6',
+      name: 'Perkuliahan Semester Genap',
+      startDate: '2025-02-01',
+      endDate: '2025-06-30',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'genap',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '7',
+      name: 'UTS Semester Genap',
+      startDate: '2025-03-15',
+      endDate: '2025-03-25',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'genap',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '8',
+      name: 'UAS Semester Genap',
+      startDate: '2025-06-15',
+      endDate: '2025-06-30',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'genap',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }
+  ]);
 
   // Load activity types from localStorage or use defaults
   const [activityTypes, setActivityTypes] = useState<Record<string, ActivityTypeConfig>>(() => {
@@ -270,6 +364,7 @@ const Index = () => {
   const [isMonitoringCalendarOpen, setIsMonitoringCalendarOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
+  const [editingActivity, setEditingActivity] = useState<AcademicActivity | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
   
@@ -352,6 +447,16 @@ const Index = () => {
     }
   };
 
+  const handleAddActivity = () => {
+    setEditingActivity(undefined);
+    setIsMasterCalendarOpen(true);
+  };
+
+  const handleEditActivity = (activity: AcademicActivity) => {
+    setEditingActivity(activity);
+    setIsMasterCalendarOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 space-y-8">
@@ -363,6 +468,7 @@ const Index = () => {
           onOpenMonitoringCalendar={() => setIsMonitoringCalendarOpen(true)}
           onOpenUserGuide={() => setIsUserGuideOpen(true)}
           onActivityTypeClick={handleActivityTypeClick}
+          onOpenMasterCalendar={() => setIsMasterCalendarOpen(true)}
         />
         
         <SemesterFilter
@@ -439,6 +545,30 @@ const Index = () => {
           isOpen={isMasterScheduleOpen}
           onClose={() => setIsMasterScheduleOpen(false)}
         />
+
+        {/* Master Academic Calendar */}
+        {isMasterCalendarOpen && (
+          <div className="fixed inset-0 z-50 bg-background">
+            <div className="container mx-auto px-4 py-8 h-full overflow-y-auto">
+              <MasterAcademicCalendar
+                activities={academicActivities}
+                onAddActivity={handleAddActivity}
+                onEditActivity={handleEditActivity}
+                selectedAcademicYear={selectedAcademicYear}
+                onAcademicYearChange={setSelectedAcademicYear}
+              />
+              <div className="fixed top-4 right-4">
+                <button
+                  onClick={() => setIsMasterCalendarOpen(false)}
+                  className="bg-background border border-border rounded-lg p-2 shadow-lg hover:bg-accent"
+                  aria-label="Tutup kalender akademik"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

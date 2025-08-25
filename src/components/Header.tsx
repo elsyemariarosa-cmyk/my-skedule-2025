@@ -11,10 +11,11 @@ interface HeaderProps {
   onOpenMonitoring: () => void;
   onOpenMonitoringCalendar: () => void;
   onOpenUserGuide: () => void;
+  onOpenMasterCalendar: () => void;
   onActivityTypeClick: (activityType: string) => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenMonitoringCalendar, onOpenUserGuide, onActivityTypeClick }: HeaderProps) {
+export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenMonitoringCalendar, onOpenUserGuide, onOpenMasterCalendar, onActivityTypeClick }: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -126,6 +127,16 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
           >
             <CalendarDays className="w-4 h-4 mr-2" />
             Kalender Monitoring
+          </Button>
+
+          <Button
+            onClick={onOpenMasterCalendar}
+            variant="outline"
+            size="sm"
+            className="hover:bg-primary/10 hover:border-primary"
+          >
+            <Calendar className="w-4 h-4 mr-2" />
+            Master Kalender Akademik
           </Button>
         </div>
         </div>
