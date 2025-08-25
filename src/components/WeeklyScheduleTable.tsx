@@ -136,8 +136,112 @@ const CLASS_COLORS = {
   },
 };
 
-const getClassColors = (classCode: string) => {
-  return CLASS_COLORS[classCode as keyof typeof CLASS_COLORS] || CLASS_COLORS['Reg-A1'];
+const getClassColors = (classCode: string, semester?: 1 | 2 | 3 | 4) => {
+  const baseColors = CLASS_COLORS[classCode as keyof typeof CLASS_COLORS] || CLASS_COLORS['Reg-A1'];
+  
+  // For Semester 3, use darker variations of the same colors
+  if (semester === 3) {
+    if (classCode === 'Reg-A1') {
+      return {
+        header: 'bg-blue-800 text-white',
+        content: 'bg-blue-100 border-blue-300',
+        text: 'text-blue-900',
+        tab: 'data-[state=active]:bg-blue-800 data-[state=active]:text-white',
+        accent: 'bg-blue-200'
+      };
+    } else if (classCode === 'Reg-B1') {
+      return {
+        header: 'bg-green-800 text-white',
+        content: 'bg-green-100 border-green-300',
+        text: 'text-green-900',
+        tab: 'data-[state=active]:bg-green-800 data-[state=active]:text-white',
+        accent: 'bg-green-200'
+      };
+    } else if (classCode === 'Reg-C1') {
+      return {
+        header: 'bg-purple-800 text-white',
+        content: 'bg-purple-100 border-purple-300',
+        text: 'text-purple-900',
+        tab: 'data-[state=active]:bg-purple-800 data-[state=active]:text-white',
+        accent: 'bg-purple-200'
+      };
+    } else if (classCode === 'Reg-D1') {
+      return {
+        header: 'bg-orange-800 text-white',
+        content: 'bg-orange-100 border-orange-300',
+        text: 'text-orange-900',
+        tab: 'data-[state=active]:bg-orange-800 data-[state=active]:text-white',
+        accent: 'bg-orange-200'
+      };
+    } else if (classCode === 'Reg-E1') {
+      return {
+        header: 'bg-red-800 text-white',
+        content: 'bg-red-100 border-red-300',
+        text: 'text-red-900',
+        tab: 'data-[state=active]:bg-red-800 data-[state=active]:text-white',
+        accent: 'bg-red-200'
+      };
+    } else if (classCode === 'Reg-F1') {
+      return {
+        header: 'bg-indigo-800 text-white',
+        content: 'bg-indigo-100 border-indigo-300',
+        text: 'text-indigo-900',
+        tab: 'data-[state=active]:bg-indigo-800 data-[state=active]:text-white',
+        accent: 'bg-indigo-200'
+      };
+    } else if (classCode === 'Reg-G1') {
+      return {
+        header: 'bg-pink-800 text-white',
+        content: 'bg-pink-100 border-pink-300',
+        text: 'text-pink-900',
+        tab: 'data-[state=active]:bg-pink-800 data-[state=active]:text-white',
+        accent: 'bg-pink-200'
+      };
+    } else if (classCode === 'Reg-H1') {
+      return {
+        header: 'bg-teal-800 text-white',
+        content: 'bg-teal-100 border-teal-300',
+        text: 'text-teal-900',
+        tab: 'data-[state=active]:bg-teal-800 data-[state=active]:text-white',
+        accent: 'bg-teal-200'
+      };
+    } else if (classCode === 'RPL-1') {
+      return {
+        header: 'bg-emerald-800 text-white',
+        content: 'bg-emerald-100 border-emerald-300',
+        text: 'text-emerald-900',
+        tab: 'data-[state=active]:bg-emerald-800 data-[state=active]:text-white',
+        accent: 'bg-emerald-200'
+      };
+    } else if (classCode === 'RPL-2') {
+      return {
+        header: 'bg-cyan-800 text-white',
+        content: 'bg-cyan-100 border-cyan-300',
+        text: 'text-cyan-900',
+        tab: 'data-[state=active]:bg-cyan-800 data-[state=active]:text-white',
+        accent: 'bg-cyan-200'
+      };
+    } else if (classCode === 'KARY-A') {
+      return {
+        header: 'bg-amber-800 text-white',
+        content: 'bg-amber-100 border-amber-300',
+        text: 'text-amber-900',
+        tab: 'data-[state=active]:bg-amber-800 data-[state=active]:text-white',
+        accent: 'bg-amber-200'
+      };
+    } else if (classCode === 'RPL-3') {
+      return {
+        header: 'bg-violet-800 text-white',
+        content: 'bg-violet-100 border-violet-300',
+        text: 'text-violet-900',
+        tab: 'data-[state=active]:bg-violet-800 data-[state=active]:text-white',
+        accent: 'bg-violet-200'
+      };
+    }
+  }
+  
+  // For Semester 1 and other semesters, use the original lighter colors
+  return baseColors;
 };
 
 export function WeeklyScheduleTable({
@@ -352,7 +456,7 @@ export function WeeklyScheduleTable({
   };
 
   const createScheduleTable = (selectedClass: StudentClass, semester: 1 | 2 | 3 | 4, title: string) => {
-    const colors = getClassColors(selectedClass.code);
+    const colors = getClassColors(selectedClass.code, semester);
     
     // Calculate dates for current week
     const getWeekDates = (weekOffset: number = 0) => {
