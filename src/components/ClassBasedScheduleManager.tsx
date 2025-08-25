@@ -389,9 +389,9 @@ export function ClassBasedScheduleManager({
               </tr>
               <tr>
                 <td className="border border-gray-400 p-2 bg-muted font-semibold text-center">Waktu</td>
-                <td className="border border-gray-400 p-2 text-center font-medium">09.00-11.30</td>
-                <td className="border border-gray-400 p-2 text-center font-medium">12.30-15.00</td>
-                <td className="border border-gray-400 p-2 text-center font-medium">15.30-18.00</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">09:00-11:30</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">12:30-15:00</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">15:30-18:00</td>
               </tr>
               {saturdayLectures.slice(0, 3).map((lecture, index) => (
                 <tr key={`saturday-${index}`}>
