@@ -479,7 +479,7 @@ export function WeeklyScheduleTable({
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <BookOpen className="w-6 h-6" />
-            Jadwal Perkuliahan Mingguan
+            Jadwal Perkuliahan Per Kelas
           </h2>
         </div>
 
