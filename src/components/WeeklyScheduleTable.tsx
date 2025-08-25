@@ -301,20 +301,6 @@ export function WeeklyScheduleTable({
   };
 
   const getEntryForSlot = (classId: string, day: 'friday' | 'saturday', timeSlot: string) => {
-    console.log('Debug - getEntryForSlot called with:', {
-      classId,
-      day,
-      timeSlot,
-      selectedSemester,
-      allEntries: scheduleEntries,
-      matchingEntries: scheduleEntries.filter(e => 
-        e.classId === classId && 
-        e.day === day && 
-        e.timeSlot === timeSlot &&
-        e.semester === selectedSemester
-      )
-    });
-    
     return scheduleEntries.find(e => 
       e.classId === classId && 
       e.day === day && 
@@ -419,18 +405,24 @@ export function WeeklyScheduleTable({
                 <th className={`border border-black p-2 font-bold text-center w-20 ${colors.header}`}>
                   Waktu
                 </th>
-                {TIME_SLOTS.map((slot, index) => (
-                  <th key={`friday-${index}`} className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
-                    <div className="mb-2">Jumat, {weekDates.friday}</div>
-                    <div className="text-sm opacity-90">{slot.label}</div>
-                  </th>
-                ))}
+                <th className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
+                  <div className="mb-2">Jumat, {weekDates.friday}</div>
+                  <div className="text-sm opacity-90">13.00-15.00</div>
+                </th>
+                <th className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
+                  <div className="mb-2">Jumat, {weekDates.friday}</div>
+                  <div className="text-sm opacity-90">15.30-18.00</div>
+                </th>
+                <th className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
+                  <div className="mb-2">Jumat, {weekDates.friday}</div>
+                  <div className="text-sm opacity-90">19.00-21.30</div>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className={`border border-black p-2 font-bold text-center align-top ${colors.accent}`} rowSpan={2}>
-                  Hari/Tgl
+                <td className={`border border-black p-2 font-bold text-center align-top ${colors.accent}`}>
+                  Jumat
                 </td>
                 <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
                   Waktu
@@ -509,82 +501,239 @@ export function WeeklyScheduleTable({
               {/* Saturday Row */}
               <tr>
                 <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
+                  Sabtu
+                </td>
+                <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
                   Waktu
                 </td>
-                {SATURDAY_TIME_SLOTS.map((slot, index) => {
-                  const entry = getEntryForSlot(selectedClass.id, 'saturday', slot.time);
-                  return (
-                    <td key={`saturday-content-${index}`} className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md ${entry ? colors.content : 'bg-white hover:bg-gray-50'}`}>
-                      <div className="mb-1">
-                        <div className="font-bold text-sm">Sabtu, {weekDates.saturday}</div>
-                        <div className="text-sm mb-2">{slot.label}</div>
-                      </div>
-                      
-                      <div className="mb-2">
-                        <div className="font-bold text-sm">Mata Kuliah:</div>
-                        {entry ? (
-                          <div className={`text-sm font-medium ${colors.text}`}>
-                            {entry.courseName}
-                          </div>
-                        ) : (
-                          <div className="h-6"></div>
-                        )}
-                      </div>
-                      
-                      <div className="mb-2">
-                        {entry && entry.description && (
-                          <div className="text-xs text-gray-600 mb-2">
-                            {entry.description}
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div>
-                        <div className="font-bold text-sm">Nama Dosen:</div>
-                        {entry ? (
-                          <div className="text-sm">
-                            {entry.instructor}
-                          </div>
-                        ) : (
-                          <div className="h-6"></div>
-                        )}
-                      </div>
-                      
-                      {/* Action buttons */}
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {entry ? (
-                          <div className="flex gap-1">
+                <td className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md bg-white hover:bg-gray-50`}>
+                  <div className="mb-1">
+                    <div className="font-bold text-sm">Sabtu, {weekDates.saturday}</div>
+                    <div className="text-sm mb-2">09.00-11.30</div>
+                  </div>
+                  
+                  {(() => {
+                    const entry = getEntryForSlot(selectedClass.id, 'saturday', '09.00-11.30');
+                    return (
+                      <>
+                        <div className="mb-2">
+                          <div className="font-bold text-sm">Mata Kuliah:</div>
+                          {entry ? (
+                            <div className={`text-sm font-medium ${colors.text}`}>
+                              {entry.courseName}
+                            </div>
+                          ) : (
+                            <div className="h-6"></div>
+                          )}
+                        </div>
+                        
+                        <div className="mb-2">
+                          {entry && entry.description && (
+                            <div className="text-xs text-gray-600 mb-2">
+                              {entry.description}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div>
+                          <div className="font-bold text-sm">Nama Dosen:</div>
+                          {entry ? (
+                            <div className="text-sm">
+                              {entry.instructor}
+                            </div>
+                          ) : (
+                            <div className="h-6"></div>
+                          )}
+                        </div>
+                        
+                        {/* Action buttons */}
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          {entry ? (
+                            <div className="flex gap-1">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0"
+                                onClick={() => handleEditEntry(entry)}
+                              >
+                                <Edit className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0 text-destructive"
+                                onClick={() => handleDeleteEntry(entry.id)}
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          ) : (
                             <Button
                               size="sm"
                               variant="ghost"
                               className="h-6 w-6 p-0"
-                              onClick={() => handleEditEntry(entry)}
+                              onClick={() => handleAddEntry(selectedClass.id, 'saturday', '09.00-11.30')}
                             >
-                              <Edit className="w-3 h-3" />
+                              <Plus className="w-4 h-4" />
                             </Button>
+                          )}
+                        </div>
+                      </>
+                    );
+                  })()}
+                </td>
+                <td className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md bg-white hover:bg-gray-50`}>
+                  <div className="mb-1">
+                    <div className="font-bold text-sm">Sabtu, {weekDates.saturday}</div>
+                    <div className="text-sm mb-2">12.30-15.00</div>
+                  </div>
+                  
+                  {(() => {
+                    const entry = getEntryForSlot(selectedClass.id, 'saturday', '12.30-15.00');
+                    return (
+                      <>
+                        <div className="mb-2">
+                          <div className="font-bold text-sm">Mata Kuliah:</div>
+                          {entry ? (
+                            <div className={`text-sm font-medium ${colors.text}`}>
+                              {entry.courseName}
+                            </div>
+                          ) : (
+                            <div className="h-6"></div>
+                          )}
+                        </div>
+                        
+                        <div className="mb-2">
+                          {entry && entry.description && (
+                            <div className="text-xs text-gray-600 mb-2">
+                              {entry.description}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div>
+                          <div className="font-bold text-sm">Nama Dosen:</div>
+                          {entry ? (
+                            <div className="text-sm">
+                              {entry.instructor}
+                            </div>
+                          ) : (
+                            <div className="h-6"></div>
+                          )}
+                        </div>
+                        
+                        {/* Action buttons */}
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          {entry ? (
+                            <div className="flex gap-1">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0"
+                                onClick={() => handleEditEntry(entry)}
+                              >
+                                <Edit className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0 text-destructive"
+                                onClick={() => handleDeleteEntry(entry.id)}
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          ) : (
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="h-6 w-6 p-0 text-destructive"
-                              onClick={() => handleDeleteEntry(entry.id)}
+                              className="h-6 w-6 p-0"
+                              onClick={() => handleAddEntry(selectedClass.id, 'saturday', '12.30-15.00')}
                             >
-                              <Trash2 className="w-3 h-3" />
+                              <Plus className="w-4 h-4" />
                             </Button>
-                          </div>
-                        ) : (
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-6 w-6 p-0"
-                            onClick={() => handleAddEntry(selectedClass.id, 'saturday', slot.time)}
-                          >
-                            <Plus className="w-4 h-4" />
-                          </Button>
-                        )}
-                      </div>
-                    </td>
-                  );
-                })}
+                          )}
+                        </div>
+                      </>
+                    );
+                  })()}
+                </td>
+                <td className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md bg-white hover:bg-gray-50`}>
+                  <div className="mb-1">
+                    <div className="font-bold text-sm">Sabtu, {weekDates.saturday}</div>
+                    <div className="text-sm mb-2">15.30-18.00</div>
+                  </div>
+                  
+                  {(() => {
+                    const entry = getEntryForSlot(selectedClass.id, 'saturday', '15.30-18.00');
+                    return (
+                      <>
+                        <div className="mb-2">
+                          <div className="font-bold text-sm">Mata Kuliah:</div>
+                          {entry ? (
+                            <div className={`text-sm font-medium ${colors.text}`}>
+                              {entry.courseName}
+                            </div>
+                          ) : (
+                            <div className="h-6"></div>
+                          )}
+                        </div>
+                        
+                        <div className="mb-2">
+                          {entry && entry.description && (
+                            <div className="text-xs text-gray-600 mb-2">
+                              {entry.description}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div>
+                          <div className="font-bold text-sm">Nama Dosen:</div>
+                          {entry ? (
+                            <div className="text-sm">
+                              {entry.instructor}
+                            </div>
+                          ) : (
+                            <div className="h-6"></div>
+                          )}
+                        </div>
+                        
+                        {/* Action buttons */}
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          {entry ? (
+                            <div className="flex gap-1">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0"
+                                onClick={() => handleEditEntry(entry)}
+                              >
+                                <Edit className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0 text-destructive"
+                                onClick={() => handleDeleteEntry(entry.id)}
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          ) : (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-6 w-6 p-0"
+                              onClick={() => handleAddEntry(selectedClass.id, 'saturday', '15.30-18.00')}
+                            >
+                              <Plus className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </>
+                    );
+                  })()}
+                </td>
               </tr>
             </tbody>
           </table>
