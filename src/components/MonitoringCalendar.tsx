@@ -36,10 +36,19 @@ const generateSampleExecutions = (scheduleItems: ScheduleItem[]): ScheduleExecut
     const monthEnd = endOfMonth(today);
     const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
     
-    // Find matching days (Friday/Saturday) in the month
+    // Find matching days for all days of the week in the month
     const matchingDays = daysInMonth.filter(date => {
       const dayName = format(date, 'EEEE').toLowerCase();
-      return dayName === item.day;
+      const dayMapping = {
+        'monday': 'monday',
+        'tuesday': 'tuesday', 
+        'wednesday': 'wednesday',
+        'thursday': 'thursday',
+        'friday': 'friday',
+        'saturday': 'saturday',
+        'sunday': 'sunday'
+      };
+      return dayMapping[dayName as keyof typeof dayMapping] === item.day;
     });
     
     matchingDays.forEach((date, index) => {

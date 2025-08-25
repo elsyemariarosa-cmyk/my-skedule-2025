@@ -41,7 +41,7 @@ interface ScheduleFormProps {
   activityTypes: Record<string, ActivityTypeConfig>;
   studentClasses: StudentClass[];
   editItem?: ScheduleItem;
-  preselectedDay?: 'friday' | 'saturday';
+  preselectedDay?: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
   preselectedTimeSlot?: TimeSlot;
 }
 
@@ -151,13 +151,18 @@ export function ScheduleForm({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="day">Hari *</Label>
-              <Select value={formData.day} onValueChange={(value: 'friday' | 'saturday') => updateField('day', value)}>
+              <Select value={formData.day} onValueChange={(value: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday') => updateField('day', value)}>
                 <SelectTrigger className="focus:ring-primary">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="friday">Jumat (13:00-21:00)</SelectItem>
-                  <SelectItem value="saturday">Sabtu (08:00-18:00)</SelectItem>
+                  <SelectItem value="monday">Senin</SelectItem>
+                  <SelectItem value="tuesday">Selasa</SelectItem>
+                  <SelectItem value="wednesday">Rabu</SelectItem>
+                  <SelectItem value="thursday">Kamis</SelectItem>
+                  <SelectItem value="friday">Jumat</SelectItem>
+                  <SelectItem value="saturday">Sabtu</SelectItem>
+                  <SelectItem value="sunday">Minggu</SelectItem>
                 </SelectContent>
               </Select>
             </div>

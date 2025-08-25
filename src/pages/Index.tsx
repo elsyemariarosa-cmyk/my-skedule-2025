@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
-import { ScheduleGrid } from "@/components/ScheduleGrid";
+import { FullScheduleGrid } from "@/components/FullScheduleGrid";
 import { ScheduleForm } from "@/components/ScheduleForm";
 import { ActivityTypeManager } from "@/components/ActivityTypeManager";
 import { SemesterFilter } from "@/components/SemesterFilter";
@@ -142,7 +142,7 @@ const Index = () => {
   const [isMonitoringCalendarOpen, setIsMonitoringCalendarOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
-  const [preselectedDay, setPreselectedDay] = useState<'friday' | 'saturday' | undefined>();
+  const [preselectedDay, setPreselectedDay] = useState<'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' | undefined>();
   const [preselectedTimeSlot, setPreselectedTimeSlot] = useState<TimeSlot | undefined>();
   
   const { toast } = useToast();
@@ -163,7 +163,7 @@ const Index = () => {
     localStorage.setItem('mars-student-classes', JSON.stringify(studentClasses));
   }, [studentClasses]);
 
-  const handleAddItem = (day: 'friday' | 'saturday', timeSlot: TimeSlot) => {
+  const handleAddItem = (day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday', timeSlot: TimeSlot) => {
     setPreselectedDay(day);
     setPreselectedTimeSlot(timeSlot);
     setEditingItem(undefined);
@@ -245,7 +245,7 @@ const Index = () => {
           onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
         />
         
-        <ScheduleGrid
+        <FullScheduleGrid
           scheduleItems={filteredScheduleItems}
           activityTypes={activityTypes}
           studentClasses={studentClasses}

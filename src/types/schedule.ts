@@ -5,7 +5,7 @@ export interface ScheduleItem {
   id: string;
   title: string;
   type: ActivityType;
-  day: 'friday' | 'saturday';
+  day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
   startTime: string; // Format: "HH:mm"
   endTime: string;   // Format: "HH:mm"
   semester: 1 | 2 | 3 | 4;
@@ -132,18 +132,80 @@ export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
   }
 };
 
-// Time slots for Friday (13:00 - 21:00) and Saturday (08:00 - 18:00)
+// Predefined time slots for all days of the week
+export const MONDAY_TIME_SLOTS: TimeSlot[] = [
+  { start: "08:00", end: "09:40", label: "08:00 - 09:40" },
+  { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
+  { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
+  { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+];
+
+export const TUESDAY_TIME_SLOTS: TimeSlot[] = [
+  { start: "08:00", end: "09:40", label: "08:00 - 09:40" },
+  { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
+  { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
+  { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+];
+
+export const WEDNESDAY_TIME_SLOTS: TimeSlot[] = [
+  { start: "08:00", end: "09:40", label: "08:00 - 09:40" },
+  { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
+  { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
+  { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+];
+
+export const THURSDAY_TIME_SLOTS: TimeSlot[] = [
+  { start: "08:00", end: "09:40", label: "08:00 - 09:40" },
+  { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
+  { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
+  { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+];
+
 export const FRIDAY_TIME_SLOTS: TimeSlot[] = [
-  { start: '13:00', end: '15:00', label: '13:00 - 15:00' },
-  { start: '15:00', end: '17:00', label: '15:00 - 17:00' },
-  { start: '17:00', end: '19:00', label: '17:00 - 19:00' },
-  { start: '19:00', end: '21:00', label: '19:00 - 21:00' }
+  { start: "13:00", end: "14:40", label: "13:00 - 14:40" },
+  { start: "14:50", end: "16:30", label: "14:50 - 16:30" },
+  { start: "16:40", end: "18:20", label: "16:40 - 18:20" },
+  { start: "19:00", end: "20:40", label: "19:00 - 20:40" }
 ];
 
 export const SATURDAY_TIME_SLOTS: TimeSlot[] = [
-  { start: '08:00', end: '10:00', label: '08:00 - 10:00' },
-  { start: '10:00', end: '12:00', label: '10:00 - 12:00' },
-  { start: '12:00', end: '14:00', label: '12:00 - 14:00' },
-  { start: '14:00', end: '16:00', label: '14:00 - 16:00' },
-  { start: '16:00', end: '18:00', label: '16:00 - 18:00' }
+  { start: "08:00", end: "09:40", label: "08:00 - 09:40" },
+  { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
+  { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
+  { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
 ];
+
+export const SUNDAY_TIME_SLOTS: TimeSlot[] = [
+  { start: "08:00", end: "09:40", label: "08:00 - 09:40" },
+  { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
+  { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
+  { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+];
+
+// Map days to their time slots
+export const DAY_TIME_SLOTS = {
+  monday: MONDAY_TIME_SLOTS,
+  tuesday: TUESDAY_TIME_SLOTS,
+  wednesday: WEDNESDAY_TIME_SLOTS,
+  thursday: THURSDAY_TIME_SLOTS,
+  friday: FRIDAY_TIME_SLOTS,
+  saturday: SATURDAY_TIME_SLOTS,
+  sunday: SUNDAY_TIME_SLOTS
+} as const;
+
+// Day labels in Indonesian
+export const DAY_LABELS = {
+  monday: 'Senin',
+  tuesday: 'Selasa', 
+  wednesday: 'Rabu',
+  thursday: 'Kamis',
+  friday: 'Jumat',
+  saturday: 'Sabtu',
+  sunday: 'Minggu'
+} as const;
