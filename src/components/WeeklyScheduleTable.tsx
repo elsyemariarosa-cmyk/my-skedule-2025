@@ -48,91 +48,91 @@ const SATURDAY_TIME_SLOTS = [
   { time: '15.30-18.00', label: '15.30-18.00' }
 ];
 
-// Color schemes for different classes
+// Color schemes for different classes using design system tokens
 const CLASS_COLORS = {
   'Reg-A1': {
-    header: 'bg-blue-500 text-white',
-    content: 'bg-blue-50 border-blue-200',
-    text: 'text-blue-800',
-    tab: 'data-[state=active]:bg-blue-500 data-[state=active]:text-white',
-    accent: 'bg-blue-100'
+    header: 'bg-primary text-primary-foreground',
+    content: 'bg-primary/5 border-primary/20',
+    text: 'text-primary',
+    tab: 'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground',
+    accent: 'bg-primary/10'
   },
   'Reg-B1': {
-    header: 'bg-green-500 text-white',
-    content: 'bg-green-50 border-green-200', 
-    text: 'text-green-800',
-    tab: 'data-[state=active]:bg-green-500 data-[state=active]:text-white',
-    accent: 'bg-green-100'
+    header: 'bg-maroon-600 text-white',
+    content: 'bg-maroon-50 border-maroon-200', 
+    text: 'text-maroon-800',
+    tab: 'data-[state=active]:bg-maroon-600 data-[state=active]:text-white',
+    accent: 'bg-maroon-100'
   },
   'Reg-C1': {
-    header: 'bg-purple-500 text-white',
-    content: 'bg-purple-50 border-purple-200',
-    text: 'text-purple-800', 
-    tab: 'data-[state=active]:bg-purple-500 data-[state=active]:text-white',
-    accent: 'bg-purple-100'
+    header: 'bg-maroon-700 text-white',
+    content: 'bg-maroon-50 border-maroon-300',
+    text: 'text-maroon-900', 
+    tab: 'data-[state=active]:bg-maroon-700 data-[state=active]:text-white',
+    accent: 'bg-maroon-200'
   },
   'Reg-D1': {
-    header: 'bg-orange-500 text-white',
-    content: 'bg-orange-50 border-orange-200',
-    text: 'text-orange-800',
-    tab: 'data-[state=active]:bg-orange-500 data-[state=active]:text-white', 
-    accent: 'bg-orange-100'
+    header: 'bg-maroon-800 text-white',
+    content: 'bg-maroon-100 border-maroon-300',
+    text: 'text-maroon-900',
+    tab: 'data-[state=active]:bg-maroon-800 data-[state=active]:text-white', 
+    accent: 'bg-maroon-200'
   },
   'Reg-E1': {
-    header: 'bg-red-500 text-white',
-    content: 'bg-red-50 border-red-200',
-    text: 'text-red-800',
-    tab: 'data-[state=active]:bg-red-500 data-[state=active]:text-white',
-    accent: 'bg-red-100'
+    header: 'bg-maroon-900 text-white',
+    content: 'bg-maroon-100 border-maroon-300',
+    text: 'text-maroon-900',
+    tab: 'data-[state=active]:bg-maroon-900 data-[state=active]:text-white',
+    accent: 'bg-maroon-200'
   },
   'Reg-F1': {
-    header: 'bg-indigo-500 text-white',
-    content: 'bg-indigo-50 border-indigo-200',
-    text: 'text-indigo-800',
-    tab: 'data-[state=active]:bg-indigo-500 data-[state=active]:text-white',
-    accent: 'bg-indigo-100'
+    header: 'bg-accent text-accent-foreground',
+    content: 'bg-accent/5 border-accent/20',
+    text: 'text-accent',
+    tab: 'data-[state=active]:bg-accent data-[state=active]:text-accent-foreground',
+    accent: 'bg-accent/10'
   },
   'Reg-G1': {
-    header: 'bg-pink-500 text-white',
-    content: 'bg-pink-50 border-pink-200',
-    text: 'text-pink-800',
-    tab: 'data-[state=active]:bg-pink-500 data-[state=active]:text-white',
-    accent: 'bg-pink-100'
+    header: 'bg-medical text-medical-foreground',
+    content: 'bg-medical-light border-medical/20',
+    text: 'text-medical',
+    tab: 'data-[state=active]:bg-medical data-[state=active]:text-medical-foreground',
+    accent: 'bg-medical/10'
   },
   'Reg-H1': {
-    header: 'bg-teal-500 text-white',
-    content: 'bg-teal-50 border-teal-200',
-    text: 'text-teal-800',
-    tab: 'data-[state=active]:bg-teal-500 data-[state=active]:text-white',
-    accent: 'bg-teal-100'
+    header: 'bg-academic text-academic-foreground',
+    content: 'bg-academic-light border-academic/20',
+    text: 'text-academic',
+    tab: 'data-[state=active]:bg-academic data-[state=active]:text-academic-foreground',
+    accent: 'bg-academic/10'
   },
   'RPL-1': {
-    header: 'bg-emerald-600 text-white',
-    content: 'bg-emerald-50 border-emerald-200',
-    text: 'text-emerald-800',
-    tab: 'data-[state=active]:bg-emerald-600 data-[state=active]:text-white',
-    accent: 'bg-emerald-100'
+    header: 'bg-primary-glow text-white',
+    content: 'bg-primary/5 border-primary-glow/30',
+    text: 'text-primary',
+    tab: 'data-[state=active]:bg-primary-glow data-[state=active]:text-white',
+    accent: 'bg-primary/10'
   },
   'RPL-2': {
-    header: 'bg-cyan-600 text-white',
-    content: 'bg-cyan-50 border-cyan-200',
-    text: 'text-cyan-800',
-    tab: 'data-[state=active]:bg-cyan-600 data-[state=active]:text-white',
-    accent: 'bg-cyan-100'
+    header: 'bg-maroon-500 text-white',
+    content: 'bg-maroon-100 border-maroon-200',
+    text: 'text-maroon-700',
+    tab: 'data-[state=active]:bg-maroon-500 data-[state=active]:text-white',
+    accent: 'bg-maroon-100'
   },
   'KARY-A': {
-    header: 'bg-amber-600 text-white',
-    content: 'bg-amber-50 border-amber-200',
-    text: 'text-amber-800',
-    tab: 'data-[state=active]:bg-amber-600 data-[state=active]:text-white',
-    accent: 'bg-amber-100'
+    header: 'bg-maroon-400 text-white',
+    content: 'bg-maroon-50 border-maroon-200',
+    text: 'text-maroon-600',
+    tab: 'data-[state=active]:bg-maroon-400 data-[state=active]:text-white',
+    accent: 'bg-maroon-100'
   },
   'RPL-3': {
-    header: 'bg-violet-600 text-white',
-    content: 'bg-violet-50 border-violet-200',
-    text: 'text-violet-800',
-    tab: 'data-[state=active]:bg-violet-600 data-[state=active]:text-white',
-    accent: 'bg-violet-100'
+    header: 'bg-maroon-300 text-maroon-900',
+    content: 'bg-maroon-50 border-maroon-200',
+    text: 'text-maroon-700',
+    tab: 'data-[state=active]:bg-maroon-300 data-[state=active]:text-maroon-900',
+    accent: 'bg-maroon-100'
   },
 };
 
