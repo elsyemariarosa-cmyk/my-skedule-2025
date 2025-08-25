@@ -60,11 +60,6 @@ export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
     color: 'bg-rose-800 text-rose-50',
     description: 'Pembelajaran berbasis proyek'
   },
-  'tambahan': {
-    label: 'Tambahan',
-    color: 'bg-pink-800 text-pink-50',
-    description: 'Kegiatan pembelajaran tambahan'
-  },
   'uts': {
     label: 'UTS',
     color: 'bg-red-900 text-red-50',

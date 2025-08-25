@@ -28,7 +28,7 @@ const Index = () => {
 
   // Remove deprecated default activity types on first load
   useEffect(() => {
-    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel'];
+    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel','tambahan'];
     let changed = false;
     const cleanedEntries = Object.entries(activityTypes).filter(([k]) => {
       const toRemove = removedKeys.includes(k);
