@@ -180,37 +180,71 @@ export function WeeklyScheduleTable({
     if (saved) {
       setScheduleEntries(JSON.parse(saved));
     } else if (studentClasses.length > 0) {
-      // Add sample data for testing - only if we have student classes
-      const firstActiveClass = studentClasses.find(c => c.isActive);
-      if (firstActiveClass) {
-        const sampleData: ScheduleEntry[] = [
-          {
-            id: '1', 
-            classId: firstActiveClass.id,
-            courseName: 'Matematika Dasar',
-            instructor: 'Dr. Ahmad Suryanto',
-            day: 'friday',
-            timeSlot: '13.00-15.00',
-            date: '30 Agustus 2024',
-            activityType: 'kuliah',
-            room: 'A101',
-            description: 'Materi pengenalan kalkulus',
-            semester: 1
-          },
-          {
-            id: '2',
-            classId: firstActiveClass.id,
-            courseName: 'Bahasa Indonesia',
-            instructor: 'Prof. Siti Nurhaliza',
-            day: 'saturday',
-            timeSlot: '09.00-11.30',
-            date: '31 Agustus 2024',
-            activityType: 'kuliah',
-            room: 'B202',
-            description: 'Tata bahasa formal',
-            semester: 1
-          }
-        ];
+      // Add sample data for testing - create data for all active classes
+      const activeClasses = studentClasses.filter(c => c.isActive);
+      if (activeClasses.length > 0) {
+        const sampleData: ScheduleEntry[] = [];
+        
+        // Create sample data for each active class
+        activeClasses.forEach((studentClass, classIndex) => {
+          // Sample data for Semester 1
+          sampleData.push(
+            {
+              id: `${studentClass.id}-1`,
+              classId: studentClass.id,
+              courseName: 'Matematika Dasar',
+              instructor: 'Dr. Ahmad Suryanto',
+              day: 'friday',
+              timeSlot: '13.00-15.00',
+              date: '30 Agustus 2024',
+              activityType: 'kuliah',
+              room: `A${101 + classIndex}`,
+              description: 'Materi pengenalan kalkulus',
+              semester: 1
+            },
+            {
+              id: `${studentClass.id}-2`,
+              classId: studentClass.id,
+              courseName: 'Bahasa Indonesia',
+              instructor: 'Prof. Siti Nurhaliza',
+              day: 'saturday',
+              timeSlot: '09.00-11.30',
+              date: '31 Agustus 2024',
+              activityType: 'kuliah',
+              room: `B${201 + classIndex}`,
+              description: 'Tata bahasa formal',
+              semester: 1
+            },
+            // Sample data for Semester 3 (default)
+            {
+              id: `${studentClass.id}-3`,
+              classId: studentClass.id,
+              courseName: 'Statistika Lanjut',
+              instructor: 'Dr. Budi Santoso',
+              day: 'friday',
+              timeSlot: '15.30-18.00',
+              date: '30 Agustus 2024',
+              activityType: 'kuliah',
+              room: `C${301 + classIndex}`,
+              description: 'Analisis data statistik',
+              semester: 3
+            },
+            {
+              id: `${studentClass.id}-4`,
+              classId: studentClass.id,
+              courseName: 'Metodologi Penelitian',
+              instructor: 'Prof. Dr. Maya Sari',
+              day: 'saturday',
+              timeSlot: '12.30-15.00',
+              date: '31 Agustus 2024',
+              activityType: 'kuliah',
+              room: `D${401 + classIndex}`,
+              description: 'Teknik penelitian ilmiah',
+              semester: 3
+            }
+          );
+        });
+        
         setScheduleEntries(sampleData);
       }
     }
