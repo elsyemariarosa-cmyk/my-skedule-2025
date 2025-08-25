@@ -8,6 +8,7 @@ interface HeaderProps {
   onOpenActivityManager: () => void;
   onOpenStudentClassManager: () => void;
   onOpenClassBasedSchedule: () => void;
+  onOpenWeeklySchedule: () => void;
   onOpenMonitoring: () => void;
   onOpenMonitoringCalendar: () => void;
   onOpenUserGuide: () => void;
@@ -19,6 +20,7 @@ export function Header({
   onOpenActivityManager,
   onOpenStudentClassManager,
   onOpenClassBasedSchedule,
+  onOpenWeeklySchedule,
   onOpenMonitoring,
   onOpenMonitoringCalendar,
   onOpenUserGuide,
@@ -102,7 +104,15 @@ export function Header({
             Kelola Kelas
           </Button>
 
-          
+          <Button onClick={onOpenClassBasedSchedule} variant="outline" size="sm" className="hover:bg-primary/10 hover:border-primary">
+            <BookOpen className="w-4 h-4 mr-2" />
+            Jadwal per Kelas
+          </Button>
+
+          <Button onClick={onOpenWeeklySchedule} variant="outline" size="sm" className="hover:bg-accent/10 hover:border-accent">
+            <Calendar className="w-4 h-4 mr-2" />
+            Jadwal Mingguan
+          </Button>
 
           <Button onClick={onOpenMonitoring} variant="outline" size="sm" className="hover:bg-medical/10 hover:border-medical">
             <BarChart3 className="w-4 h-4 mr-2" />

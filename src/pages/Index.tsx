@@ -7,6 +7,7 @@ import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { MasterAcademicCalendar } from "@/components/MasterAcademicCalendar";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { ClassBasedScheduleManager } from "@/components/ClassBasedScheduleManager";
+import { WeeklyScheduleTable } from "@/components/WeeklyScheduleTable";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { MonitoringCalendar } from "@/components/MonitoringCalendar";
 import { UserGuide } from "@/components/UserGuide";
@@ -393,6 +394,7 @@ const Index = () => {
   const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
   const [isClassBasedScheduleOpen, setIsClassBasedScheduleOpen] = useState(false);
+  const [isWeeklyScheduleOpen, setIsWeeklyScheduleOpen] = useState(false);
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [isMonitoringCalendarOpen, setIsMonitoringCalendarOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
@@ -498,6 +500,7 @@ const Index = () => {
           onOpenActivityManager={() => setIsActivityManagerOpen(true)}
           onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
           onOpenClassBasedSchedule={() => setIsClassBasedScheduleOpen(true)}
+          onOpenWeeklySchedule={() => setIsWeeklyScheduleOpen(true)}
           onOpenMonitoring={() => setIsMonitoringOpen(true)}
           onOpenMonitoringCalendar={() => setIsMonitoringCalendarOpen(true)}
           onOpenUserGuide={() => setIsUserGuideOpen(true)}
@@ -519,6 +522,13 @@ const Index = () => {
           studentClasses={studentClasses}
           activityTypes={activityTypes}
           onUpdateStudentClasses={handleUpdateStudentClasses}
+        />
+
+        <WeeklyScheduleTable
+          isOpen={isWeeklyScheduleOpen}
+          onClose={() => setIsWeeklyScheduleOpen(false)}
+          studentClasses={studentClasses}
+          activityTypes={activityTypes}
         />
         
         <ScheduleForm
