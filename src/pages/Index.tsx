@@ -8,6 +8,7 @@ import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { MasterAcademicCalendar } from "@/components/MasterAcademicCalendar";
 import { StudentClassManager } from "@/components/StudentClassManager";
 import { ClassBasedScheduleManager } from "@/components/ClassBasedScheduleManager";
+import { ClassScheduleTable } from "@/components/ClassScheduleTable";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { MonitoringCalendar } from "@/components/MonitoringCalendar";
 import { UserGuide } from "@/components/UserGuide";
@@ -512,6 +513,21 @@ const Index = () => {
           onSemesterTypeChange={setSelectedSemesterType}
           onAcademicYearChange={setSelectedAcademicYear}
           onOpenMasterSchedule={() => setIsMasterScheduleOpen(true)}
+        />
+        
+        {/* Full Schedule Grid */}
+        <FullScheduleGrid
+          scheduleItems={filteredScheduleItems}
+          activityTypes={activityTypes}
+          studentClasses={studentClasses}
+          onEditItem={handleEditItem}
+          onAddItem={handleAddItem}
+        />
+        
+        {/* Class Schedule Table - Displayed directly on page */}
+        <ClassScheduleTable
+          studentClasses={studentClasses}
+          activityTypes={activityTypes}
         />
         
         <ClassBasedScheduleManager
