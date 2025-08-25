@@ -335,24 +335,12 @@ export function WeeklyScheduleTable({
   };
 
   const getEntryForSlot = (classId: string, day: 'friday' | 'saturday', timeSlot: string) => {
-    const found = scheduleEntries.find(e => 
+    return scheduleEntries.find(e => 
       e.classId === classId && 
       e.day === day && 
       e.timeSlot === timeSlot &&
       e.semester === selectedSemester
     );
-    
-    console.log('Saturday Debug:', {
-      day,
-      timeSlot,
-      classId,
-      selectedSemester,
-      found,
-      allSaturdayEntries: scheduleEntries.filter(e => e.day === 'saturday'),
-      SATURDAY_TIME_SLOTS
-    });
-    
-    return found;
   };
 
   const createScheduleTable = (selectedClass: StudentClass) => {
@@ -789,6 +777,16 @@ export function WeeklyScheduleTable({
             <BookOpen className="w-6 h-6" />
             Jadwal Perkuliahan Per Kelas
           </h2>
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => {
+              localStorage.removeItem('mars-weekly-schedule');
+              window.location.reload();
+            }}
+          >
+            Reset Data Sample
+          </Button>
         </div>
 
         <Tabs value={selectedTabClass} onValueChange={setSelectedTabClass} className="w-full">
