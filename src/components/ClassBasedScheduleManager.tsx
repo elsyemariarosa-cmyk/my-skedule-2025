@@ -255,10 +255,157 @@ export function ClassBasedScheduleManager({
     return classLectures.filter(l => l.classId === classId);
   };
 
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('table');
+
+  const generateScheduleTable = (classId: string) => {
+    const lectures = getClassLectures(classId);
+    const studentClass = studentClasses.find(c => c.id === classId);
+    if (!studentClass) return null;
+
+    // Group lectures by day
+    const lecturesByDay = lectures.reduce((acc, lecture) => {
+      if (!acc[lecture.day]) acc[lecture.day] = [];
+      acc[lecture.day].push(lecture);
+      return acc;
+    }, {} as Record<string, ClassLecture[]>);
+
+    // Generate dates for the next week (Friday and Saturday focus)
+    const today = new Date();
+    const nextFriday = new Date(today);
+    nextFriday.setDate(today.getDate() + (5 - today.getDay() + 7) % 7);
+    const nextSaturday = new Date(nextFriday);
+    nextSaturday.setDate(nextFriday.getDate() + 1);
+
+    const formatDate = (date: Date) => {
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+    };
+
+    const fridayLectures = lecturesByDay.friday || [];
+    const saturdayLectures = lecturesByDay.saturday || [];
+
+    return (
+      <div className="w-full space-y-4">
+        <div className="text-center">
+          <h2 className="text-lg font-bold">JADWAL PERKULIAHAN SEMESTER 3 ANGKATAN 21 {studentClass.code}</h2>
+          <h3 className="text-md font-semibold text-muted-foreground">PRODI MARS UMY</h3>
+        </div>
+        
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border border-gray-400">
+            <thead>
+              <tr>
+                <th className="border border-gray-400 p-2 bg-muted font-semibold text-center w-20">Hari/Tgl</th>
+                <th className="border border-gray-400 p-2 bg-muted font-semibold text-center">{formatDate(nextFriday)}</th>
+                <th className="border border-gray-400 p-2 bg-muted font-semibold text-center">{formatDate(nextFriday)}</th>
+                <th className="border border-gray-400 p-2 bg-muted font-semibold text-center">{formatDate(nextFriday)}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border border-gray-400 p-2 bg-muted font-semibold text-center">Waktu</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">13.00-15.00</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">15.30-18.00</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">19.00-21.30</td>
+              </tr>
+              {fridayLectures.slice(0, 3).map((lecture, index) => (
+                <tr key={`friday-${index}`}>
+                  {index === 0 && (
+                    <td className="border border-gray-400 p-4 bg-muted/50" rowSpan={3}></td>
+                  )}
+                  <td className="border border-gray-400 p-4">
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="text-sm text-muted-foreground">{lecture.description || 'Materi Pembelajaran'}</div>
+                    </div>
+                  </td>
+                  <td className="border border-gray-400 p-4">
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="text-sm text-muted-foreground">Analisis dan Diskusi</div>
+                    </div>
+                  </td>
+                  <td className="border border-gray-400 p-4">
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="text-sm text-muted-foreground">Praktik dan Evaluasi</div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              <tr>
+                <td className="border border-gray-400 p-4 text-center font-medium">
+                  {fridayLectures[0]?.instructor || 'Dr. Nama Dosen, M.Kes.'}
+                </td>
+                <td className="border border-gray-400 p-4 text-center font-medium">
+                  {fridayLectures[1]?.instructor || 'Dr. Nama Dosen, M.Kes.'}
+                </td>
+                <td className="border border-gray-400 p-4 text-center font-medium">
+                  {fridayLectures[2]?.instructor || 'Dr. Nama Dosen, M.Kes.'}
+                </td>
+              </tr>
+              
+              {/* Saturday Schedule */}
+              <tr>
+                <td className="border border-gray-400 p-2 bg-muted font-semibold text-center" colSpan={4}>
+                  {formatDate(nextSaturday)}
+                </td>
+              </tr>
+              <tr>
+                <td className="border border-gray-400 p-2 bg-muted font-semibold text-center">Waktu</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">09.00-11.30</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">12.30-15.00</td>
+                <td className="border border-gray-400 p-2 text-center font-medium">15.30-18.00</td>
+              </tr>
+              {saturdayLectures.slice(0, 3).map((lecture, index) => (
+                <tr key={`saturday-${index}`}>
+                  {index === 0 && (
+                    <td className="border border-gray-400 p-4 bg-muted/50" rowSpan={3}></td>
+                  )}
+                  <td className="border border-gray-400 p-4">
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="text-sm text-muted-foreground">Business Plan atau Feasibility Study</div>
+                    </div>
+                  </td>
+                  <td className="border border-gray-400 p-4 bg-yellow-100">
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="text-sm text-muted-foreground">Preview Strategic Management</div>
+                    </div>
+                  </td>
+                  <td className="border border-gray-400 p-4">
+                    <div className="space-y-2">
+                      <div className="font-semibold text-primary">{lecture.courseName}</div>
+                      <div className="text-sm text-muted-foreground">Integrasi ICT dengan IoT</div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              <tr>
+                <td className="border border-gray-400 p-4 text-center font-medium">
+                  {saturdayLectures[0]?.instructor || 'Dr. Qurratul Aini, SKG., M.Kes.'}
+                </td>
+                <td className="border border-gray-400 p-4 text-center font-medium">
+                  {saturdayLectures[1]?.instructor || 'Drs. Johny Setiawan, MBA'}
+                </td>
+                <td className="border border-gray-400 p-4 text-center font-medium">
+                  {saturdayLectures[2]?.instructor || 'Ir. Eko Prasetyo, M.Eng., Ph.D'}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[1200px] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[1400px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-primary to-medical bg-clip-text text-transparent flex items-center gap-2">
               <BookOpen className="w-6 h-6" />
@@ -266,7 +413,35 @@ export function ClassBasedScheduleManager({
             </DialogTitle>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'cards' | 'table')} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="table">Tampilan Tabel</TabsTrigger>
+              <TabsTrigger value="cards">Tampilan Kartu</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="table" className="space-y-6">
+              {studentClasses.filter(c => c.isActive).slice(0, 6).map((studentClass) => (
+                <div key={studentClass.id} className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <Badge variant="outline">{studentClass.code}</Badge>
+                      {studentClass.name}
+                    </h3>
+                    <Button 
+                      size="sm" 
+                      onClick={() => handleAddLecture(studentClass.id)}
+                    >
+                      <Plus className="w-4 h-4 mr-1" />
+                      Tambah Jadwal
+                    </Button>
+                  </div>
+                  {generateScheduleTable(studentClass.id)}
+                </div>
+              ))}
+            </TabsContent>
+
+            <TabsContent value="cards">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {studentClasses.filter(c => c.isActive).map((studentClass) => {
               const lectures = getClassLectures(studentClass.id);
               
@@ -373,7 +548,9 @@ export function ClassBasedScheduleManager({
                 </Card>
               );
             })}
-          </div>
+              </div>
+            </TabsContent>
+          </Tabs>
 
           <DialogFooter>
             <Button variant="outline" onClick={onClose}>
