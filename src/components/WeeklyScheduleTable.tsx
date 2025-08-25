@@ -301,6 +301,20 @@ export function WeeklyScheduleTable({
   };
 
   const getEntryForSlot = (classId: string, day: 'friday' | 'saturday', timeSlot: string) => {
+    console.log('Debug - getEntryForSlot called with:', {
+      classId,
+      day,
+      timeSlot,
+      selectedSemester,
+      allEntries: scheduleEntries,
+      matchingEntries: scheduleEntries.filter(e => 
+        e.classId === classId && 
+        e.day === day && 
+        e.timeSlot === timeSlot &&
+        e.semester === selectedSemester
+      )
+    });
+    
     return scheduleEntries.find(e => 
       e.classId === classId && 
       e.day === day && 
