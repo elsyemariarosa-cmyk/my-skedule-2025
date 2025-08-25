@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ActivityTypeConfig } from "@/types/schedule";
-
 interface HeaderProps {
   activityTypes: Record<string, ActivityTypeConfig>;
   onOpenActivityManager: () => void;
@@ -15,10 +14,9 @@ interface HeaderProps {
   onOpenMasterCalendar: () => void;
   onActivityTypeClick: (activityType: string) => void;
 }
-
-export function Header({ 
-  activityTypes, 
-  onOpenActivityManager, 
+export function Header({
+  activityTypes,
+  onOpenActivityManager,
   onOpenStudentClassManager,
   onOpenClassBasedSchedule,
   onOpenMonitoring,
@@ -27,8 +25,7 @@ export function Header({
   onOpenMasterCalendar,
   onActivityTypeClick
 }: HeaderProps) {
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       {/* Hero Section */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-medical to-accent p-8 text-white">
         <div className="relative z-10">
@@ -90,89 +87,44 @@ export function Header({
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-foreground">Jenis Kegiatan Program Studi</h3>
         <div className="flex flex-wrap gap-2">
-          <Button
-            onClick={onOpenUserGuide}
-            variant="outline"
-            size="sm"
-            className="hover:bg-accent/10 hover:border-accent"
-          >
+          <Button onClick={onOpenUserGuide} variant="outline" size="sm" className="hover:bg-accent/10 hover:border-accent">
             <HelpCircle className="w-4 h-4 mr-2" />
             Panduan Penggunaan
           </Button>
           
-          <Button
-            onClick={onOpenActivityManager}
-            variant="outline"
-            size="sm"
-            className="hover:bg-primary/10 hover:border-primary"
-          >
+          <Button onClick={onOpenActivityManager} variant="outline" size="sm" className="hover:bg-primary/10 hover:border-primary">
             <Settings className="w-4 h-4 mr-2" />
             Kelola Jenis Kegiatan
           </Button>
           
-          <Button
-            onClick={onOpenStudentClassManager}
-            variant="outline"
-            size="sm"
-            className="hover:bg-academic/10 hover:border-academic"
-          >
+          <Button onClick={onOpenStudentClassManager} variant="outline" size="sm" className="hover:bg-academic/10 hover:border-academic">
             <Users className="w-4 h-4 mr-2" />
             Kelola Kelas
           </Button>
 
-          <Button
-            onClick={onOpenClassBasedSchedule}
-            variant="outline"
-            size="sm"
-            className="hover:bg-primary/10 hover:border-primary"
-          >
-            <GraduationCap className="w-4 h-4 mr-2" />
-            Jadwal per Kelas
-          </Button>
+          
 
-          <Button
-            onClick={onOpenMonitoring}
-            variant="outline"
-            size="sm"
-            className="hover:bg-medical/10 hover:border-medical"
-          >
+          <Button onClick={onOpenMonitoring} variant="outline" size="sm" className="hover:bg-medical/10 hover:border-medical">
             <BarChart3 className="w-4 h-4 mr-2" />
             Monitoring & Evaluasi
           </Button>
 
-          <Button
-            onClick={onOpenMonitoringCalendar}
-            variant="outline"
-            size="sm"
-            className="hover:bg-medical/10 hover:border-medical"
-          >
+          <Button onClick={onOpenMonitoringCalendar} variant="outline" size="sm" className="hover:bg-medical/10 hover:border-medical">
             <CalendarDays className="w-4 h-4 mr-2" />
             Kalender Monitoring
           </Button>
 
-          <Button
-            onClick={onOpenMasterCalendar}
-            variant="outline"
-            size="sm"
-            className="hover:bg-primary/10 hover:border-primary"
-          >
+          <Button onClick={onOpenMasterCalendar} variant="outline" size="sm" className="hover:bg-primary/10 hover:border-primary">
             <Calendar className="w-4 h-4 mr-2" />
             Master Kalender Akademik
           </Button>
         </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-          {Object.entries(activityTypes).map(([key, config]) => (
-            <Badge 
-              key={key} 
-              className={`${config.color} justify-center py-2 cursor-pointer hover:opacity-80 transition-opacity`}
-              onClick={() => onActivityTypeClick(key)}
-            >
+          {Object.entries(activityTypes).map(([key, config]) => <Badge key={key} className={`${config.color} justify-center py-2 cursor-pointer hover:opacity-80 transition-opacity`} onClick={() => onActivityTypeClick(key)}>
               {config.label}
-            </Badge>
-          ))}
+            </Badge>)}
         </div>
       </Card>
-    </div>
-  );
+    </div>;
 }
