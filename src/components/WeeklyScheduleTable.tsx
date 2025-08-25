@@ -402,9 +402,6 @@ export function WeeklyScheduleTable({
                 <th className={`border border-black p-2 font-bold text-center w-20 ${colors.header}`}>
                   Hari/Tgl
                 </th>
-                <th className={`border border-black p-2 font-bold text-center w-20 ${colors.header}`}>
-                  Waktu
-                </th>
                 <th className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
                   <div className="mb-2">Jumat, {weekDates.friday}</div>
                   <div className="text-sm opacity-90">13.00-15.00</div>
@@ -423,9 +420,6 @@ export function WeeklyScheduleTable({
               <tr>
                 <td className={`border border-black p-2 font-bold text-center align-top ${colors.accent}`}>
                   Jumat
-                </td>
-                <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
-                  Waktu
                 </td>
                 {TIME_SLOTS.map((slot, index) => {
                   const entry = getEntryForSlot(selectedClass.id, 'friday', slot.time);
@@ -502,9 +496,6 @@ export function WeeklyScheduleTable({
               <tr>
                 <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
                   Sabtu
-                </td>
-                <td className={`border border-black p-2 font-bold text-center ${colors.accent}`}>
-                  Waktu
                 </td>
                 <td className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md bg-white hover:bg-gray-50`}>
                   <div className="mb-1">
