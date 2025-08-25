@@ -26,6 +26,24 @@ const Index = () => {
     return saved ? JSON.parse(saved) : DEFAULT_ACTIVITY_TYPES;
   });
 
+  // Remove deprecated default activity types on first load
+  useEffect(() => {
+    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel'];
+    let changed = false;
+    const cleanedEntries = Object.entries(activityTypes).filter(([k]) => {
+      const toRemove = removedKeys.includes(k);
+      if (toRemove) changed = true;
+      return !toRemove;
+    });
+    if (changed) {
+      const cleaned = Object.fromEntries(cleanedEntries);
+      setActivityTypes(cleaned);
+      localStorage.setItem('mars-activity-types', JSON.stringify(cleaned));
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Load student classes from localStorage or use defaults  
   const [studentClasses, setStudentClasses] = useState<StudentClass[]>(() => {
     const saved = localStorage.getItem('mars-student-classes');

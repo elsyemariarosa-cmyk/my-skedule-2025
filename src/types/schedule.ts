@@ -95,11 +95,6 @@ export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
     color: 'bg-pink-600 text-pink-50',
     description: 'Program Residensi'
   },
-  'workshop': {
-    label: 'Workshop',
-    color: 'bg-purple-700 text-purple-50',
-    description: 'Workshop dan pelatihan khusus'
-  },
   'kunjungan-lapangan': {
     label: 'Kunjungan Lapangan',
     color: 'bg-purple-800 text-purple-50',
@@ -110,26 +105,11 @@ export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
     color: 'bg-indigo-700 text-indigo-50',
     description: 'Presentasi dan diskusi kasus manajemen RS'
   },
-  'diskusi-panel': {
-    label: 'Diskusi Panel',
-    color: 'bg-indigo-800 text-indigo-50',
-    description: 'Panel diskusi dengan praktisi dan ahli'
-  },
   'evaluasi-kinerja': {
     label: 'Evaluasi Kinerja',
     color: 'bg-violet-700 text-violet-50',
     description: 'Evaluasi dan penilaian kinerja mahasiswa'
   },
-  'seminar-khusus': {
-    label: 'Seminar Khusus',
-    color: 'bg-violet-800 text-violet-50',
-    description: 'Seminar dengan topik khusus dan terkini'
-  },
-  'praktikum': {
-    label: 'Praktikum',
-    color: 'bg-fuchsia-700 text-fuchsia-50',
-    description: 'Kegiatan praktikum dan simulasi'
-  }
 };
 
 // Predefined time slots for all days of the week
