@@ -145,6 +145,21 @@ export function ClassScheduleTable({ studentClasses, activityTypes }: ClassSched
     const lectures = getClassLectures(selectedClass.id);
     const timeSlots = DAY_TIME_SLOTS['friday'];
     
+    // Create specific schedule dates
+    const scheduleData = [
+      {
+        day: 'friday',
+        label: 'Jumat',
+        dates: ['29 Agustus 2025', '29 Agustus 2025', '29 Agustus 2025']
+      },
+      {
+        day: 'saturday', 
+        label: 'Sabtu',
+        dates: ['30 Agustus 2025', '30 Agustus 2025', '30 Agustus 2025']
+      }
+    ];
+    
+    // Group lectures by day and time
     const scheduleGrid: Record<string, Record<string, ClassLecture | null>> = {};
     ['friday', 'saturday'].forEach(day => {
       scheduleGrid[day] = {};
@@ -164,10 +179,10 @@ export function ClassScheduleTable({ studentClasses, activityTypes }: ClassSched
       <div className="space-y-6">
         <div className="text-center">
           <h3 className="text-lg font-bold text-primary">
-            JADWAL PERKULIAHAN SEMESTER 3 {selectedClass.code}
+            JADWAL PERKULIAHAN SEMESTER 3 ANGKATAN {selectedClass.academicYearBatch} {selectedClass.code}
           </h3>
           <p className="text-sm text-muted-foreground">
-            PRODI MARS UMY - ANGKATAN {selectedClass.academicYearBatch}
+            PRODI MARS UMY
           </p>
         </div>
         
@@ -175,52 +190,55 @@ export function ClassScheduleTable({ studentClasses, activityTypes }: ClassSched
           <table className="w-full border-collapse border border-border">
             <thead>
               <tr>
-                <th className="border border-border p-2 bg-muted font-semibold text-center min-w-[100px]">
+                <th className="border border-border p-3 bg-muted font-semibold text-center min-w-[100px]">
                   Hari/Tgl
                 </th>
                 {timeSlots.map((timeSlot, index) => (
-                  <th key={index} className="border border-border p-2 bg-muted font-semibold text-center min-w-[200px]">
-                    {timeSlot.toString()}
+                  <th key={index} className="border border-border p-3 bg-muted font-semibold text-center min-w-[250px]">
+                    <div className="font-bold">{scheduleData[0]?.dates[index] || 'Tanggal'}</div>
+                    <div className="text-sm font-normal mt-1">{timeSlot.toString()}</div>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {[
-                { day: 'friday', label: 'Jumat', date: '29 Agustus 2025' },
-                { day: 'saturday', label: 'Sabtu', date: '30 Agustus 2025' }
-              ].map(({ day, label, date }) => (
+              {scheduleData.map(({ day, label, dates }) => (
                 <tr key={day}>
-                  <td className="border border-border p-2 bg-muted/50 font-medium text-center">
+                  <td className="border border-border p-3 bg-muted/50 font-medium text-center align-top">
                     <div className="font-semibold">{label}</div>
-                    <div className="text-xs text-muted-foreground">{date}</div>
+                    <div className="text-xs text-muted-foreground">Waktu</div>
                   </td>
                   {timeSlots.map((timeSlot, index) => {
                     const lecture = scheduleGrid[day][timeSlot.toString()];
                     return (
                       <td 
                         key={index} 
-                        className={`border border-border p-2 relative group cursor-pointer hover:bg-accent/20 transition-colors ${
+                        className={`border border-border p-3 relative group cursor-pointer hover:bg-accent/20 transition-colors align-top ${
                           lecture ? 'bg-primary/10' : 'bg-background'
                         }`}
                         onClick={() => lecture ? handleEditLecture(lecture) : handleAddLectureAtTime(selectedClass.id, day as any, timeSlot.toString())}
                       >
                         {lecture ? (
-                          <div className="space-y-1">
-                            <div className="font-semibold text-sm text-primary">
+                          <div className="space-y-2">
+                            <div className="font-bold text-sm text-primary bg-red-100 px-2 py-1 rounded text-center">
                               {lecture.courseName}
                             </div>
-                            <div className="text-xs text-muted-foreground">
-                              {lecture.description}
+                            
+                            <div className="bg-blue-100 p-2 rounded min-h-[80px] flex items-center justify-center">
+                              <div className="text-xs text-center font-medium">
+                                {lecture.description || 'Materi perkuliahan'}
+                              </div>
                             </div>
-                            <div className="text-xs font-medium">
+                            
+                            <div className="text-xs font-semibold text-center border-t pt-2">
                               {lecture.instructor}
                             </div>
-                            <div className="flex gap-1 mt-2">
+                            
+                            <div className="flex gap-1 mt-2 justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="h-6 w-6 p-0"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleEditLecture(lecture);
@@ -231,7 +249,7 @@ export function ClassScheduleTable({ studentClasses, activityTypes }: ClassSched
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity text-destructive"
+                                className="h-6 w-6 p-0 text-destructive"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleDeleteLecture(lecture.id);
@@ -242,8 +260,11 @@ export function ClassScheduleTable({ studentClasses, activityTypes }: ClassSched
                             </div>
                           </div>
                         ) : (
-                          <div className="text-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Plus className="w-4 h-4 mx-auto text-muted-foreground" />
+                          <div className="text-center opacity-0 group-hover:opacity-100 transition-opacity min-h-[120px] flex items-center justify-center">
+                            <div>
+                              <Plus className="w-6 h-6 mx-auto text-muted-foreground mb-2" />
+                              <div className="text-xs text-muted-foreground">Tambah Kegiatan</div>
+                            </div>
                           </div>
                         )}
                       </td>
