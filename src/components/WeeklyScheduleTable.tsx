@@ -179,8 +179,42 @@ export function WeeklyScheduleTable({
     const saved = localStorage.getItem('mars-weekly-schedule');
     if (saved) {
       setScheduleEntries(JSON.parse(saved));
+    } else if (studentClasses.length > 0) {
+      // Add sample data for testing - only if we have student classes
+      const firstActiveClass = studentClasses.find(c => c.isActive);
+      if (firstActiveClass) {
+        const sampleData: ScheduleEntry[] = [
+          {
+            id: '1', 
+            classId: firstActiveClass.id,
+            courseName: 'Matematika Dasar',
+            instructor: 'Dr. Ahmad Suryanto',
+            day: 'friday',
+            timeSlot: '13.00-15.00',
+            date: '30 Agustus 2024',
+            activityType: 'kuliah',
+            room: 'A101',
+            description: 'Materi pengenalan kalkulus',
+            semester: 1
+          },
+          {
+            id: '2',
+            classId: firstActiveClass.id,
+            courseName: 'Bahasa Indonesia',
+            instructor: 'Prof. Siti Nurhaliza',
+            day: 'saturday',
+            timeSlot: '09.00-11.30',
+            date: '31 Agustus 2024',
+            activityType: 'kuliah',
+            room: 'B202',
+            description: 'Tata bahasa formal',
+            semester: 1
+          }
+        ];
+        setScheduleEntries(sampleData);
+      }
     }
-  }, []);
+  }, [studentClasses]);
 
   // Save entries to localStorage
   useEffect(() => {
