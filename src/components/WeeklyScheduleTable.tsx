@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Plus, Edit, Trash2, BookOpen, CalendarIcon } from "lucide-react";
+import { Plus, Edit, Trash2, BookOpen, CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { ActivityTypeConfig } from "@/types/schedule";
 import { StudentClass } from "@/types/student-class";
 import { useToast } from "@/hooks/use-toast";
@@ -153,6 +153,7 @@ export function WeeklyScheduleTable({
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedSemester, setSelectedSemester] = useState<1 | 2 | 3 | 4>(3);
   const [isSemesterEditOpen, setIsSemesterEditOpen] = useState(false);
+  const [currentWeek, setCurrentWeek] = useState(0); // 0 = current week, 1 = next week, etc.
   const [formData, setFormData] = useState({
     courseName: '',
     instructor: '',
@@ -276,6 +277,35 @@ export function WeeklyScheduleTable({
   const createScheduleTable = (selectedClass: StudentClass) => {
     const colors = getClassColors(selectedClass.code);
     
+    // Calculate dates for current week
+    const getWeekDates = (weekOffset: number = 0) => {
+      const today = new Date();
+      const currentDay = today.getDay(); // 0 = Sunday, 5 = Friday, 6 = Saturday
+      
+      // Calculate Friday of current week
+      const friday = new Date(today);
+      friday.setDate(today.getDate() - currentDay + 5 + (weekOffset * 7)); // Friday is day 5
+      
+      // Calculate Saturday (next day)
+      const saturday = new Date(friday);
+      saturday.setDate(friday.getDate() + 1);
+      
+      return {
+        friday: friday.toLocaleDateString('id-ID', { 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric' 
+        }),
+        saturday: saturday.toLocaleDateString('id-ID', { 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric' 
+        })
+      };
+    };
+    
+    const weekDates = getWeekDates(currentWeek);
+    
     return (
       <div className="space-y-6">
         {/* Header */}
@@ -294,6 +324,40 @@ export function WeeklyScheduleTable({
             PRODI MARS UMY
           </p>
         </div>
+
+        {/* Week Navigation */}
+        <div className="flex items-center justify-center gap-4 p-4 bg-white rounded-lg shadow-sm border">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentWeek(prev => prev - 1)}
+            className="flex items-center gap-2"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Minggu Sebelumnya
+          </Button>
+          
+          <div className="text-center px-4">
+            <div className="font-semibold text-lg">
+              {currentWeek === 0 ? 'Minggu Ini' : 
+               currentWeek > 0 ? `${currentWeek} Minggu Kedepan` : 
+               `${Math.abs(currentWeek)} Minggu Sebelumnya`}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              {weekDates.friday} - {weekDates.saturday}
+            </div>
+          </div>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentWeek(prev => prev + 1)}
+            className="flex items-center gap-2"
+          >
+            Minggu Selanjutnya
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
         
         {/* Schedule Table */}
         <div className="overflow-x-auto">
@@ -308,7 +372,7 @@ export function WeeklyScheduleTable({
                 </th>
                 {TIME_SLOTS.map((slot, index) => (
                   <th key={`friday-${index}`} className={`border border-black p-2 font-bold text-center min-w-[250px] ${colors.header}`}>
-                    <div className="mb-2">Jumat, tanggal:</div>
+                    <div className="mb-2">Jumat, {weekDates.friday}</div>
                     <div className="text-sm opacity-90">{slot.label}</div>
                   </th>
                 ))}
@@ -403,7 +467,7 @@ export function WeeklyScheduleTable({
                   return (
                     <td key={`saturday-content-${index}`} className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md ${entry ? colors.content : 'bg-white hover:bg-gray-50'}`}>
                       <div className="mb-1">
-                        <div className="font-bold text-sm">Sabtu, tanggal:</div>
+                        <div className="font-bold text-sm">Sabtu, {weekDates.saturday}</div>
                         <div className="text-sm mb-2">{slot.label}</div>
                       </div>
                       
