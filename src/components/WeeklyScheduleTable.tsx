@@ -77,7 +77,63 @@ const CLASS_COLORS = {
     text: 'text-orange-800',
     tab: 'data-[state=active]:bg-orange-500 data-[state=active]:text-white', 
     accent: 'bg-orange-100'
-  }
+  },
+  'REG-E': {
+    header: 'bg-red-500 text-white',
+    content: 'bg-red-50 border-red-200',
+    text: 'text-red-800',
+    tab: 'data-[state=active]:bg-red-500 data-[state=active]:text-white',
+    accent: 'bg-red-100'
+  },
+  'REG-F': {
+    header: 'bg-indigo-500 text-white',
+    content: 'bg-indigo-50 border-indigo-200',
+    text: 'text-indigo-800',
+    tab: 'data-[state=active]:bg-indigo-500 data-[state=active]:text-white',
+    accent: 'bg-indigo-100'
+  },
+  'REG-G': {
+    header: 'bg-pink-500 text-white',
+    content: 'bg-pink-50 border-pink-200',
+    text: 'text-pink-800',
+    tab: 'data-[state=active]:bg-pink-500 data-[state=active]:text-white',
+    accent: 'bg-pink-100'
+  },
+  'REG-H': {
+    header: 'bg-teal-500 text-white',
+    content: 'bg-teal-50 border-teal-200',
+    text: 'text-teal-800',
+    tab: 'data-[state=active]:bg-teal-500 data-[state=active]:text-white',
+    accent: 'bg-teal-100'
+  },
+  'RPL-1': {
+    header: 'bg-emerald-600 text-white',
+    content: 'bg-emerald-50 border-emerald-200',
+    text: 'text-emerald-800',
+    tab: 'data-[state=active]:bg-emerald-600 data-[state=active]:text-white',
+    accent: 'bg-emerald-100'
+  },
+  'RPL-2': {
+    header: 'bg-cyan-600 text-white',
+    content: 'bg-cyan-50 border-cyan-200',
+    text: 'text-cyan-800',
+    tab: 'data-[state=active]:bg-cyan-600 data-[state=active]:text-white',
+    accent: 'bg-cyan-100'
+  },
+  'KARY-A': {
+    header: 'bg-amber-600 text-white',
+    content: 'bg-amber-50 border-amber-200',
+    text: 'text-amber-800',
+    tab: 'data-[state=active]:bg-amber-600 data-[state=active]:text-white',
+    accent: 'bg-amber-100'
+  },
+  'RPL-3': {
+    header: 'bg-violet-600 text-white',
+    content: 'bg-violet-50 border-violet-200',
+    text: 'text-violet-800',
+    tab: 'data-[state=active]:bg-violet-600 data-[state=active]:text-white',
+    accent: 'bg-violet-100'
+  },
 };
 
 const getClassColors = (classCode: string) => {
@@ -428,14 +484,14 @@ export function WeeklyScheduleTable({
         </div>
 
         <Tabs value={selectedTabClass} onValueChange={setSelectedTabClass} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6">
+          <TabsList className="flex flex-wrap justify-center gap-2 h-auto p-2 mb-6">
             {studentClasses.filter(c => c.isActive).map(studentClass => {
               const colors = getClassColors(studentClass.code);
               return (
                 <TabsTrigger 
                   key={studentClass.id} 
                   value={studentClass.id} 
-                  className={`text-xs transition-all ${colors.tab} hover:bg-opacity-80`}
+                  className={`text-xs px-4 py-2 transition-all ${colors.tab} hover:bg-opacity-80 rounded-md`}
                 >
                   {studentClass.code}
                 </TabsTrigger>
