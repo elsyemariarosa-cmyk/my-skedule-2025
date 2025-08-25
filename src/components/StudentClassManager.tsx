@@ -306,7 +306,7 @@ export function StudentClassManager({
                   id="code"
                   value={formData.code}
                   onChange={(e) => setFormData(prev => ({ ...prev, code: e.target.value.toUpperCase() }))}
-                  placeholder="REG-A, RPL-1"
+                  placeholder="Reg-A1, RPL-1"
                   required
                   className="focus:ring-primary"
                 />

@@ -50,56 +50,56 @@ const SATURDAY_TIME_SLOTS = [
 
 // Color schemes for different classes
 const CLASS_COLORS = {
-  'REG-A': {
+  'Reg-A1': {
     header: 'bg-blue-500 text-white',
     content: 'bg-blue-50 border-blue-200',
     text: 'text-blue-800',
     tab: 'data-[state=active]:bg-blue-500 data-[state=active]:text-white',
     accent: 'bg-blue-100'
   },
-  'REG-B': {
+  'Reg-B1': {
     header: 'bg-green-500 text-white',
     content: 'bg-green-50 border-green-200', 
     text: 'text-green-800',
     tab: 'data-[state=active]:bg-green-500 data-[state=active]:text-white',
     accent: 'bg-green-100'
   },
-  'REG-C': {
+  'Reg-C1': {
     header: 'bg-purple-500 text-white',
     content: 'bg-purple-50 border-purple-200',
     text: 'text-purple-800', 
     tab: 'data-[state=active]:bg-purple-500 data-[state=active]:text-white',
     accent: 'bg-purple-100'
   },
-  'REG-D': {
+  'Reg-D1': {
     header: 'bg-orange-500 text-white',
     content: 'bg-orange-50 border-orange-200',
     text: 'text-orange-800',
     tab: 'data-[state=active]:bg-orange-500 data-[state=active]:text-white', 
     accent: 'bg-orange-100'
   },
-  'REG-E': {
+  'Reg-E1': {
     header: 'bg-red-500 text-white',
     content: 'bg-red-50 border-red-200',
     text: 'text-red-800',
     tab: 'data-[state=active]:bg-red-500 data-[state=active]:text-white',
     accent: 'bg-red-100'
   },
-  'REG-F': {
+  'Reg-F1': {
     header: 'bg-indigo-500 text-white',
     content: 'bg-indigo-50 border-indigo-200',
     text: 'text-indigo-800',
     tab: 'data-[state=active]:bg-indigo-500 data-[state=active]:text-white',
     accent: 'bg-indigo-100'
   },
-  'REG-G': {
+  'Reg-G1': {
     header: 'bg-pink-500 text-white',
     content: 'bg-pink-50 border-pink-200',
     text: 'text-pink-800',
     tab: 'data-[state=active]:bg-pink-500 data-[state=active]:text-white',
     accent: 'bg-pink-100'
   },
-  'REG-H': {
+  'Reg-H1': {
     header: 'bg-teal-500 text-white',
     content: 'bg-teal-50 border-teal-200',
     text: 'text-teal-800',
@@ -137,7 +137,7 @@ const CLASS_COLORS = {
 };
 
 const getClassColors = (classCode: string) => {
-  return CLASS_COLORS[classCode as keyof typeof CLASS_COLORS] || CLASS_COLORS['REG-A'];
+  return CLASS_COLORS[classCode as keyof typeof CLASS_COLORS] || CLASS_COLORS['Reg-A1'];
 };
 
 export function WeeklyScheduleTable({

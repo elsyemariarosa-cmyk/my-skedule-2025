@@ -4,7 +4,7 @@ export interface StudentClass {
   id: string;
   name: string;
   type: ClassType;
-  code: string; // e.g., "REG-A", "REG-B", "RPL-1"  
+  code: string; // e.g., "Reg-A1", "Reg-B1", "RPL-1"  
   description: string;
   academicYearBatch: string; // e.g., "2024/2025"
   maxCapacity?: number;
@@ -48,10 +48,10 @@ export const getClassTypeColor = (type: ClassType): string => {
 export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   {
     id: '1',
-    name: 'Reguler A',
+    name: 'Reguler A1',
     type: 'reguler',
-    code: 'REG-A',
-    description: 'Kelas Reguler A',
+    code: 'Reg-A1',
+    description: 'Kelas Reguler A1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 20,
@@ -61,10 +61,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '2', 
-    name: 'Reguler B',
+    name: 'Reguler B1',
     type: 'reguler',
-    code: 'REG-B',
-    description: 'Kelas Reguler B',
+    code: 'Reg-B1',
+    description: 'Kelas Reguler B1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 18,
@@ -74,10 +74,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '3',
-    name: 'Reguler C', 
+    name: 'Reguler C1', 
     type: 'reguler',
-    code: 'REG-C',
-    description: 'Kelas Reguler C',
+    code: 'Reg-C1',
+    description: 'Kelas Reguler C1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 22,
@@ -87,10 +87,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '4',
-    name: 'Reguler D',
+    name: 'Reguler D1',
     type: 'reguler', 
-    code: 'REG-D',
-    description: 'Kelas Reguler D',
+    code: 'Reg-D1',
+    description: 'Kelas Reguler D1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 15,
@@ -100,10 +100,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '5',
-    name: 'Reguler E',
+    name: 'Reguler E1',
     type: 'reguler', 
-    code: 'REG-E',
-    description: 'Kelas Reguler E',
+    code: 'Reg-E1',
+    description: 'Kelas Reguler E1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 19,
@@ -113,10 +113,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '6',
-    name: 'Reguler F',
+    name: 'Reguler F1',
     type: 'reguler', 
-    code: 'REG-F',
-    description: 'Kelas Reguler F',
+    code: 'Reg-F1',
+    description: 'Kelas Reguler F1',
     academicYearBatch: '2025/2026',
     maxCapacity: 25,
     currentCapacity: 21,
@@ -126,10 +126,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '7',
-    name: 'Reguler G',
+    name: 'Reguler G1',
     type: 'reguler', 
-    code: 'REG-G',
-    description: 'Kelas Reguler G',
+    code: 'Reg-G1',
+    description: 'Kelas Reguler G1',
     academicYearBatch: '2025/2026',
     maxCapacity: 25,
     currentCapacity: 17,
@@ -139,10 +139,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '8',
-    name: 'Reguler H',
+    name: 'Reguler H1',
     type: 'reguler', 
-    code: 'REG-H',
-    description: 'Kelas Reguler H',
+    code: 'Reg-H1',
+    description: 'Kelas Reguler H1',
     academicYearBatch: '2025/2026',
     maxCapacity: 25,
     currentCapacity: 23,
