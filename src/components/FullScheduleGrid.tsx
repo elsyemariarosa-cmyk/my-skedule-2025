@@ -90,19 +90,47 @@ export function FullScheduleGrid({ scheduleItems, activityTypes, studentClasses,
               )}
               
               {item.classIds && item.classIds.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {item.classIds.map(classId => {
-                    const studentClass = studentClasses.find(c => c.id === classId);
-                    return studentClass ? (
-                      <Badge 
-                        key={classId} 
-                        variant="outline" 
-                        className="text-xs px-1 py-0"
-                      >
-                        {studentClass.code}
-                      </Badge>
-                    ) : null;
-                  })}
+                <div className="space-y-1 mt-1">
+                  <div className="flex flex-wrap gap-1">
+                    {item.classIds.map(classId => {
+                      const studentClass = studentClasses.find(c => c.id === classId);
+                      return studentClass ? (
+                        <Badge 
+                          key={classId} 
+                          variant="outline" 
+                          className="text-xs px-1 py-0"
+                        >
+                          {studentClass.code}
+                        </Badge>
+                      ) : null;
+                    })}
+                  </div>
+                  {/* Display unique academic year batches */}
+                  {(() => {
+                    const uniqueBatches = [...new Set(
+                      item.classIds
+                        .map(classId => studentClasses.find(c => c.id === classId))
+                        .filter(Boolean)
+                        .map(studentClass => studentClass!.academicYearBatch)
+                    )];
+                    
+                    return uniqueBatches.length > 0 && (
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs text-muted-foreground">Angkatan:</span>
+                        <div className="flex flex-wrap gap-1">
+                          {uniqueBatches.map(batch => (
+                            <Badge 
+                              key={batch} 
+                              variant="secondary" 
+                              className="text-xs px-1 py-0 bg-blue-100 text-blue-800"
+                            >
+                              {batch}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
             </div>
