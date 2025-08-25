@@ -90,16 +90,6 @@ export const DEFAULT_ACTIVITY_TYPES: Record<string, ActivityTypeConfig> = {
     color: 'bg-pink-600 text-pink-50',
     description: 'Program Residensi'
   },
-  'kunjungan-lapangan': {
-    label: 'Kunjungan Lapangan',
-    color: 'bg-purple-800 text-purple-50',
-    description: 'Kunjungan ke rumah sakit dan fasilitas kesehatan'
-  },
-  'presentasi-kasus': {
-    label: 'Presentasi Kasus',
-    color: 'bg-indigo-700 text-indigo-50',
-    description: 'Presentasi dan diskusi kasus manajemen RS'
-  },
   'evaluasi-kinerja': {
     label: 'Evaluasi Kinerja',
     color: 'bg-violet-700 text-violet-50',

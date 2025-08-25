@@ -28,7 +28,7 @@ const Index = () => {
 
   // Remove deprecated default activity types on first load
   useEffect(() => {
-    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel','tambahan'];
+    const removedKeys = ['seminar-khusus','praktikum','workshop','diskusi-panel','tambahan','kunjungan-lapangan','presentasi-kasus'];
     let changed = false;
     const cleanedEntries = Object.entries(activityTypes).filter(([k]) => {
       const toRemove = removedKeys.includes(k);
@@ -120,7 +120,7 @@ const Index = () => {
     {
       id: '6',
       title: 'Kunjungan Lapangan - RS Cipto Mangunkusumo',
-      type: 'kunjungan-lapangan',
+      type: 'kuliah-tatap-muka',
       day: 'wednesday',
       startTime: '13:20',
       endTime: '15:50',
