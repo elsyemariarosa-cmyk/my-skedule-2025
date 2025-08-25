@@ -109,7 +109,8 @@ export const MONDAY_TIME_SLOTS: TimeSlot[] = [
   { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
   { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
   { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
-  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" },
+  { start: "19:00", end: "21:30", label: "19:00 - 21:30" }
 ];
 
 export const TUESDAY_TIME_SLOTS: TimeSlot[] = [
@@ -117,7 +118,8 @@ export const TUESDAY_TIME_SLOTS: TimeSlot[] = [
   { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
   { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
   { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
-  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" },
+  { start: "19:00", end: "21:30", label: "19:00 - 21:30" }
 ];
 
 export const WEDNESDAY_TIME_SLOTS: TimeSlot[] = [
@@ -125,7 +127,8 @@ export const WEDNESDAY_TIME_SLOTS: TimeSlot[] = [
   { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
   { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
   { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
-  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" },
+  { start: "19:00", end: "21:30", label: "19:00 - 21:30" }
 ];
 
 export const THURSDAY_TIME_SLOTS: TimeSlot[] = [
@@ -133,7 +136,8 @@ export const THURSDAY_TIME_SLOTS: TimeSlot[] = [
   { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
   { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
   { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
-  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" },
+  { start: "19:00", end: "21:30", label: "19:00 - 21:30" }
 ];
 
 export const FRIDAY_TIME_SLOTS: TimeSlot[] = [
@@ -157,7 +161,8 @@ export const SUNDAY_TIME_SLOTS: TimeSlot[] = [
   { start: "09:50", end: "11:30", label: "09:50 - 11:30" },
   { start: "12:30", end: "14:10", label: "12:30 - 14:10" },
   { start: "14:20", end: "16:00", label: "14:20 - 16:00" },
-  { start: "16:10", end: "17:50", label: "16:10 - 17:50" }
+  { start: "16:10", end: "17:50", label: "16:10 - 17:50" },
+  { start: "19:00", end: "21:30", label: "19:00 - 21:30" }
 ];
 
 // Map days to their time slots
