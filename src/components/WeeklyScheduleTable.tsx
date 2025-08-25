@@ -187,32 +187,40 @@ export function WeeklyScheduleTable({
         
         // Create sample data for each active class
         activeClasses.forEach((studentClass, classIndex) => {
-          // Sample data for Semester 1
+          // Sample data for Semester 1 - Different courses for each class
+          const semester1Courses = [
+            'Pengantar Ekonomi', 'Statistik Deskriptif', 'Manajemen Dasar', 
+            'Akuntansi Pengantar', 'Pemasaran Dasar', 'Komunikasi Bisnis',
+            'Etika Bisnis', 'Kewirausahaan'
+          ];
+          
+          const fridayCourse = semester1Courses[classIndex % semester1Courses.length];
+          
           sampleData.push(
             {
               id: `${studentClass.id}-1`,
               classId: studentClass.id,
-              courseName: 'Matematika Dasar',
+              courseName: fridayCourse,
               instructor: 'Dr. Ahmad Suryanto',
               day: 'friday',
               timeSlot: '13.00-15.00',
               date: '30 Agustus 2024',
               activityType: 'kuliah',
               room: `A${101 + classIndex}`,
-              description: 'Materi pengenalan kalkulus',
+              description: `Pembelajaran ${fridayCourse} untuk mahasiswa semester 1`,
               semester: 1
             },
             {
               id: `${studentClass.id}-2`,
               classId: studentClass.id,
-              courseName: 'Bahasa Indonesia',
+              courseName: 'Bahasa Inggris Bisnis',
               instructor: 'Prof. Siti Nurhaliza',
               day: 'saturday',
               timeSlot: '09.00-11.30',
               date: '31 Agustus 2024',
               activityType: 'kuliah',
               room: `B${201 + classIndex}`,
-              description: 'Tata bahasa formal',
+              description: 'Komunikasi bisnis dalam bahasa Inggris',
               semester: 1
             },
             // Sample data for Semester 3 (default)
