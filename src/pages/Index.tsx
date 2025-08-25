@@ -33,14 +33,15 @@ const Index = () => {
   });
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
-    // Sample data
+    // Sample data for all days
+    // MONDAY
     {
       id: '1',
       title: 'Manajemen Strategis RS',
       type: 'kuliah-tatap-muka',
-      day: 'friday',
-      startTime: '13:00',
-      endTime: '15:00',
+      day: 'monday',
+      startTime: '08:00',
+      endTime: '09:40',
       semester: 1,
       instructor: 'Dr. Ahmad Susilo, M.Kes',
       room: 'Ruang 201',
@@ -48,83 +49,179 @@ const Index = () => {
     },
     {
       id: '2',
+      title: 'Tutorial Manajemen Keuangan RS',
+      type: 'tutorial',
+      day: 'monday',
+      startTime: '12:30',
+      endTime: '14:10',
+      semester: 2,
+      instructor: 'Dr. Siti Nurhaliza, M.M',
+      room: 'Ruang Tutorial A',
+      description: 'Diskusi kelompok tentang manajemen keuangan rumah sakit'
+    },
+    
+    // TUESDAY
+    {
+      id: '3',
       title: 'Sistem Informasi Manajemen RS',
       type: 'kuliah-tatap-muka',
-      day: 'saturday',
-      startTime: '08:00',
-      endTime: '10:00',
+      day: 'tuesday',
+      startTime: '09:50',
+      endTime: '11:30',
       semester: 2,
       instructor: 'Prof. Dr. Siti Rahma, M.Si',
       room: 'Lab Komputer',
       description: 'Implementasi SIMRS dan digitalisasi layanan kesehatan'
     },
     {
-      id: '3',
+      id: '4',
+      title: 'Skill Lab - Komunikasi Efektif',
+      type: 'skill-lab',
+      day: 'tuesday',
+      startTime: '14:20',
+      endTime: '16:00',
+      semester: 1,
+      instructor: 'Dr. Maya Indira, M.Psi',
+      room: 'Lab Skills',
+      description: 'Praktik komunikasi efektif dalam manajemen RS'
+    },
+
+    // WEDNESDAY
+    {
+      id: '5',
+      title: 'Manajemen Mutu dan Keselamatan Pasien',
+      type: 'kuliah-tatap-muka',
+      day: 'wednesday',
+      startTime: '08:00',
+      endTime: '09:40',
+      semester: 3,
+      instructor: 'Prof. Dr. Budi Santoso, M.Kes',
+      room: 'Ruang 203',
+      description: 'Konsep dan implementasi manajemen mutu di RS'
+    },
+    {
+      id: '6',
+      title: 'Kunjungan Lapangan - RS Cipto Mangunkusumo',
+      type: 'kunjungan-lapangan',
+      day: 'wednesday',
+      startTime: '12:30',
+      endTime: '16:00',
+      semester: 2,
+      instructor: 'Dr. Ahmad Susilo, M.Kes',
+      room: 'RSCM Jakarta',
+      description: 'Observasi sistem manajemen di rumah sakit rujukan nasional'
+    },
+
+    // THURSDAY
+    {
+      id: '7',
+      title: 'Workshop Kepemimpinan di RS',
+      type: 'workshop',
+      day: 'thursday',
+      startTime: '09:50',
+      endTime: '11:30',
+      semester: 3,
+      instructor: 'Dr. Retno Astuti, M.M + Praktisi RS',
+      room: 'Aula Utama',
+      description: 'Workshop tentang kepemimpinan transformatif di rumah sakit'
+    },
+    {
+      id: '8',
+      title: 'Diskusi Panel - Inovasi Pelayanan RS',
+      type: 'diskusi-panel',
+      day: 'thursday',
+      startTime: '14:20',
+      endTime: '16:00',
+      semester: 4,
+      instructor: 'Panel Ahli + Direktur RS',
+      room: 'Ruang Seminar',
+      description: 'Panel diskusi dengan direktur rumah sakit terkemuka'
+    },
+
+    // FRIDAY
+    {
+      id: '9',
+      title: 'Manajemen SDM RS',
+      type: 'kuliah-tatap-muka',
+      day: 'friday',
+      startTime: '13:00',
+      endTime: '14:40',
+      semester: 2,
+      instructor: 'Dr. Linda Sari, M.M',
+      room: 'Ruang 202',
+      description: 'Pengelolaan sumber daya manusia di rumah sakit'
+    },
+    {
+      id: '10',
+      title: 'Seminar Proposal - Ahmad Fauzi',
+      type: 'seminar-proposal',
+      day: 'friday',
+      startTime: '16:40',
+      endTime: '18:20',
+      semester: 3,
+      instructor: 'Dr. Ahmad Susilo, M.Kes + Prof. Dr. Siti Rahayu, M.M',
+      room: 'Ruang Seminar 1',
+      description: 'Seminar proposal tesis: Manajemen Kualitas RS'
+    },
+
+    // SATURDAY
+    {
+      id: '11',
       title: 'UTS - Manajemen Strategis RS',
       type: 'uts',
       day: 'saturday',
-      startTime: '10:00',
-      endTime: '12:00',
+      startTime: '08:00',
+      endTime: '09:40',
       semester: 1,
       instructor: 'Dr. Ahmad Susilo, M.Kes',
       room: 'Ruang Ujian A',
       description: 'Ujian Tengah Semester Manajemen Strategis RS'
     },
     {
-      id: '4',
-      title: 'UAS - Sistem Informasi Manajemen RS',
-      type: 'uas',
-      day: 'saturday',
-      startTime: '14:00',
-      endTime: '16:00',
-      semester: 2,
-      instructor: 'Prof. Dr. Siti Rahma, M.Si',
-      room: 'Lab Komputer',
-      description: 'Ujian Akhir Semester Sistem Informasi Manajemen RS'
-    },
-    {
-      id: '5',
-      title: 'Seminar Proposal - Ahmad Fauzi',
-      type: 'seminar-proposal',
-      day: 'friday',
-      startTime: '15:00',
-      endTime: '17:00',
-      semester: 3,
-      instructor: 'Dr. Ahmad Susilo, M.Kes + Prof. Dr. Siti Rahayu, M.M',
-      room: 'Ruang Seminar 1',
-      description: 'Seminar proposal tesis: Manajemen Kualitas RS'
-    },
-    {
-      id: '6',
+      id: '12',
       title: 'Seminar Hasil - Siti Nurhaliza',
       type: 'seminar-hasil',
       day: 'saturday',
-      startTime: '10:00',
-      endTime: '12:00',
+      startTime: '12:30',
+      endTime: '14:10',
       semester: 4,
       instructor: 'Prof. Dr. Budi Santoso, M.Kes + Dr. Maya Indira, M.M',
       room: 'Via Zoom Meeting',
       description: 'Seminar hasil penelitian: Sistem Informasi RS'
     },
     {
-      id: '7',
+      id: '13',
       title: 'Ujian Tesis - Budi Hermawan',
       type: 'ujian-tesis',
       day: 'saturday',
-      startTime: '12:00',
-      endTime: '14:00',
+      startTime: '14:20',
+      endTime: '16:00',
       semester: 4,
       instructor: 'Dr. Ahmad Susilo, M.Kes + Dr. Retno Astuti, M.M',
       room: 'Ruang Sidang Utama',
       description: 'Ujian tesis: Analisis Efektivitas Manajemen SDM RS'
     },
+
+    // SUNDAY
     {
-      id: '8',
+      id: '14',
+      title: 'Praktikum Simulasi Manajemen Krisis',
+      type: 'praktikum',
+      day: 'sunday',
+      startTime: '09:50',
+      endTime: '11:30',
+      semester: 3,
+      instructor: 'Dr. Ahmad Susilo, M.Kes + Tim Simulasi',
+      room: 'Ruang Simulasi',
+      description: 'Simulasi penanganan krisis dan bencana di rumah sakit'
+    },
+    {
+      id: '15',
       title: 'Residensial Program - Rumah Sakit Singapura',
       type: 'residensi',
-      day: 'friday',
-      startTime: '08:00',
-      endTime: '17:00',
+      day: 'sunday',
+      startTime: '12:30',
+      endTime: '16:00',
       semester: 4,
       instructor: 'Prof. Dr. International Supervisor',
       room: 'Singapore General Hospital',
@@ -132,6 +229,18 @@ const Index = () => {
       residencyStartDate: '2024-12-01',
       residencyEndDate: '2025-02-28',
       residencyCountry: 'Singapura'
+    },
+    {
+      id: '16',
+      title: 'Evaluasi Kinerja Mahasiswa',
+      type: 'evaluasi-kinerja',
+      day: 'sunday',
+      startTime: '16:10',
+      endTime: '17:50',
+      semester: 4,
+      instructor: 'Tim Evaluasi',
+      room: 'Ruang Evaluasi',
+      description: 'Evaluasi komprehensif kinerja mahasiswa semester'
     }
   ]);
   
