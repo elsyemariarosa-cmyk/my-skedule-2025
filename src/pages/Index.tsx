@@ -146,7 +146,7 @@ const Index = () => {
   });
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
-    // Sample data for all days
+    // Sample data for all days - each activity assigned to at least 5 classes
     // MONDAY
     {
       id: '1',
@@ -155,10 +155,12 @@ const Index = () => {
       day: 'monday',
       startTime: '08:00',
       endTime: '10:30',
+      activityDate: '2024-12-09',
       semester: 1,
       instructor: 'Dr. Ahmad Susilo, M.Kes',
       room: 'Ruang 201',
-      description: 'Pengantar manajemen strategis dalam konteks rumah sakit'
+      description: 'Pengantar manajemen strategis dalam konteks rumah sakit',
+      classIds: ['1', '2', '3', '4', '5'] // REG-A, REG-B, REG-C, REG-D, REG-E
     },
     {
       id: '2',
@@ -167,10 +169,12 @@ const Index = () => {
       day: 'monday',
       startTime: '13:20',
       endTime: '15:50',
+      activityDate: '2024-12-09',
       semester: 2,
       instructor: 'Dr. Siti Nurhaliza, M.M',
       room: 'Ruang Tutorial A',
-      description: 'Diskusi kelompok tentang manajemen keuangan rumah sakit'
+      description: 'Diskusi kelompok tentang manajemen keuangan rumah sakit',
+      classIds: ['6', '7', '8', '9', '10'] // REG-F, REG-G, REG-H, RPL-1, RPL-2
     },
     
     // TUESDAY
@@ -181,10 +185,12 @@ const Index = () => {
       day: 'tuesday',
       startTime: '10:40',
       endTime: '13:10',
+      activityDate: '2024-12-10',
       semester: 2,
       instructor: 'Prof. Dr. Siti Rahma, M.Si',
       room: 'Lab Komputer',
-      description: 'Implementasi SIMRS dan digitalisasi layanan kesehatan'
+      description: 'Implementasi SIMRS dan digitalisasi layanan kesehatan',
+      classIds: ['1', '2', '3', '6', '7', '8'] // Multiple reguler classes
     },
     {
       id: '4',
@@ -193,10 +199,12 @@ const Index = () => {
       day: 'tuesday',
       startTime: '16:00',
       endTime: '18:30',
+      activityDate: '2024-12-10',
       semester: 1,
       instructor: 'Dr. Maya Indira, M.Psi',
       room: 'Lab Skills',
-      description: 'Praktik komunikasi efektif dalam manajemen RS'
+      description: 'Praktik komunikasi efektif dalam manajemen RS',
+      classIds: ['4', '5', '9', '10', '11'] // Mixed reguler and RPL classes
     },
 
     // WEDNESDAY
@@ -207,22 +215,26 @@ const Index = () => {
       day: 'wednesday',
       startTime: '08:00',
       endTime: '10:30',
+      activityDate: '2024-12-11',
       semester: 3,
       instructor: 'Prof. Dr. Budi Santoso, M.Kes',
       room: 'Ruang 203',
-      description: 'Konsep dan implementasi manajemen mutu di RS'
+      description: 'Konsep dan implementasi manajemen mutu di RS',
+      classIds: ['1', '3', '5', '7', '9', '11'] // 6 classes from different batches
     },
     {
       id: '6',
       title: 'Kunjungan Lapangan - RS Cipto Mangunkusumo',
-      type: 'perkuliahan-offline',
+      type: 'fst',
       day: 'wednesday',
       startTime: '13:20',
       endTime: '15:50',
+      activityDate: '2024-12-11',
       semester: 2,
       instructor: 'Dr. Ahmad Susilo, M.Kes',
       room: 'RSCM Jakarta',
-      description: 'Observasi sistem manajemen di rumah sakit rujukan nasional'
+      description: 'Observasi sistem manajemen di rumah sakit rujukan nasional',
+      classIds: ['2', '4', '6', '8', '10'] // 5 classes
     },
 
     // THURSDAY
@@ -233,10 +245,12 @@ const Index = () => {
       day: 'thursday',
       startTime: '10:40',
       endTime: '13:10',
+      activityDate: '2024-12-12',
       semester: 3,
       instructor: 'Dr. Retno Astuti, M.M',
       room: 'Aula Utama',
-      description: 'Pembelajaran tentang kepemimpinan transformatif di rumah sakit'
+      description: 'Pembelajaran tentang kepemimpinan transformatif di rumah sakit',
+      classIds: ['1', '2', '3', '4', '5', '6', '7'] // 7 classes
     },
     {
       id: '8',
@@ -245,10 +259,12 @@ const Index = () => {
       day: 'thursday',
       startTime: '16:00',
       endTime: '18:30',
+      activityDate: '2024-12-12',
       semester: 4,
       instructor: 'Dr. Siti Nurhaliza, M.M',
       room: 'Via Zoom Meeting',
-      description: 'Kuliah online tentang inovasi pelayanan rumah sakit'
+      description: 'Kuliah online tentang inovasi pelayanan rumah sakit',
+      classIds: ['8', '9', '10', '11', '1'] // Mix of advanced and beginner classes
     },
 
     // FRIDAY
@@ -259,22 +275,26 @@ const Index = () => {
       day: 'friday',
       startTime: '13:00',
       endTime: '15:30',
+      activityDate: '2024-12-13',
       semester: 2,
       instructor: 'Dr. Linda Sari, M.M',
       room: 'Ruang 202',
-      description: 'Pengelolaan sumber daya manusia di rumah sakit'
+      description: 'Pengelolaan sumber daya manusia di rumah sakit',
+      classIds: ['2', '3', '4', '5', '6'] // 5 reguler classes
     },
     {
       id: '10',
-      title: 'Seminar Proposal - Ahmad Fauzi',
-      type: 'seminar-proposal',
+      title: 'Project Learning - Analisis Kasus RS',
+      type: 'project-learning',
       day: 'friday',
       startTime: '15:40',
       endTime: '18:10',
+      activityDate: '2024-12-13',
       semester: 3,
       instructor: 'Dr. Ahmad Susilo, M.Kes + Prof. Dr. Siti Rahayu, M.M',
-      room: 'Ruang Seminar 1',
-      description: 'Seminar proposal tesis: Manajemen Kualitas RS'
+      room: 'Ruang Diskusi 1-3',
+      description: 'Pembelajaran berbasis proyek analisis kasus manajemen RS',
+      classIds: ['7', '8', '9', '10', '11'] // 5 advanced classes
     },
 
     // SATURDAY
@@ -285,34 +305,40 @@ const Index = () => {
       day: 'saturday',
       startTime: '08:00',
       endTime: '10:30',
+      activityDate: '2024-12-14',
       semester: 1,
       instructor: 'Dr. Ahmad Susilo, M.Kes',
-      room: 'Ruang Ujian A',
-      description: 'Ujian Tengah Semester Manajemen Strategis RS'
+      room: 'Ruang Ujian A-E',
+      description: 'Ujian Tengah Semester Manajemen Strategis RS',
+      classIds: ['1', '2', '3', '4', '5'] // All semester 1 classes
     },
     {
       id: '12',
-      title: 'Seminar Hasil - Siti Nurhaliza',
-      type: 'seminar-hasil',
+      title: 'Tutorial Manajemen Operasional RS',
+      type: 'tutorial',
       day: 'saturday',
       startTime: '13:20',
       endTime: '15:50',
+      activityDate: '2024-12-14',
       semester: 4,
-      instructor: 'Prof. Dr. Budi Santoso, M.Kes + Dr. Maya Indira, M.M',
-      room: 'Via Zoom Meeting',
-      description: 'Seminar hasil penelitian: Sistem Informasi RS'
+      instructor: 'Prof. Dr. Budi Santoso, M.Kes + Tim Dosen',
+      room: 'Ruang Tutorial 1-3',
+      description: 'Diskusi kelompok manajemen operasional rumah sakit',
+      classIds: ['6', '7', '8', '9', '10', '11'] // 6 advanced classes
     },
     {
       id: '13',
-      title: 'Ujian Tesis - Budi Hermawan',
-      type: 'ujian-tesis',
+      title: 'Seminar Hasil - Penelitian Mahasiswa',
+      type: 'seminar-hasil',
       day: 'saturday',
       startTime: '16:00',
       endTime: '18:30',
+      activityDate: '2024-12-14',
       semester: 4,
       instructor: 'Dr. Ahmad Susilo, M.Kes + Dr. Retno Astuti, M.M',
-      room: 'Ruang Sidang Utama',
-      description: 'Ujian tesis: Analisis Efektivitas Manajemen SDM RS'
+      room: 'Aula Utama',
+      description: 'Seminar hasil penelitian mahasiswa tingkat akhir',
+      classIds: ['7', '8', '9', '10', '11'] // Final semester classes
     },
 
     // SUNDAY
@@ -323,10 +349,12 @@ const Index = () => {
       day: 'sunday',
       startTime: '10:40',
       endTime: '13:10',
+      activityDate: '2024-12-15',
       semester: 3,
       instructor: 'Dr. Ahmad Susilo, M.Kes',
       room: 'Via Google Meet',
-      description: 'Kuliah online tentang manajemen krisis dan bencana di rumah sakit'
+      description: 'Kuliah online tentang manajemen krisis dan bencana di rumah sakit',
+      classIds: ['1', '3', '5', '7', '9'] // Mixed classes from different batches
     },
     {
       id: '15',
@@ -335,13 +363,15 @@ const Index = () => {
       day: 'sunday',
       startTime: '13:20',
       endTime: '15:50',
+      activityDate: '2024-12-15',
       semester: 4,
       instructor: 'Prof. Dr. International Supervisor',
       room: 'Singapore General Hospital',
       description: 'Program residensial 3 bulan di Singapura untuk mempelajari sistem manajemen RS internasional',
       residencyStartDate: '2024-12-01',
       residencyEndDate: '2025-02-28',
-      residencyCountry: 'Singapura'
+      residencyCountry: 'Singapura',
+      classIds: ['8', '9', '10', '11', '1'] // Selected students from multiple classes
     },
     {
       id: '16',
@@ -350,10 +380,12 @@ const Index = () => {
       day: 'sunday',
       startTime: '16:00',
       endTime: '18:30',
+      activityDate: '2024-12-15',
       semester: 4,
       instructor: 'Tim Evaluasi',
-      room: 'Ruang Evaluasi',
-      description: 'Evaluasi komprehensif kinerja mahasiswa semester'
+      room: 'Ruang Evaluasi 1-2',
+      description: 'Evaluasi komprehensif kinerja mahasiswa semester',
+      classIds: ['6', '7', '8', '9', '10', '11'] // All advanced classes
     }
   ]);
   
