@@ -22,8 +22,9 @@ const Index = () => {
 
   // Load activity types from localStorage or use defaults
   const [activityTypes, setActivityTypes] = useState<Record<string, ActivityTypeConfig>>(() => {
-    const saved = localStorage.getItem('mars-activity-types');
-    return saved ? JSON.parse(saved) : DEFAULT_ACTIVITY_TYPES;
+    // Force refresh with latest DEFAULT_ACTIVITY_TYPES
+    localStorage.setItem('mars-activity-types', JSON.stringify(DEFAULT_ACTIVITY_TYPES));
+    return DEFAULT_ACTIVITY_TYPES;
   });
 
   // Remove deprecated default activity types on first load
