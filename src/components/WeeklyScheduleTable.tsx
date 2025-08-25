@@ -151,6 +151,8 @@ export function WeeklyScheduleTable({
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<ScheduleEntry | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedSemester, setSelectedSemester] = useState<1 | 2 | 3 | 4>(3);
+  const [isSemesterEditOpen, setIsSemesterEditOpen] = useState(false);
   const [formData, setFormData] = useState({
     courseName: '',
     instructor: '',
@@ -279,7 +281,14 @@ export function WeeklyScheduleTable({
         {/* Header */}
         <div className={`text-center border-2 p-4 ${colors.header} rounded-lg shadow-lg`}>
           <h3 className="text-lg font-bold">
-            JADWAL PERKULIAHAN : Semester 3 Kelas : {selectedClass.code}
+            JADWAL PERKULIAHAN : 
+            <button 
+              onClick={() => setIsSemesterEditOpen(true)}
+              className="ml-2 px-3 py-1 bg-white/20 hover:bg-white/30 rounded-md transition-colors"
+            >
+              Semester {selectedSemester} ✏️
+            </button>
+            Kelas : {selectedClass.code}
           </h3>
           <p className="text-sm font-semibold mt-2 opacity-90">
             PRODI MARS UMY
@@ -506,6 +515,66 @@ export function WeeklyScheduleTable({
           ))}
         </Tabs>
       </div>
+
+      {/* Semester Edit Dialog */}
+      <Dialog open={isSemesterEditOpen} onOpenChange={setIsSemesterEditOpen}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Pilih Semester</DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div>
+              <Label className="font-semibold text-base mb-3 block">Semester Ganjil</Label>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  variant={selectedSemester === 1 ? "default" : "outline"}
+                  onClick={() => setSelectedSemester(1)}
+                  className="w-full"
+                >
+                  Semester 1
+                </Button>
+                <Button
+                  variant={selectedSemester === 3 ? "default" : "outline"}
+                  onClick={() => setSelectedSemester(3)}
+                  className="w-full"
+                >
+                  Semester 3
+                </Button>
+              </div>
+            </div>
+            
+            <div>
+              <Label className="font-semibold text-base mb-3 block">Semester Genap</Label>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  variant={selectedSemester === 2 ? "default" : "outline"}
+                  onClick={() => setSelectedSemester(2)}
+                  className="w-full"
+                >
+                  Semester 2
+                </Button>
+                <Button
+                  variant={selectedSemester === 4 ? "default" : "outline"}
+                  onClick={() => setSelectedSemester(4)}
+                  className="w-full"
+                >
+                  Semester 4
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsSemesterEditOpen(false)}>
+              Batal
+            </Button>
+            <Button onClick={() => setIsSemesterEditOpen(false)}>
+              Simpan
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Form Dialog */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
