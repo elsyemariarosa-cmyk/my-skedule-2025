@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Edit, Trash2, Users, GraduationCap, Award } from "lucide-react";
 import { StudentClass, ClassType, CLASS_TYPE_CONFIG, getClassTypeLabel } from "@/types/student-class";
+import { getCurrentAcademicYear } from "@/types/master-schedule";
 import { useToast } from "@/hooks/use-toast";
 
 interface StudentClassManagerProps {
@@ -33,6 +34,7 @@ export function StudentClassManager({
     type: 'reguler' as ClassType,
     code: '',
     description: '',
+    academicYearBatch: getCurrentAcademicYear(),
     maxCapacity: 25,
     currentCapacity: 0,
     isActive: true
@@ -54,6 +56,7 @@ export function StudentClassManager({
       type: selectedType,
       code: `${prefix}-${selectedType === 'reguler' ? String.fromCharCode(65 + existingCount) : (existingCount + 1)}`,
       description: selectedType === 'reguler' ? `Kelas Reguler ${String.fromCharCode(65 + existingCount)}` : `Kelas Recognisi Pembelajaran Lampau ${existingCount + 1}`,
+      academicYearBatch: getCurrentAcademicYear(),
       maxCapacity: selectedType === 'reguler' ? 25 : 30,
       currentCapacity: 0,
       isActive: true
@@ -68,6 +71,7 @@ export function StudentClassManager({
       type: studentClass.type,
       code: studentClass.code,
       description: studentClass.description,
+      academicYearBatch: studentClass.academicYearBatch,
       maxCapacity: studentClass.maxCapacity || 25,
       currentCapacity: studentClass.currentCapacity || 0,
       isActive: studentClass.isActive
@@ -160,6 +164,7 @@ export function StudentClassManager({
           <div>
             <p className="font-medium text-sm">{studentClass.name}</p>
             <p className="text-xs text-muted-foreground">{studentClass.description}</p>
+            <p className="text-xs text-muted-foreground">Angkatan: {studentClass.academicYearBatch}</p>
             {studentClass.maxCapacity && (
               <p className="text-xs text-muted-foreground">
                 Kapasitas: {studentClass.currentCapacity || 0}/{studentClass.maxCapacity}
@@ -306,6 +311,25 @@ export function StudentClassManager({
                   className="focus:ring-primary"
                 />
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="academicYearBatch">Angkatan Tahun Akademik *</Label>
+              <Select 
+                value={formData.academicYearBatch} 
+                onValueChange={(value) => setFormData(prev => ({ ...prev, academicYearBatch: value }))}
+              >
+                <SelectTrigger className="focus:ring-primary">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="2024/2025">2024/2025</SelectItem>
+                  <SelectItem value="2023/2024">2023/2024</SelectItem>
+                  <SelectItem value="2022/2023">2022/2023</SelectItem>
+                  <SelectItem value="2021/2022">2021/2022</SelectItem>
+                  <SelectItem value="2020/2021">2020/2021</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">

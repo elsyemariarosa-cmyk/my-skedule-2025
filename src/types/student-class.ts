@@ -6,6 +6,7 @@ export interface StudentClass {
   type: ClassType;
   code: string; // e.g., "REG-A", "REG-B", "RPL-1"  
   description: string;
+  academicYearBatch: string; // e.g., "2024/2025"
   maxCapacity?: number;
   currentCapacity?: number;
   isActive: boolean;
@@ -51,6 +52,7 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     type: 'reguler',
     code: 'REG-A',
     description: 'Kelas Reguler A',
+    academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 20,
     isActive: true,
@@ -63,6 +65,7 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     type: 'reguler',
     code: 'REG-B',
     description: 'Kelas Reguler B',
+    academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 18,
     isActive: true,
@@ -75,6 +78,7 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     type: 'reguler',
     code: 'REG-C',
     description: 'Kelas Reguler C',
+    academicYearBatch: '2023/2024',
     maxCapacity: 25,
     currentCapacity: 22,
     isActive: true,
@@ -87,6 +91,7 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     type: 'reguler', 
     code: 'REG-D',
     description: 'Kelas Reguler D',
+    academicYearBatch: '2023/2024',
     maxCapacity: 25,
     currentCapacity: 15,
     isActive: true,
@@ -99,6 +104,7 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     type: 'rpl',
     code: 'RPL-1', 
     description: 'Kelas Recognisi Pembelajaran Lampau',
+    academicYearBatch: '2024/2025',
     maxCapacity: 30,
     currentCapacity: 12,
     isActive: true,
