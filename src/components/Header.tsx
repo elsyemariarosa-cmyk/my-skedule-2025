@@ -60,7 +60,7 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
                 <GraduationCap className="w-5 h-5 text-white/80" />
                 <div>
                   <p className="text-sm text-white/80">Durasi Sesi</p>
-                  <p className="font-semibold">2 Jam</p>
+                  <p className="font-semibold">150 menit</p>
                 </div>
               </div>
             </Card>
