@@ -6,6 +6,18 @@ export interface AcademicYear {
   isActive: boolean;
 }
 
+export interface AcademicActivity {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  academicYear: string;
+  semesterType: SemesterType;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface MasterSchedule {
   id: string;
   academicYear: string;

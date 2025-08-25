@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Edit, Trash2, Calendar, BookOpen, Settings } from "lucide-react";
-import { MasterSchedule, SemesterType, AcademicYear, getCurrentAcademicYear, getCurrentSemesterType, getSemesterLabel, SEMESTER_MAPPING } from "@/types/master-schedule";
+import { MasterSchedule, AcademicActivity, SemesterType, AcademicYear, getCurrentAcademicYear, getCurrentSemesterType, getSemesterLabel, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { useToast } from "@/hooks/use-toast";
 
 interface MasterScheduleManagerProps {
@@ -38,33 +38,50 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
     return years;
   });
 
-  const [masterSchedules, setMasterSchedules] = useState<MasterSchedule[]>([
+  const [academicActivities, setAcademicActivities] = useState<AcademicActivity[]>([
     {
       id: '1',
+      name: 'Pendaftaran Semester Ganjil',
+      startDate: '2024-08-01',
+      endDate: '2024-08-15',
       academicYear: getCurrentAcademicYear(),
       semesterType: 'ganjil',
-      semester: 1,
       isActive: true,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     },
     {
       id: '2',
+      name: 'Perkuliahan Semester Ganjil',
+      startDate: '2024-09-01',
+      endDate: '2024-12-31',
       academicYear: getCurrentAcademicYear(),
       semesterType: 'ganjil',
-      semester: 3,
-      isActive: false,
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    {
+      id: '3',
+      name: 'Pendaftaran Semester Genap',
+      startDate: '2025-01-01',
+      endDate: '2025-01-15',
+      academicYear: getCurrentAcademicYear(),
+      semesterType: 'genap',
+      isActive: true,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
   ]);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingSchedule, setEditingSchedule] = useState<MasterSchedule | null>(null);
+  const [editingActivity, setEditingActivity] = useState<AcademicActivity | null>(null);
   const [formData, setFormData] = useState({
+    name: '',
+    startDate: '',
+    endDate: '',
     academicYear: getCurrentAcademicYear(),
     semesterType: getCurrentSemesterType() as SemesterType,
-    semester: 1 as 1 | 2 | 3 | 4,
     isActive: false
   });
 
@@ -92,79 +109,101 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
     })));
   };
 
-  const handleAddSchedule = () => {
-    setEditingSchedule(null);
+  const handleAddActivity = () => {
+    setEditingActivity(null);
     setFormData({
+      name: '',
+      startDate: '',
+      endDate: '',
       academicYear: getCurrentAcademicYear(),
       semesterType: getCurrentSemesterType(),
-      semester: 1,
       isActive: false
     });
     setIsFormOpen(true);
   };
 
-  const handleEditSchedule = (schedule: MasterSchedule) => {
-    setEditingSchedule(schedule);
+  const handleEditActivity = (activity: AcademicActivity) => {
+    setEditingActivity(activity);
     setFormData({
-      academicYear: schedule.academicYear,
-      semesterType: schedule.semesterType,
-      semester: schedule.semester,
-      isActive: schedule.isActive
+      name: activity.name,
+      startDate: activity.startDate,
+      endDate: activity.endDate,
+      academicYear: activity.academicYear,
+      semesterType: activity.semesterType,
+      isActive: activity.isActive
     });
     setIsFormOpen(true);
   };
 
-  const handleDeleteSchedule = (scheduleId: string) => {
-    setMasterSchedules(prev => prev.filter(s => s.id !== scheduleId));
+  const handleDeleteActivity = (activityId: string) => {
+    setAcademicActivities(prev => prev.filter(a => a.id !== activityId));
     toast({
-      title: "Kalender akademik dihapus",
-      description: "Kalender akademik berhasil dihapus.",
+      title: "Kegiatan akademik dihapus",
+      description: "Kegiatan akademik berhasil dihapus.",
     });
   };
 
   const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (editingSchedule) {
-      // Edit existing schedule
-      setMasterSchedules(prev => prev.map(schedule => 
-        schedule.id === editingSchedule.id 
+    if (!formData.name || !formData.startDate || !formData.endDate) {
+      toast({
+        title: "Error",
+        description: "Nama kegiatan, tanggal mulai, dan tanggal selesai harus diisi.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (new Date(formData.startDate) > new Date(formData.endDate)) {
+      toast({
+        title: "Error",
+        description: "Tanggal mulai tidak boleh lebih besar dari tanggal selesai.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (editingActivity) {
+      // Edit existing activity
+      setAcademicActivities(prev => prev.map(activity => 
+        activity.id === editingActivity.id 
           ? { 
-              ...schedule, 
+              ...activity, 
               ...formData,
               updatedAt: new Date().toISOString()
             }
-          : schedule
+          : activity
       ));
       
       toast({
-        title: "Kalender akademik diperbarui",
-        description: "Kalender akademik berhasil diperbarui.",
+        title: "Kegiatan akademik diperbarui",
+        description: "Kegiatan akademik berhasil diperbarui.",
       });
     } else {
-      // Add new schedule
-      const newSchedule: MasterSchedule = {
+      // Add new activity
+      const newActivity: AcademicActivity = {
         id: Date.now().toString(),
         ...formData,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
       
-      setMasterSchedules(prev => [...prev, newSchedule]);
+      setAcademicActivities(prev => [...prev, newActivity]);
       
       toast({
-        title: "Kalender akademik ditambahkan",
-        description: "Kalender akademik baru berhasil ditambahkan.",
+        title: "Kegiatan akademik ditambahkan",
+        description: "Kegiatan akademik baru berhasil ditambahkan.",
       });
     }
     
     setIsFormOpen(false);
   };
 
-  const handleToggleScheduleActive = (scheduleId: string) => {
-    setMasterSchedules(prev => prev.map(schedule => ({
-      ...schedule,
-      isActive: schedule.id === scheduleId ? !schedule.isActive : schedule.isActive
+  const handleToggleActivityActive = (activityId: string) => {
+    setAcademicActivities(prev => prev.map(activity => ({
+      ...activity,
+      isActive: activity.id === activityId ? !activity.isActive : activity.isActive
     })));
   };
 
@@ -183,62 +222,81 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
             </DialogTitle>
           </DialogHeader>
 
-          <Tabs defaultValue="schedules" className="w-full">
+          <Tabs defaultValue="activities" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="schedules">Kalender Akademik</TabsTrigger>
+              <TabsTrigger value="activities">Kegiatan Akademik</TabsTrigger>
               <TabsTrigger value="academic-years">Tahun Akademik</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="schedules" className="space-y-4">
+            <TabsContent value="activities" className="space-y-4">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">Daftar Kalender Akademik</h3>
-                <Button onClick={handleAddSchedule} size="sm">
+                <h3 className="text-lg font-semibold">Daftar Kegiatan Akademik</h3>
+                <Button onClick={handleAddActivity} size="sm">
                   <Plus className="w-4 h-4 mr-2" />
-                  Tambah Kalender Akademik
+                  Tambah Kegiatan
                 </Button>
               </div>
               
-              <div className="grid gap-3">
-                {masterSchedules.map((schedule) => (
-                  <Card key={schedule.id} className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Badge variant={schedule.isActive ? "default" : "secondary"}>
-                          {schedule.academicYear}
-                        </Badge>
-                        <Badge variant="outline" className={schedule.semesterType === 'ganjil' ? 'border-primary text-primary' : 'border-medical text-medical'}>
-                          {getSemesterLabel(schedule.semesterType)} - Semester {schedule.semester}
-                        </Badge>
-                        {schedule.isActive && (
-                          <Badge variant="default" className="bg-green-500">
-                            Aktif
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        <Switch
-                          checked={schedule.isActive}
-                          onCheckedChange={() => handleToggleScheduleActive(schedule.id)}
-                        />
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleEditSchedule(schedule)}
-                        >
-                          <Edit className="w-3 h-3" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleDeleteSchedule(schedule.id)}
-                          className="text-destructive hover:text-destructive"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
-                      </div>
+              <div className="space-y-3">
+                {['ganjil', 'genap'].map((semesterType) => (
+                  <div key={semesterType} className="space-y-2">
+                    <h4 className={`text-md font-semibold ${semesterType === 'ganjil' ? 'text-primary' : 'text-medical'}`}>
+                      {getSemesterLabel(semesterType as SemesterType)}
+                    </h4>
+                    <div className="grid gap-2 ml-4">
+                      {academicActivities
+                        .filter(activity => activity.semesterType === semesterType)
+                        .map((activity) => (
+                        <Card key={activity.id} className="p-4">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-2">
+                                <span className="font-medium">{activity.name}</span>
+                                <Badge variant={activity.isActive ? "default" : "secondary"}>
+                                  {activity.academicYear}
+                                </Badge>
+                                {activity.isActive && (
+                                  <Badge variant="default" className="bg-green-500">
+                                    Aktif
+                                  </Badge>
+                                )}
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                {new Date(activity.startDate).toLocaleDateString('id-ID')} - {new Date(activity.endDate).toLocaleDateString('id-ID')}
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-2">
+                              <Switch
+                                checked={activity.isActive}
+                                onCheckedChange={() => handleToggleActivityActive(activity.id)}
+                              />
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleEditActivity(activity)}
+                              >
+                                <Edit className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleDeleteActivity(activity.id)}
+                                className="text-destructive hover:text-destructive"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                      {academicActivities.filter(a => a.semesterType === semesterType).length === 0 && (
+                        <div className="text-sm text-muted-foreground text-center py-4">
+                          Belum ada kegiatan untuk {getSemesterLabel(semesterType as SemesterType)}
+                        </div>
+                      )}
                     </div>
-                  </Card>
+                  </div>
                 ))}
               </div>
             </TabsContent>
@@ -290,11 +348,46 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>
-              {editingSchedule ? 'Edit Kalender Akademik' : 'Tambah Kalender Akademik Baru'}
+              {editingActivity ? 'Edit Kegiatan Akademik' : 'Tambah Kegiatan Akademik Baru'}
             </DialogTitle>
           </DialogHeader>
 
           <form onSubmit={handleSubmitForm} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nama Kegiatan *</Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                placeholder="Contoh: Pendaftaran, Perkuliahan, UTS, UAS"
+                className="focus:ring-primary"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="startDate">Tanggal Mulai *</Label>
+                <Input
+                  id="startDate"
+                  type="date"
+                  value={formData.startDate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
+                  className="focus:ring-primary"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="endDate">Tanggal Selesai *</Label>
+                <Input
+                  id="endDate"
+                  type="date"
+                  value={formData.endDate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
+                  className="focus:ring-primary"
+                />
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="academicYear">Tahun Akademik *</Label>
               <Select 
@@ -315,43 +408,17 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="semesterType">Jenis Semester *</Label>
+              <Label htmlFor="semesterType">Semester *</Label>
               <Select 
                 value={formData.semesterType} 
-                onValueChange={(value: SemesterType) => {
-                  const availableSemesters = getAvailableSemesters(value);
-                  setFormData(prev => ({ 
-                    ...prev, 
-                    semesterType: value,
-                    semester: availableSemesters[0] as 1 | 2 | 3 | 4
-                  }));
-                }}
+                onValueChange={(value: SemesterType) => setFormData(prev => ({ ...prev, semesterType: value }))}
               >
                 <SelectTrigger className="focus:ring-primary">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="ganjil">Semester Ganjil (1, 3)</SelectItem>
-                  <SelectItem value="genap">Semester Genap (2, 4)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="semester">Semester *</Label>
-              <Select 
-                value={formData.semester.toString()} 
-                onValueChange={(value) => setFormData(prev => ({ ...prev, semester: parseInt(value) as 1 | 2 | 3 | 4 }))}
-              >
-                <SelectTrigger className="focus:ring-primary">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {getAvailableSemesters(formData.semesterType).map((sem) => (
-                    <SelectItem key={sem} value={sem.toString()}>
-                      Semester {sem}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="ganjil">Semester Ganjil</SelectItem>
+                  <SelectItem value="genap">Semester Genap</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -362,7 +429,7 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
                 checked={formData.isActive}
                 onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: checked }))}
               />
-              <Label htmlFor="isActive">Aktifkan kalender akademik ini</Label>
+              <Label htmlFor="isActive">Aktifkan kegiatan ini</Label>
             </div>
 
             <DialogFooter className="gap-2">
@@ -370,7 +437,7 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
                 Batal
               </Button>
               <Button type="submit">
-                {editingSchedule ? 'Simpan Perubahan' : 'Tambah Kalender Akademik'}
+                {editingActivity ? 'Simpan Perubahan' : 'Tambah Kegiatan'}
               </Button>
             </DialogFooter>
           </form>
