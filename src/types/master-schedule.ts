@@ -6,6 +6,13 @@ export interface AcademicYear {
   isActive: boolean;
 }
 
+export interface DailySession {
+  sessionNumber: 1 | 2 | 3;
+  startTime: string;
+  endTime: string;
+  duration: number; // in minutes
+}
+
 export interface AcademicActivity {
   id: string;
   name: string;
@@ -14,6 +21,10 @@ export interface AcademicActivity {
   academicYear: string;
   semesterType: SemesterType;
   isActive: boolean;
+  // New fields for daily sessions
+  hasWeekendSessions?: boolean; // Friday or Saturday activities
+  dailySessions?: DailySession[];
+  activeDays?: ('friday' | 'saturday')[];
   createdAt: string;
   updatedAt: string;
 }
@@ -62,3 +73,16 @@ export const getCurrentSemesterType = (): SemesterType => {
   // Semester Genap: January - June (1-6)
   return currentMonth >= 7 ? 'ganjil' : 'genap';
 };
+
+// Default weekend sessions (3 sessions x 150 minutes each)
+export const DEFAULT_WEEKEND_SESSIONS: DailySession[] = [
+  { sessionNumber: 1, startTime: "13:00", endTime: "15:30", duration: 150 },
+  { sessionNumber: 2, startTime: "15:40", endTime: "18:10", duration: 150 },
+  { sessionNumber: 3, startTime: "19:00", endTime: "21:30", duration: 150 }
+];
+
+export const SATURDAY_SESSIONS: DailySession[] = [
+  { sessionNumber: 1, startTime: "08:00", endTime: "10:30", duration: 150 },
+  { sessionNumber: 2, startTime: "10:40", endTime: "13:10", duration: 150 },
+  { sessionNumber: 3, startTime: "13:20", endTime: "15:50", duration: 150 }
+];

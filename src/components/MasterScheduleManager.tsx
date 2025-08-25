@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Edit, Trash2, Calendar, BookOpen, Settings } from "lucide-react";
-import { MasterSchedule, AcademicActivity, SemesterType, AcademicYear, getCurrentAcademicYear, getCurrentSemesterType, getSemesterLabel, SEMESTER_MAPPING } from "@/types/master-schedule";
+import { MasterSchedule, AcademicActivity, SemesterType, AcademicYear, getCurrentAcademicYear, getCurrentSemesterType, getSemesterLabel, SEMESTER_MAPPING, DailySession, DEFAULT_WEEKEND_SESSIONS, SATURDAY_SESSIONS } from "@/types/master-schedule";
 import { useToast } from "@/hooks/use-toast";
 
 interface MasterScheduleManagerProps {
@@ -82,7 +82,10 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
     endDate: '',
     academicYear: getCurrentAcademicYear(),
     semesterType: getCurrentSemesterType() as SemesterType,
-    isActive: false
+    isActive: false,
+    hasWeekendSessions: false,
+    activeDays: [] as ('friday' | 'saturday')[],
+    sessionType: 'friday' as 'friday' | 'saturday'
   });
 
   const handleAddAcademicYear = () => {
@@ -117,7 +120,10 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
       endDate: '',
       academicYear: getCurrentAcademicYear(),
       semesterType: getCurrentSemesterType(),
-      isActive: false
+      isActive: false,
+      hasWeekendSessions: false,
+      activeDays: [],
+      sessionType: 'friday'
     });
     setIsFormOpen(true);
   };
@@ -130,7 +136,10 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
       endDate: activity.endDate,
       academicYear: activity.academicYear,
       semesterType: activity.semesterType,
-      isActive: activity.isActive
+      isActive: activity.isActive,
+      hasWeekendSessions: activity.hasWeekendSessions || false,
+      activeDays: activity.activeDays || [],
+      sessionType: activity.activeDays?.[0] || 'friday'
     });
     setIsFormOpen(true);
   };
@@ -182,9 +191,16 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
       });
     } else {
       // Add new activity
+      const dailySessions = formData.hasWeekendSessions 
+        ? (formData.sessionType === 'friday' ? DEFAULT_WEEKEND_SESSIONS : SATURDAY_SESSIONS)
+        : undefined;
+      
       const newActivity: AcademicActivity = {
         id: Date.now().toString(),
         ...formData,
+        hasWeekendSessions: formData.hasWeekendSessions,
+        dailySessions,
+        activeDays: formData.hasWeekendSessions ? [formData.sessionType] : undefined,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
@@ -263,6 +279,15 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
                               </div>
                               <div className="text-sm text-muted-foreground">
                                 {new Date(activity.startDate).toLocaleDateString('id-ID')} - {new Date(activity.endDate).toLocaleDateString('id-ID')}
+                                {activity.hasWeekendSessions && (
+                                  <div className="mt-1 text-xs">
+                                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                                      {activity.activeDays?.includes('friday') && 'Jumat'}
+                                      {activity.activeDays?.includes('saturday') && 'Sabtu'}
+                                      • 3 Sesi • 450 Menit
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                             
@@ -431,6 +456,39 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
               />
               <Label htmlFor="isActive">Aktifkan kegiatan ini</Label>
             </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="hasWeekendSessions"
+                checked={formData.hasWeekendSessions}
+                onCheckedChange={(checked) => setFormData(prev => ({ ...prev, hasWeekendSessions: checked }))}
+              />
+              <Label htmlFor="hasWeekendSessions">Kegiatan Akhir Pekan (3 Sesi × 150 Menit)</Label>
+            </div>
+
+            {formData.hasWeekendSessions && (
+              <div className="space-y-2 p-4 border rounded-lg bg-muted/50">
+                <Label>Pilih Hari</Label>
+                <Select 
+                  value={formData.sessionType} 
+                  onValueChange={(value: 'friday' | 'saturday') => setFormData(prev => ({ ...prev, sessionType: value }))}
+                >
+                  <SelectTrigger className="focus:ring-primary">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="friday">Jumat (Sesi: 13:00-15:30, 15:40-18:10, 19:00-21:30)</SelectItem>
+                    <SelectItem value="saturday">Sabtu (Sesi: 08:00-10:30, 10:40-13:10, 13:20-15:50)</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <div className="text-sm text-muted-foreground">
+                  <p>• 3 Sesi pertemuan per hari</p>
+                  <p>• Masing-masing sesi 150 menit (2,5 jam)</p>
+                  <p>• Total 450 menit per hari kegiatan</p>
+                </div>
+              </div>
+            )}
 
             <DialogFooter className="gap-2">
               <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)}>

@@ -4,11 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Calendar, Clock, BookOpen, Plus, Filter } from "lucide-react";
+import { Calendar, Clock, BookOpen, Plus, Filter, Users } from "lucide-react";
 import { format, parseISO, isWithinInterval, startOfMonth, endOfMonth, eachMonthOfInterval, startOfYear, endOfYear } from "date-fns";
 import { id } from "date-fns/locale";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AcademicActivity, SemesterType, getCurrentAcademicYear } from "@/types/master-schedule";
+import { AcademicActivity, SemesterType, getCurrentAcademicYear, DailySession } from "@/types/master-schedule";
 
 interface MasterAcademicCalendarProps {
   activities: AcademicActivity[];
@@ -91,6 +91,22 @@ export function MasterAcademicCalendar({
     const startFormatted = format(start, 'd MMM', { locale: id });
     const endFormatted = format(end, 'd MMM yyyy', { locale: id });
     return `${startFormatted} - ${endFormatted}`;
+  };
+
+  const getSessionInfo = (activity: AcademicActivity) => {
+    if (!activity.hasWeekendSessions || !activity.dailySessions) {
+      return null;
+    }
+    
+    const dayLabels = activity.activeDays?.map(day => 
+      day === 'friday' ? 'Jumat' : 'Sabtu'
+    ).join(' & ') || '';
+    
+    return {
+      days: dayLabels,
+      sessionCount: activity.dailySessions.length,
+      totalDuration: activity.dailySessions.reduce((sum, session) => sum + session.duration, 0)
+    };
   };
 
   return (
@@ -252,10 +268,23 @@ export function MasterAcademicCalendar({
                                     )}
                                   </div>
                                   
-                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Clock className="w-3 h-3" />
-                                    <span>{getActivityDuration(activity)}</span>
-                                  </div>
+                                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                     <Clock className="w-3 h-3" />
+                                     <span>{getActivityDuration(activity)}</span>
+                                   </div>
+                                   
+                                   {(() => {
+                                     const sessionInfo = getSessionInfo(activity);
+                                     return sessionInfo && (
+                                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                         <Users className="w-3 h-3" />
+                                         <span>
+                                           {sessionInfo.days} • {sessionInfo.sessionCount} Sesi • 
+                                           {sessionInfo.totalDuration} Menit
+                                         </span>
+                                       </div>
+                                     );
+                                   })()}
                                 </div>
                               </div>
                             </CardContent>
