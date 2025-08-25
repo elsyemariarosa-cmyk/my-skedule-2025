@@ -37,7 +37,7 @@ export function SemesterFilter({
         <div className="flex items-center gap-3">
           <BookOpen className="w-6 h-6 text-primary" />
           <div>
-            <h3 className="font-semibold text-lg">Master Jadwal Perkuliahan</h3>
+            <h3 className="font-semibold text-lg">Kalender Akademik Perkuliahan</h3>
             <p className="text-sm text-muted-foreground">Program Studi Magister Administrasi Rumah Sakit</p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export function SemesterFilter({
             className="hover:bg-primary/10 hover:border-primary"
           >
             <BookOpen className="w-4 h-4 mr-2" />
-            Kelola Master Jadwal
+            Kelola Kalender Akademik
           </Button>
         </div>
       </div>

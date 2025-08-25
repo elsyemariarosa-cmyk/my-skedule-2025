@@ -117,8 +117,8 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
   const handleDeleteSchedule = (scheduleId: string) => {
     setMasterSchedules(prev => prev.filter(s => s.id !== scheduleId));
     toast({
-      title: "Master jadwal dihapus",
-      description: "Master jadwal berhasil dihapus.",
+      title: "Kalender akademik dihapus",
+      description: "Kalender akademik berhasil dihapus.",
     });
   };
 
@@ -138,8 +138,8 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
       ));
       
       toast({
-        title: "Master jadwal diperbarui",
-        description: "Master jadwal berhasil diperbarui.",
+        title: "Kalender akademik diperbarui",
+        description: "Kalender akademik berhasil diperbarui.",
       });
     } else {
       // Add new schedule
@@ -153,8 +153,8 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
       setMasterSchedules(prev => [...prev, newSchedule]);
       
       toast({
-        title: "Master jadwal ditambahkan",
-        description: "Master jadwal baru berhasil ditambahkan.",
+        title: "Kalender akademik ditambahkan",
+        description: "Kalender akademik baru berhasil ditambahkan.",
       });
     }
     
@@ -179,22 +179,22 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
           <DialogHeader>
             <DialogTitle className="text-xl font-bold bg-gradient-to-r from-primary to-medical bg-clip-text text-transparent flex items-center gap-2">
               <BookOpen className="w-6 h-6" />
-              Master Jadwal Perkuliahan
+              Kalender Akademik Perkuliahan
             </DialogTitle>
           </DialogHeader>
 
           <Tabs defaultValue="schedules" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="schedules">Master Jadwal</TabsTrigger>
+              <TabsTrigger value="schedules">Kalender Akademik</TabsTrigger>
               <TabsTrigger value="academic-years">Tahun Akademik</TabsTrigger>
             </TabsList>
             
             <TabsContent value="schedules" className="space-y-4">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">Daftar Master Jadwal</h3>
+                <h3 className="text-lg font-semibold">Daftar Kalender Akademik</h3>
                 <Button onClick={handleAddSchedule} size="sm">
                   <Plus className="w-4 h-4 mr-2" />
-                  Tambah Master Jadwal
+                  Tambah Kalender Akademik
                 </Button>
               </div>
               
@@ -290,7 +290,7 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>
-              {editingSchedule ? 'Edit Master Jadwal' : 'Tambah Master Jadwal Baru'}
+              {editingSchedule ? 'Edit Kalender Akademik' : 'Tambah Kalender Akademik Baru'}
             </DialogTitle>
           </DialogHeader>
 
@@ -362,7 +362,7 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
                 checked={formData.isActive}
                 onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: checked }))}
               />
-              <Label htmlFor="isActive">Aktifkan master jadwal ini</Label>
+              <Label htmlFor="isActive">Aktifkan kalender akademik ini</Label>
             </div>
 
             <DialogFooter className="gap-2">
@@ -370,7 +370,7 @@ export function MasterScheduleManager({ isOpen, onClose }: MasterScheduleManager
                 Batal
               </Button>
               <Button type="submit">
-                {editingSchedule ? 'Simpan Perubahan' : 'Tambah Master Jadwal'}
+                {editingSchedule ? 'Simpan Perubahan' : 'Tambah Kalender Akademik'}
               </Button>
             </DialogFooter>
           </form>
