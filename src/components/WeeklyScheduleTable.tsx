@@ -200,7 +200,7 @@ export function WeeklyScheduleTable({
       activityType: Object.keys(activityTypes)[0] || '',
       room: '',
       description: '',
-      semester: 3
+      semester: selectedSemester
     });
     setIsFormOpen(true);
   };
@@ -270,7 +270,8 @@ export function WeeklyScheduleTable({
     return scheduleEntries.find(e => 
       e.classId === classId && 
       e.day === day && 
-      e.timeSlot === timeSlot
+      e.timeSlot === timeSlot &&
+      e.semester === selectedSemester
     );
   };
 
