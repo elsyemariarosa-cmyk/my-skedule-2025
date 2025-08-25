@@ -351,7 +351,7 @@ export function WeeklyScheduleTable({
     );
   };
 
-  const createScheduleTable = (selectedClass: StudentClass) => {
+  const createScheduleTable = (selectedClass: StudentClass, semester: 1 | 2 | 3 | 4, title: string) => {
     const colors = getClassColors(selectedClass.code);
     
     // Calculate dates for current week
@@ -383,57 +383,26 @@ export function WeeklyScheduleTable({
     
     const weekDates = getWeekDates(currentWeek);
     
+    // Function to get entry for specific semester
+    const getEntryForSlotBySemester = (classId: string, day: 'friday' | 'saturday', timeSlot: string) => {
+      return scheduleEntries.find(e => 
+        e.classId === classId && 
+        e.day === day && 
+        e.timeSlot === timeSlot &&
+        e.semester === semester
+      );
+    };
+    
     return (
       <div className="space-y-6">
         {/* Header */}
         <div className={`text-center border-2 p-4 ${colors.header} rounded-lg shadow-lg`}>
           <h3 className="text-lg font-bold">
-            JADWAL PERKULIAHAN : 
-            <button 
-              onClick={() => setIsSemesterEditOpen(true)}
-              className="ml-2 px-3 py-1 bg-white/20 hover:bg-white/30 rounded-md transition-colors"
-            >
-              Semester {selectedSemester} ✏️
-            </button>
-            Kelas : {selectedClass.code}
+            {title} - Kelas : {selectedClass.code}
           </h3>
           <p className="text-sm font-semibold mt-2 opacity-90">
             PRODI MARS UMY
           </p>
-        </div>
-
-        {/* Week Navigation */}
-        <div className="flex items-center justify-center gap-4 p-4 bg-white rounded-lg shadow-sm border">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentWeek(prev => prev - 1)}
-            className="flex items-center gap-2"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Minggu Sebelumnya
-          </Button>
-          
-          <div className="text-center px-4">
-            <div className="font-semibold text-lg">
-              {currentWeek === 0 ? 'Minggu Ini' : 
-               currentWeek > 0 ? `${currentWeek} Minggu Kedepan` : 
-               `${Math.abs(currentWeek)} Minggu Sebelumnya`}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              {weekDates.friday} - {weekDates.saturday}
-            </div>
-          </div>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentWeek(prev => prev + 1)}
-            className="flex items-center gap-2"
-          >
-            Minggu Selanjutnya
-            <ChevronRight className="w-4 h-4" />
-          </Button>
         </div>
         
         {/* Schedule Table */}
@@ -464,7 +433,7 @@ export function WeeklyScheduleTable({
                   Jumat
                 </td>
                 {TIME_SLOTS.map((slot, index) => {
-                  const entry = getEntryForSlot(selectedClass.id, 'friday', slot.time);
+                  const entry = getEntryForSlotBySemester(selectedClass.id, 'friday', slot.time);
                   return (
                     <td key={`friday-content-${index}`} className={`border border-black p-2 relative group min-h-[120px] align-top transition-all hover:shadow-md ${entry ? colors.content : 'bg-white hover:bg-gray-50'}`}>
                       <div className="mb-2">
@@ -523,7 +492,10 @@ export function WeeklyScheduleTable({
                             size="sm"
                             variant="ghost"
                             className="h-6 w-6 p-0"
-                            onClick={() => handleAddEntry(selectedClass.id, 'friday', slot.time)}
+                            onClick={() => {
+                              setFormData(prev => ({ ...prev, semester: semester }));
+                              handleAddEntry(selectedClass.id, 'friday', slot.time);
+                            }}
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
@@ -546,7 +518,7 @@ export function WeeklyScheduleTable({
                   </div>
                   
                   {(() => {
-                    const entry = getEntryForSlot(selectedClass.id, 'saturday', '09.00-11.30');
+                    const entry = getEntryForSlotBySemester(selectedClass.id, 'saturday', '09.00-11.30');
                     return (
                       <>
                         <div className="mb-2">
@@ -605,7 +577,10 @@ export function WeeklyScheduleTable({
                               size="sm"
                               variant="ghost"
                               className="h-6 w-6 p-0"
-                              onClick={() => handleAddEntry(selectedClass.id, 'saturday', '09.00-11.30')}
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, semester: semester }));
+                                handleAddEntry(selectedClass.id, 'saturday', '09.00-11.30');
+                              }}
                             >
                               <Plus className="w-4 h-4" />
                             </Button>
@@ -622,7 +597,7 @@ export function WeeklyScheduleTable({
                   </div>
                   
                   {(() => {
-                    const entry = getEntryForSlot(selectedClass.id, 'saturday', '12.30-15.00');
+                    const entry = getEntryForSlotBySemester(selectedClass.id, 'saturday', '12.30-15.00');
                     return (
                       <>
                         <div className="mb-2">
@@ -681,7 +656,10 @@ export function WeeklyScheduleTable({
                               size="sm"
                               variant="ghost"
                               className="h-6 w-6 p-0"
-                              onClick={() => handleAddEntry(selectedClass.id, 'saturday', '12.30-15.00')}
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, semester: semester }));
+                                handleAddEntry(selectedClass.id, 'saturday', '12.30-15.00');
+                              }}
                             >
                               <Plus className="w-4 h-4" />
                             </Button>
@@ -698,7 +676,7 @@ export function WeeklyScheduleTable({
                   </div>
                   
                   {(() => {
-                    const entry = getEntryForSlot(selectedClass.id, 'saturday', '15.30-18.00');
+                    const entry = getEntryForSlotBySemester(selectedClass.id, 'saturday', '15.30-18.00');
                     return (
                       <>
                         <div className="mb-2">
@@ -757,7 +735,10 @@ export function WeeklyScheduleTable({
                               size="sm"
                               variant="ghost"
                               className="h-6 w-6 p-0"
-                              onClick={() => handleAddEntry(selectedClass.id, 'saturday', '15.30-18.00')}
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, semester: semester }));
+                                handleAddEntry(selectedClass.id, 'saturday', '15.30-18.00');
+                              }}
                             >
                               <Plus className="w-4 h-4" />
                             </Button>
@@ -815,7 +796,46 @@ export function WeeklyScheduleTable({
           
           {studentClasses.filter(c => c.isActive).map(studentClass => (
             <TabsContent key={studentClass.id} value={studentClass.id} className="mt-6">
-              {createScheduleTable(studentClass)}
+              {/* Week Navigation */}
+              <div className="flex items-center justify-center gap-4 p-4 bg-white rounded-lg shadow-sm border mb-6">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentWeek(prev => prev - 1)}
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Minggu Sebelumnya
+                </Button>
+                
+                <div className="text-center px-4">
+                  <div className="font-semibold text-lg">
+                    {currentWeek === 0 ? 'Minggu Ini' : 
+                     currentWeek > 0 ? `${currentWeek} Minggu Kedepan` : 
+                     `${Math.abs(currentWeek)} Minggu Sebelumnya`}
+                  </div>
+                </div>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentWeek(prev => prev + 1)}
+                  className="flex items-center gap-2"
+                >
+                  Minggu Selanjutnya
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Semester 1 Table */}
+              <div className="mb-8">
+                {createScheduleTable(studentClass, 1, 'JADWAL PERKULIAHAN SEMESTER 1')}
+              </div>
+
+              {/* Semester 3 Table */}
+              <div>
+                {createScheduleTable(studentClass, 3, 'JADWAL PERKULIAHAN SEMESTER 3')}
+              </div>
             </TabsContent>
           ))}
         </Tabs>
