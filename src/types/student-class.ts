@@ -44,14 +44,15 @@ export const getClassTypeColor = (type: ClassType): string => {
   return CLASS_TYPE_CONFIG[type].color;
 };
 
-// Default classes - can be customized by users
+// Default classes - separate classes for different semesters
 export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
+  // Semester 1 Classes
   {
     id: '1',
-    name: 'Reguler A1',
+    name: 'Reguler A1 - Semester 1',
     type: 'reguler',
-    code: 'Reg-A1',
-    description: 'Kelas Reguler A1',
+    code: 'Reg-A1-S1',
+    description: 'Kelas Reguler A1 Semester 1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 20,
@@ -61,10 +62,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '2', 
-    name: 'Reguler B1',
+    name: 'Reguler B1 - Semester 1',
     type: 'reguler',
-    code: 'Reg-B1',
-    description: 'Kelas Reguler B1',
+    code: 'Reg-B1-S1',
+    description: 'Kelas Reguler B1 Semester 1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 18,
@@ -74,10 +75,10 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '3',
-    name: 'Reguler C1', 
+    name: 'Reguler C1 - Semester 1', 
     type: 'reguler',
-    code: 'Reg-C1',
-    description: 'Kelas Reguler C1',
+    code: 'Reg-C1-S1',
+    description: 'Kelas Reguler C1 Semester 1',
     academicYearBatch: '2024/2025',
     maxCapacity: 25,
     currentCapacity: 22,
@@ -85,13 +86,15 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   },
+  
+  // Semester 3 Classes  
   {
     id: '4',
-    name: 'Reguler D1',
+    name: 'Reguler A1 - Semester 3',
     type: 'reguler', 
-    code: 'Reg-D1',
-    description: 'Kelas Reguler D1',
-    academicYearBatch: '2024/2025',
+    code: 'Reg-A1-S3',
+    description: 'Kelas Reguler A1 Semester 3',
+    academicYearBatch: '2023/2024',
     maxCapacity: 25,
     currentCapacity: 15,
     isActive: true,
@@ -100,11 +103,11 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '5',
-    name: 'Reguler E1',
+    name: 'Reguler B1 - Semester 3',
     type: 'reguler', 
-    code: 'Reg-E1',
-    description: 'Kelas Reguler E1',
-    academicYearBatch: '2024/2025',
+    code: 'Reg-B1-S3',
+    description: 'Kelas Reguler B1 Semester 3',
+    academicYearBatch: '2023/2024',
     maxCapacity: 25,
     currentCapacity: 19,
     isActive: true,
@@ -113,45 +116,21 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
   },
   {
     id: '6',
-    name: 'Reguler F1',
+    name: 'Reguler C1 - Semester 3',
     type: 'reguler', 
-    code: 'Reg-F1',
-    description: 'Kelas Reguler F1',
-    academicYearBatch: '2025/2026',
+    code: 'Reg-C1-S3',
+    description: 'Kelas Reguler C1 Semester 3',
+    academicYearBatch: '2023/2024',
     maxCapacity: 25,
     currentCapacity: 21,
     isActive: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   },
+  
+  // RPL Classes
   {
     id: '7',
-    name: 'Reguler G1',
-    type: 'reguler', 
-    code: 'Reg-G1',
-    description: 'Kelas Reguler G1',
-    academicYearBatch: '2025/2026',
-    maxCapacity: 25,
-    currentCapacity: 17,
-    isActive: true,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  },
-  {
-    id: '8',
-    name: 'Reguler H1',
-    type: 'reguler', 
-    code: 'Reg-H1',
-    description: 'Kelas Reguler H1',
-    academicYearBatch: '2025/2026',
-    maxCapacity: 25,
-    currentCapacity: 23,
-    isActive: true,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  },
-  {
-    id: '9',
     name: 'RPL 1',
     type: 'rpl',
     code: 'RPL-1', 
@@ -164,7 +143,7 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     updatedAt: new Date().toISOString()
   },
   {
-    id: '10',
+    id: '8',
     name: 'RPL 2',
     type: 'rpl',
     code: 'RPL-2', 
@@ -172,19 +151,6 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     academicYearBatch: '2024/2025',
     maxCapacity: 30,
     currentCapacity: 15,
-    isActive: true,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  },
-  {
-    id: '11',
-    name: 'RPL 3',
-    type: 'rpl',
-    code: 'RPL-3', 
-    description: 'Kelas Recognisi Pembelajaran Lampau 3',
-    academicYearBatch: '2025/2026',
-    maxCapacity: 30,
-    currentCapacity: 18,
     isActive: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
