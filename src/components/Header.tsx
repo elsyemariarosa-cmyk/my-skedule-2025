@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle, CalendarDays } from "lucide-react";
+import { GraduationCap, Calendar, Users, Settings, BarChart3, HelpCircle, CalendarDays, BookOpen } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ interface HeaderProps {
   activityTypes: Record<string, ActivityTypeConfig>;
   onOpenActivityManager: () => void;
   onOpenStudentClassManager: () => void;
+  onOpenClassBasedSchedule: () => void;
   onOpenMonitoring: () => void;
   onOpenMonitoringCalendar: () => void;
   onOpenUserGuide: () => void;
@@ -15,7 +16,17 @@ interface HeaderProps {
   onActivityTypeClick: (activityType: string) => void;
 }
 
-export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClassManager, onOpenMonitoring, onOpenMonitoringCalendar, onOpenUserGuide, onOpenMasterCalendar, onActivityTypeClick }: HeaderProps) {
+export function Header({ 
+  activityTypes, 
+  onOpenActivityManager, 
+  onOpenStudentClassManager,
+  onOpenClassBasedSchedule,
+  onOpenMonitoring,
+  onOpenMonitoringCalendar,
+  onOpenUserGuide,
+  onOpenMasterCalendar,
+  onActivityTypeClick
+}: HeaderProps) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -105,8 +116,18 @@ export function Header({ activityTypes, onOpenActivityManager, onOpenStudentClas
             size="sm"
             className="hover:bg-academic/10 hover:border-academic"
           >
+            <Users className="w-4 h-4 mr-2" />
+            Kelola Kelas
+          </Button>
+
+          <Button
+            onClick={onOpenClassBasedSchedule}
+            variant="outline"
+            size="sm"
+            className="hover:bg-primary/10 hover:border-primary"
+          >
             <GraduationCap className="w-4 h-4 mr-2" />
-            Kelola Kelas Mahasiswa
+            Jadwal per Kelas
           </Button>
 
           <Button

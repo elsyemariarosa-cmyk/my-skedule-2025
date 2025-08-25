@@ -7,6 +7,7 @@ import { SemesterFilter } from "@/components/SemesterFilter";
 import { MasterScheduleManager } from "@/components/MasterScheduleManager";
 import { MasterAcademicCalendar } from "@/components/MasterAcademicCalendar";
 import { StudentClassManager } from "@/components/StudentClassManager";
+import { ClassBasedScheduleManager } from "@/components/ClassBasedScheduleManager";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { MonitoringCalendar } from "@/components/MonitoringCalendar";
 import { UserGuide } from "@/components/UserGuide";
@@ -392,6 +393,7 @@ const Index = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isActivityManagerOpen, setIsActivityManagerOpen] = useState(false);
   const [isStudentClassManagerOpen, setIsStudentClassManagerOpen] = useState(false);
+  const [isClassBasedScheduleOpen, setIsClassBasedScheduleOpen] = useState(false);
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [isMonitoringCalendarOpen, setIsMonitoringCalendarOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
@@ -496,6 +498,7 @@ const Index = () => {
           activityTypes={activityTypes}
           onOpenActivityManager={() => setIsActivityManagerOpen(true)}
           onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
+          onOpenClassBasedSchedule={() => setIsClassBasedScheduleOpen(true)}
           onOpenMonitoring={() => setIsMonitoringOpen(true)}
           onOpenMonitoringCalendar={() => setIsMonitoringCalendarOpen(true)}
           onOpenUserGuide={() => setIsUserGuideOpen(true)}
@@ -541,6 +544,14 @@ const Index = () => {
           isOpen={isStudentClassManagerOpen}
           onClose={() => setIsStudentClassManagerOpen(false)}
           studentClasses={studentClasses}
+          onUpdateStudentClasses={handleUpdateStudentClasses}
+        />
+
+        <ClassBasedScheduleManager
+          isOpen={isClassBasedScheduleOpen}
+          onClose={() => setIsClassBasedScheduleOpen(false)}
+          studentClasses={studentClasses}
+          activityTypes={activityTypes}
           onUpdateStudentClasses={handleUpdateStudentClasses}
         />
 
