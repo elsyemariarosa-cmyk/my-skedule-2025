@@ -527,6 +527,13 @@ const Index = () => {
             studentClasses={studentClasses}
             activityTypes={activityTypes}
           />
+          
+          <MonthlySchedule
+            isOpen={true}
+            onClose={() => {}}
+            studentClasses={studentClasses}
+            activityTypes={activityTypes}
+          />
         </div>
         
         <ClassBasedScheduleManager
