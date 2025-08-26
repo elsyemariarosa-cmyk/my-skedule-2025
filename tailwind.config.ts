@@ -43,18 +43,49 @@ export default {
 					foreground: 'hsl(var(--academic-foreground))',
 					light: 'hsl(var(--academic-light))'
 				},
-				// Maroon variations
+				// Additional class-specific colors
+				blue: {
+					DEFAULT: 'hsl(var(--blue-primary))',
+					foreground: 'hsl(var(--blue-foreground))',
+					light: 'hsl(var(--blue-light))'
+				},
+				green: {
+					DEFAULT: 'hsl(var(--green-primary))',
+					foreground: 'hsl(var(--green-foreground))',
+					light: 'hsl(var(--green-light))'
+				},
+				purple: {
+					DEFAULT: 'hsl(var(--purple-primary))',
+					foreground: 'hsl(var(--purple-foreground))',
+					light: 'hsl(var(--purple-light))'
+				},
+				orange: {
+					DEFAULT: 'hsl(var(--orange-primary))',
+					foreground: 'hsl(var(--orange-foreground))',
+					light: 'hsl(var(--orange-light))'
+				},
+				teal: {
+					DEFAULT: 'hsl(var(--teal-primary))',
+					foreground: 'hsl(var(--teal-foreground))',
+					light: 'hsl(var(--teal-light))'
+				},
+				indigo: {
+					DEFAULT: 'hsl(var(--indigo-primary))',
+					foreground: 'hsl(var(--indigo-foreground))',
+					light: 'hsl(var(--indigo-light))'
+				},
+				// Maroon variations in HSL
 				maroon: {
-					50: '#fef2f2',
-					100: '#fee2e2',
-					200: '#fecaca',
-					300: '#fca5a5',
-					400: '#f87171',
-					500: '#8B0000', // Dark red/maroon
-					600: '#A52A2A', // Brown maroon
-					700: '#7B0000', // Deep maroon
-					800: '#610000', // Very deep maroon
-					900: '#450000', // Darkest maroon
+					50: 'hsl(var(--maroon-50))',
+					100: 'hsl(var(--maroon-100))',
+					200: 'hsl(var(--maroon-200))',
+					300: 'hsl(var(--maroon-300))',
+					400: 'hsl(var(--maroon-400))',
+					500: 'hsl(var(--maroon-500))',
+					600: 'hsl(var(--maroon-600))',
+					700: 'hsl(var(--maroon-700))',
+					800: 'hsl(var(--maroon-800))',
+					900: 'hsl(var(--maroon-900))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',

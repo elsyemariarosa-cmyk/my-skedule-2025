@@ -38,6 +38,43 @@ All colors MUST be HSL.
     --academic-foreground: 355 100% 95%;
     --academic-light: 355 30% 95%;
 
+    /* Class-specific color palettes */
+    --blue-primary: 213 94% 68%;     /* Blue for class differentiation */
+    --blue-foreground: 213 100% 15%;
+    --blue-light: 213 50% 96%;
+
+    --green-primary: 142 71% 45%;    /* Green for class differentiation */
+    --green-foreground: 142 100% 15%;
+    --green-light: 142 50% 96%;
+
+    --purple-primary: 262 83% 58%;   /* Purple for class differentiation */
+    --purple-foreground: 262 100% 15%;
+    --purple-light: 262 50% 96%;
+
+    --orange-primary: 25 95% 53%;    /* Orange for class differentiation */
+    --orange-foreground: 25 100% 15%;
+    --orange-light: 25 50% 96%;
+
+    --teal-primary: 173 58% 39%;     /* Teal for class differentiation */
+    --teal-foreground: 173 100% 15%;
+    --teal-light: 173 50% 96%;
+
+    --indigo-primary: 239 84% 67%;   /* Indigo for class differentiation */
+    --indigo-foreground: 239 100% 15%;
+    --indigo-light: 239 50% 96%;
+
+    /* Maroon variations in HSL */
+    --maroon-50: 355 50% 98%;
+    --maroon-100: 355 45% 95%;
+    --maroon-200: 355 40% 88%;
+    --maroon-300: 352 40% 80%;
+    --maroon-400: 348 45% 68%;
+    --maroon-500: 343 89% 25%;      /* Base maroon */
+    --maroon-600: 343 89% 30%;
+    --maroon-700: 343 89% 35%;
+    --maroon-800: 343 89% 40%;
+    --maroon-900: 343 89% 45%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 

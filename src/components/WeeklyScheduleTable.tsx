@@ -48,9 +48,9 @@ const SATURDAY_TIME_SLOTS = [
   { time: '15.30-18.00', label: '15.30-18.00' }
 ];
 
-// Color schemes for different classes using design system tokens
+// Color schemes for different classes using distinct design system tokens
 const CLASS_COLORS = {
-  // Semester 1 Classes
+  // Semester 1 Classes - Each with distinct colors
   'Reg-A1-S1': {
     header: 'bg-primary text-primary-foreground',
     content: 'bg-primary/5 border-primary/20',
@@ -59,57 +59,57 @@ const CLASS_COLORS = {
     accent: 'bg-primary/10'
   },
   'Reg-B1-S1': {
-    header: 'bg-maroon-600 text-white',
-    content: 'bg-maroon-50 border-maroon-200', 
-    text: 'text-maroon-800',
-    tab: 'data-[state=active]:bg-maroon-600 data-[state=active]:text-white',
-    accent: 'bg-maroon-100'
+    header: 'bg-blue text-blue-foreground',
+    content: 'bg-blue-light border-blue/20', 
+    text: 'text-blue',
+    tab: 'data-[state=active]:bg-blue data-[state=active]:text-blue-foreground',
+    accent: 'bg-blue/10'
   },
   'Reg-C1-S1': {
-    header: 'bg-maroon-700 text-white',
-    content: 'bg-maroon-50 border-maroon-300',
-    text: 'text-maroon-900', 
-    tab: 'data-[state=active]:bg-maroon-700 data-[state=active]:text-white',
-    accent: 'bg-maroon-200'
+    header: 'bg-green text-green-foreground',
+    content: 'bg-green-light border-green/20',
+    text: 'text-green', 
+    tab: 'data-[state=active]:bg-green data-[state=active]:text-green-foreground',
+    accent: 'bg-green/10'
   },
   
-  // Semester 3 Classes  
+  // Semester 3 Classes - Each with distinct colors
   'Reg-A1-S3': {
-    header: 'bg-accent text-accent-foreground',
-    content: 'bg-accent/5 border-accent/20',
-    text: 'text-accent',
-    tab: 'data-[state=active]:bg-accent data-[state=active]:text-accent-foreground',
-    accent: 'bg-accent/10'
+    header: 'bg-purple text-purple-foreground',
+    content: 'bg-purple-light border-purple/20',
+    text: 'text-purple',
+    tab: 'data-[state=active]:bg-purple data-[state=active]:text-purple-foreground',
+    accent: 'bg-purple/10'
   },
   'Reg-B1-S3': {
-    header: 'bg-maroon-800 text-white',
-    content: 'bg-maroon-100 border-maroon-300',
-    text: 'text-maroon-900',
-    tab: 'data-[state=active]:bg-maroon-800 data-[state=active]:text-white', 
-    accent: 'bg-maroon-200'
+    header: 'bg-orange text-orange-foreground',
+    content: 'bg-orange-light border-orange/20',
+    text: 'text-orange',
+    tab: 'data-[state=active]:bg-orange data-[state=active]:text-orange-foreground', 
+    accent: 'bg-orange/10'
   },
   'Reg-C1-S3': {
-    header: 'bg-maroon-900 text-white',
-    content: 'bg-maroon-100 border-maroon-300',
-    text: 'text-maroon-900',
-    tab: 'data-[state=active]:bg-maroon-900 data-[state=active]:text-white',
-    accent: 'bg-maroon-200'
+    header: 'bg-teal text-teal-foreground',
+    content: 'bg-teal-light border-teal/20',
+    text: 'text-teal',
+    tab: 'data-[state=active]:bg-teal data-[state=active]:text-teal-foreground',
+    accent: 'bg-teal/10'
   },
   
-  // RPL Classes
+  // RPL Classes - Each with distinct colors
   'RPL-1': {
-    header: 'bg-primary-glow text-white',
-    content: 'bg-primary/5 border-primary-glow/30',
-    text: 'text-primary',
-    tab: 'data-[state=active]:bg-primary-glow data-[state=active]:text-white',
-    accent: 'bg-primary/10'
+    header: 'bg-indigo text-indigo-foreground',
+    content: 'bg-indigo-light border-indigo/20',
+    text: 'text-indigo',
+    tab: 'data-[state=active]:bg-indigo data-[state=active]:text-indigo-foreground',
+    accent: 'bg-indigo/10'
   },
   'RPL-2': {
-    header: 'bg-medical text-medical-foreground',
-    content: 'bg-medical-light border-medical/20',
-    text: 'text-medical',
-    tab: 'data-[state=active]:bg-medical data-[state=active]:text-medical-foreground',
-    accent: 'bg-medical/10'
+    header: 'bg-academic text-academic-foreground',
+    content: 'bg-academic-light border-academic/20',
+    text: 'text-academic',
+    tab: 'data-[state=active]:bg-academic data-[state=active]:text-academic-foreground',
+    accent: 'bg-academic/10'
   }
 };
 
