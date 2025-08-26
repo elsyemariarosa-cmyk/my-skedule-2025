@@ -9,6 +9,7 @@ interface HeaderProps {
   onOpenStudentClassManager: () => void;
   onOpenClassBasedSchedule: () => void;
   onOpenWeeklySchedule: () => void;
+  onOpenMonthlySchedule: () => void;
   onOpenMonitoring: () => void;
   onOpenMonitoringCalendar: () => void;
   onOpenUserGuide: () => void;
@@ -21,6 +22,7 @@ export function Header({
   onOpenStudentClassManager,
   onOpenClassBasedSchedule,
   onOpenWeeklySchedule,
+  onOpenMonthlySchedule,
   onOpenMonitoring,
   onOpenMonitoringCalendar,
   onOpenUserGuide,
@@ -112,6 +114,11 @@ export function Header({
           <Button onClick={onOpenWeeklySchedule} variant="outline" size="sm" className="hover:bg-accent/10 hover:border-accent">
             <Calendar className="w-4 h-4 mr-2" />
             Jadwal Mingguan
+          </Button>
+
+          <Button onClick={onOpenMonthlySchedule} variant="outline" size="sm" className="hover:bg-blue/10 hover:border-blue">
+            <CalendarDays className="w-4 h-4 mr-2" />
+            📅 Jadwal Bulanan
           </Button>
 
           <Button onClick={onOpenMonitoring} variant="outline" size="sm" className="hover:bg-medical/10 hover:border-medical">

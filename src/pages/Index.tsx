@@ -11,6 +11,7 @@ import { WeeklyScheduleTable } from "@/components/WeeklyScheduleTable";
 import { MonitoringEvaluation } from "@/components/MonitoringEvaluation";
 import { MonitoringCalendar } from "@/components/MonitoringCalendar";
 import { UserGuide } from "@/components/UserGuide";
+import { MonthlySchedule } from "@/components/MonthlySchedule";
 import { ScheduleItem, TimeSlot, ActivityTypeConfig, DEFAULT_ACTIVITY_TYPES } from "@/types/schedule";
 import { SemesterType, AcademicActivity, getCurrentAcademicYear, getCurrentSemesterType, SEMESTER_MAPPING } from "@/types/master-schedule";
 import { StudentClass, DEFAULT_STUDENT_CLASSES } from "@/types/student-class";
@@ -398,6 +399,7 @@ const Index = () => {
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
   const [isMonitoringCalendarOpen, setIsMonitoringCalendarOpen] = useState(false);
   const [isUserGuideOpen, setIsUserGuideOpen] = useState(false);
+  const [isMonthlyScheduleOpen, setIsMonthlyScheduleOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ScheduleItem | undefined>();
   const [editingActivity, setEditingActivity] = useState<AcademicActivity | undefined>();
   const [preselectedDay, setPreselectedDay] = useState<'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' | undefined>();
@@ -501,6 +503,7 @@ const Index = () => {
           onOpenStudentClassManager={() => setIsStudentClassManagerOpen(true)}
           onOpenClassBasedSchedule={() => setIsClassBasedScheduleOpen(true)}
           onOpenWeeklySchedule={() => setIsWeeklyScheduleOpen(true)}
+          onOpenMonthlySchedule={() => setIsMonthlyScheduleOpen(true)}
           onOpenMonitoring={() => setIsMonitoringOpen(true)}
           onOpenMonitoringCalendar={() => setIsMonitoringCalendarOpen(true)}
           onOpenUserGuide={() => setIsUserGuideOpen(true)}
@@ -537,6 +540,13 @@ const Index = () => {
         <WeeklyScheduleTable
           isOpen={isWeeklyScheduleOpen}
           onClose={() => setIsWeeklyScheduleOpen(false)}
+          studentClasses={studentClasses}
+          activityTypes={activityTypes}
+        />
+
+        <MonthlySchedule
+          isOpen={isMonthlyScheduleOpen}
+          onClose={() => setIsMonthlyScheduleOpen(false)}
           studentClasses={studentClasses}
           activityTypes={activityTypes}
         />
