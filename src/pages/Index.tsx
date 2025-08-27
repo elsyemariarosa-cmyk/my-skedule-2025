@@ -147,6 +147,20 @@ const Index = () => {
     return saved ? JSON.parse(saved) : DEFAULT_STUDENT_CLASSES;
   });
 
+  // Ensure new default reguler classes (D1) exist for S1 and S3
+  useEffect(() => {
+    const ensureCodes = ['Reg-D1-S1', 'Reg-D1-S3'];
+    const missingCodes = ensureCodes.filter(code => !studentClasses.some(c => c.code === code));
+    if (missingCodes.length > 0) {
+      const toAdd = DEFAULT_STUDENT_CLASSES.filter(c => missingCodes.includes(c.code));
+      if (toAdd.length > 0) {
+        setStudentClasses(prev => [...prev, ...toAdd]);
+      }
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
     // Sample data for all days - each activity assigned to at least 5 classes
     // MONDAY
