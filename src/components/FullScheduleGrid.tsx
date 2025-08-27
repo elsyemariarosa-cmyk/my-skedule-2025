@@ -73,14 +73,14 @@ export function FullScheduleGrid({ scheduleItems, activityTypes, studentClasses,
                 </div>
               )}
               
-              {item.substituteInstructor && (
-                <div className="flex items-center gap-1">
-                  <User className="w-3 h-3 text-orange-500" />
-                  <span className="truncate text-orange-600 font-medium">
-                    {item.substituteInstructor} (Pengganti)
-                  </span>
-                </div>
-              )}
+               {item.substituteInstructor && (
+                 <div className="flex items-center gap-1">
+                   <User className="w-3 h-3 text-orange" />
+                   <span className="truncate text-orange font-medium">
+                     {item.substituteInstructor} (Pengganti)
+                   </span>
+                 </div>
+               )}
               
               {item.room && (
                 <div className="flex items-center gap-1">
@@ -95,13 +95,13 @@ export function FullScheduleGrid({ scheduleItems, activityTypes, studentClasses,
                     {item.classIds.map(classId => {
                       const studentClass = studentClasses.find(c => c.id === classId);
                       return studentClass ? (
-                        <Badge 
-                          key={classId} 
-                          variant="outline" 
-                          className="text-xs px-1 py-0"
-                        >
-                          {studentClass.code}
-                        </Badge>
+                         <Badge 
+                           key={classId} 
+                           variant="outline" 
+                           className={`text-xs px-1 py-0 ${studentClass.type === 'reguler' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-academic/10 text-academic border-academic/20'}`}
+                         >
+                           {studentClass.code}
+                         </Badge>
                       ) : null;
                     })}
                   </div>
@@ -119,13 +119,13 @@ export function FullScheduleGrid({ scheduleItems, activityTypes, studentClasses,
                         <span className="text-xs text-muted-foreground">Angkatan:</span>
                         <div className="flex flex-wrap gap-1">
                           {uniqueBatches.map(batch => (
-                            <Badge 
-                              key={batch} 
-                              variant="secondary" 
-                              className="text-xs px-1 py-0 bg-blue-100 text-blue-800"
-                            >
-                              {batch}
-                            </Badge>
+                             <Badge 
+                               key={batch} 
+                               variant="secondary" 
+                               className="text-xs px-1 py-0 bg-secondary/50 text-secondary-foreground"
+                             >
+                               {batch}
+                             </Badge>
                           ))}
                         </div>
                       </div>
@@ -154,15 +154,15 @@ export function FullScheduleGrid({ scheduleItems, activityTypes, studentClasses,
 
   const getDayColor = (day: DayKey) => {
     const colors: Record<DayKey, string> = {
-      monday: 'from-blue-500 to-blue-600',
-      tuesday: 'from-green-500 to-green-600', 
-      wednesday: 'from-purple-500 to-purple-600',
-      thursday: 'from-orange-500 to-orange-600',
+      monday: 'from-blue to-blue/80',
+      tuesday: 'from-green to-green/80', 
+      wednesday: 'from-purple to-purple/80',
+      thursday: 'from-orange to-orange/80',
       friday: 'from-primary to-medical',
       saturday: 'from-medical to-accent',
-      sunday: 'from-red-500 to-red-600'
+      sunday: 'from-teal to-teal/80'
     };
-    return colors[day] || 'from-gray-500 to-gray-600';
+    return colors[day] || 'from-muted-foreground to-muted-foreground/80';
   };
 
   const getDayTimeRange = (day: DayKey) => {
