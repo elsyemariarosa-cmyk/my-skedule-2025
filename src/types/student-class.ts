@@ -86,8 +86,21 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   },
+  {
+    id: '12',
+    name: 'Reguler D1 - Semester 1',
+    type: 'reguler',
+    code: 'Reg-D1-S1',
+    description: 'Kelas Reguler D1 Semester 1',
+    academicYearBatch: '2024/2025',
+    maxCapacity: 25,
+    currentCapacity: 23,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
   
-  // Semester 3 Classes  
+  // Semester 3 Classes
   {
     id: '4',
     name: 'Reguler A1 - Semester 3',
@@ -123,6 +136,19 @@ export const DEFAULT_STUDENT_CLASSES: StudentClass[] = [
     academicYearBatch: '2023/2024',
     maxCapacity: 25,
     currentCapacity: 21,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '13',
+    name: 'Reguler D1 - Semester 3',
+    type: 'reguler',
+    code: 'Reg-D1-S3',
+    description: 'Kelas Reguler D1 Semester 3',
+    academicYearBatch: '2023/2024',
+    maxCapacity: 25,
+    currentCapacity: 17,
     isActive: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
